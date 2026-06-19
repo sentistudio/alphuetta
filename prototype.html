@@ -156,6 +156,8 @@ tailwind.config = {
       border-radius: 8px !important;
       text-shadow: none !important;
     }
+    /* Hide arrow on primary CTA — saves space in horizontal layout */
+    .hero-cta-arrow { display: none !important; }
     /* Secondary button — subtle frosted background */
     .hero-box .flex.flex-wrap a:last-child {
       background: rgba(255,255,255,0.12) !important;
@@ -289,7 +291,7 @@ tailwind.config = {
       <div class="flex gap-3 flex-wrap">
         <a href="#konfigurator"
           class="inline-flex items-center gap-2 bg-gold text-black text-[.75rem] font-bold tracking-[.09em] uppercase px-6 py-3 rounded hover:bg-gold-lt transition-all hover:-translate-y-0.5">
-          Stüva konfigurieren →
+          Stüva konfigurieren <span class="hero-cta-arrow">→</span>
         </a>
         <a href="#konzept"
           class="inline-flex items-center gap-2 text-white text-[.75rem] font-semibold tracking-[.09em] uppercase px-6 py-3 rounded border border-white/25 hover:border-gold hover:text-gold transition-all">
