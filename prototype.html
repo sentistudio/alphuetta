@@ -64,9 +64,10 @@ tailwind.config = {
       linear-gradient(to bottom, rgba(24,20,16,0) 25%, rgba(24,20,16,.5) 70%, rgba(24,20,16,.92) 100%);
   }
   @media (max-width: 768px) {
+    .hero-bg { background-position: center 35% !important; }
     .hero-overlay {
       background-image:
-        linear-gradient(to bottom, rgba(18,12,6,.18) 0%, rgba(18,12,6,.28) 45%, rgba(18,12,6,.88) 100%);
+        linear-gradient(to bottom, rgba(18,12,6,.52) 0%, rgba(18,12,6,.08) 28%, rgba(18,12,6,.08) 62%, rgba(18,12,6,.82) 100%);
     }
   }
 
@@ -112,35 +113,47 @@ tailwind.config = {
     #nav-links { display: none !important; }
     nav .bg-gold { font-size:.65rem !important; padding: 10px 16px !important; }
 
-    /* HERO — full-width glass card, no margins */
+    /* HERO — Tesla style: text at top, image dominant, no glass card */
     .hero-box {
       margin: 0 !important;
-      padding: 32px 22px 28px !important;
+      padding: 28px 22px 0 !important;
       max-width: 100% !important;
       width: 100% !important;
       border-radius: 0 !important;
-      background: rgba(18,12,6,.42) !important;
+      background: transparent !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      border: none !important;
     }
-    /* Push hero content toward bottom */
+    /* Content sits at top so image fills the lower 2/3 */
     section.h-screen .relative.z-10.flex-1.flex.items-center {
-      align-items: flex-end !important;
-      padding-bottom: 20px;
+      align-items: flex-start !important;
+      padding-top: 12px !important;
+      padding-bottom: 0 !important;
     }
-    /* Headline tighter on mobile */
-    section.h-screen h1 { font-size: clamp(2.1rem,9vw,2.6rem) !important; margin-bottom: 14px !important; }
-    section.h-screen p { font-size: .88rem !important; margin-bottom: 22px !important; }
-    /* CTA buttons — full-width stacked */
-    .hero-box .flex.flex-wrap { flex-direction: column !important; gap: 10px !important; }
+    /* Hide badge and body copy — keep it tight like Tesla */
+    .hero-box .inline-flex { display: none !important; }
+    section.h-screen p { display: none !important; }
+    /* Headline: centered, slightly smaller */
+    section.h-screen h1 {
+      font-size: clamp(2.2rem,9.5vw,2.8rem) !important;
+      margin-bottom: 18px !important;
+      text-align: center !important;
+    }
+    /* CTA buttons — full-width stacked, centered */
+    .hero-box .flex.flex-wrap {
+      flex-direction: column !important;
+      gap: 10px !important;
+      align-items: center !important;
+    }
     .hero-box .flex.flex-wrap a {
-      width: 100% !important;
+      width: 88% !important;
       text-align: center !important;
       justify-content: center !important;
-      padding: 15px 24px !important;
-      font-size: .78rem !important;
+      padding: 14px 24px !important;
+      font-size: .8rem !important;
       border-radius: 8px !important;
     }
-    /* Badge — ensure single line */
-    .hero-box > div:first-child { font-size: .6rem !important; letter-spacing: .12em !important; }
 
     /* HERO stats bar — 2×2 */
     .stats-bar {
@@ -243,7 +256,7 @@ tailwind.config = {
 
 <!-- ── HERO ── -->
 <section class="relative h-screen min-h-[600px] flex flex-col overflow-hidden">
-  <div class="absolute inset-0" style="background-image:url('01_Alphuetta-Chur_front.jpg');background-size:cover;background-position:center 40%;"></div>
+  <div class="hero-bg absolute inset-0" style="background-image:url('01_Alphuetta-Chur_front.jpg');background-size:cover;background-position:center 40%;"></div>
   <div class="hero-overlay absolute inset-0"></div>
 
   <div class="relative z-10 flex-1 flex items-center">
