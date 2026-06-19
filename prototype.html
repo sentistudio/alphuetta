@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stüva — Ächti Alphütten aus Graubünden · Mieten &amp; Kaufen</title>
+<title>Stüva — Echte Alphütten aus Graubünden · Mieten &amp; Kaufen</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
@@ -79,15 +79,10 @@ tailwind.config = {
   .mod-chk.on::after { opacity:1; }
 
   /* Equipment items */
-  .eq-item { transition:all .2s;position:relative; }
-  .eq-item.on { border-color:#C8982A !important;border-width:2px !important;background:rgba(200,152,42,.12) !important; }
+  .eq-item { transition:all .2s; }
+  .eq-item.on { border-color:#C8982A !important;background:rgba(200,152,42,.07) !important; }
   .eq-item.on .eq-name { color:#9A7020 !important;font-weight:600; }
   .eq-item.on .eq-price { color:#9A7020 !important; }
-  .eq-item.on::before { content:'✓';position:absolute;top:5px;right:6px;font-size:.55rem;font-weight:700;color:#C8982A;line-height:1; }
-
-  /* View mode toggle */
-  .pmode { transition:all .15s; }
-  .pmode.on { background:#2A4028 !important; color:white !important; }
 
   /* Price number */
   #price-amt { transition:transform .2s; font-family:"Playfair Display",serif; }
@@ -168,9 +163,6 @@ tailwind.config = {
       padding: 6px 12px !important;
       flex-wrap: wrap;
     }
-    /* Floor plan toolbar — shrink label */
-    #plan-label { font-size: .52rem !important; }
-
     /* KONZEPT — stack */
     .konzept-grid {
       grid-template-columns: 1fr !important;
@@ -255,15 +247,15 @@ tailwind.config = {
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-7 text-gold text-[.68rem] font-semibold tracking-[.18em] uppercase"
         style="background:rgba(200,152,42,.2);border:1px solid rgba(200,152,42,.45);">
         <span class="w-1.5 h-1.5 rounded-full bg-gold animate-pulse"></span>
-        Ächti Stüvas · da Grischun · Mieten &amp; Kaufen
+        Echte Stüvas · da Grischun · Mieten &amp; Kaufen
       </div>
       <h1 class="font-display font-bold text-white leading-none tracking-tight mb-5"
         style="font-size:clamp(2.4rem,5vw,4.4rem);text-shadow:0 2px 24px rgba(0,0,0,.6);">
-        Deine ächti<br><em class="text-gold font-normal italic">Stüva</em><br>überall in der Schweiz
+        Deine echte<br><em class="text-gold font-normal italic">Stüva</em><br>überall in der Schweiz
       </h1>
       <p class="text-white/75 font-light leading-relaxed mb-8 max-w-sm"
         style="font-size:.95rem;text-shadow:0 1px 10px rgba(0,0,0,.65);">
-        Ächti Alphütten aus Graubünden — für Weihnachtsmärkte, Après-Ski-Bars und saisonale Events. Tageweise oder monateweise mieten, Preis sofort sichtbar.
+        Echte Alphütten aus Graubünden — für Weihnachtsmärkte, Après-Ski-Bars und saisonale Events. Tageweise oder monateweise mieten, Preis sofort sichtbar.
       </p>
       <div class="flex gap-3 flex-wrap">
         <a href="#konfigurator"
@@ -281,8 +273,8 @@ tailwind.config = {
   <!-- Stats bar -->
   <div class="stats-bar relative z-10 grid grid-cols-2 md:grid-cols-4 border-t" style="background:rgba(24,20,16,.72);backdrop-filter:blur(10px);border-color:rgba(200,152,42,.2);">
     <div class="py-4 px-6 text-center border-r" style="border-color:rgba(200,152,42,.12);">
-      <div class="font-display text-gold text-2xl font-bold leading-none">50+</div>
-      <div class="text-white/45 text-[.6rem] tracking-widest uppercase mt-1">Events pro Jahr</div>
+      <div class="font-display text-gold text-2xl font-bold leading-none">3</div>
+      <div class="text-white/45 text-[.6rem] tracking-widest uppercase mt-1">Verschiedene Grössen</div>
     </div>
     <div class="py-4 px-6 text-center border-r" style="border-color:rgba(200,152,42,.12);">
       <div class="font-display text-gold text-2xl font-bold leading-none">120</div>
@@ -293,8 +285,8 @@ tailwind.config = {
       <div class="text-white/45 text-[.6rem] tracking-widest uppercase mt-1">Kantone erreichbar</div>
     </div>
     <div class="py-4 px-6 text-center">
-      <div class="font-display text-gold text-2xl font-bold leading-none">Ø 5W</div>
-      <div class="text-white/45 text-[.6rem] tracking-widest uppercase mt-1">Mietdauer</div>
+      <div class="font-display text-gold text-2xl font-bold leading-none">3</div>
+      <div class="text-white/45 text-[.6rem] tracking-widest uppercase mt-1">Min. Tage Mietdauer</div>
     </div>
   </div>
 </section>
@@ -316,11 +308,11 @@ tailwind.config = {
 
         <!-- Tab bar -->
         <div class="flex border-b border-gray-100 flex-shrink-0">
-          <button class="ktab flex-1 py-3.5 text-[.65rem] font-semibold tracking-[.06em] uppercase text-gray-400 border-b-2 border-transparent"
+          <button class="ktab flex-1 py-2.5 text-[.65rem] font-semibold tracking-[.06em] uppercase text-gray-400 border-b-2 border-transparent"
             onclick="switchTab('struktur')">Gebäude</button>
-          <button class="ktab flex-1 py-3.5 text-[.65rem] font-semibold tracking-[.06em] uppercase text-gray-400 border-b-2 border-transparent"
+          <button class="ktab flex-1 py-2.5 text-[.65rem] font-semibold tracking-[.06em] uppercase text-gray-400 border-b-2 border-transparent"
             onclick="switchTab('ausstattung')">Ausstattung</button>
-          <button class="ktab flex-1 py-3.5 text-[.65rem] font-semibold tracking-[.06em] uppercase text-gray-400 border-b-2 border-transparent"
+          <button class="ktab flex-1 py-2.5 text-[.65rem] font-semibold tracking-[.06em] uppercase text-gray-400 border-b-2 border-transparent"
             onclick="switchTab('datum')">Datum</button>
         </div>
 
@@ -329,23 +321,23 @@ tailwind.config = {
 
           <!-- Tab 1: Struktur -->
           <div class="konf-panel on" id="tab-struktur">
-            <div class="p-5 space-y-5">
+            <div class="p-3 space-y-3">
 
               <!-- Size picker -->
               <div>
-                <div class="text-[.58rem] font-bold tracking-[.22em] uppercase text-stone mb-3">Grösse der Basishütte</div>
+                <div class="text-[.58rem] font-bold tracking-[.22em] uppercase text-stone mb-2">Grösse der Basishütte</div>
                 <div class="grid grid-cols-3 gap-2">
-                  <button class="sz-btn flex flex-col items-center gap-1.5 py-3 px-2 border-2 border-cream-dk rounded-xl" data-sz="s" onclick="setSize('s')">
+                  <button class="sz-btn flex flex-col items-center gap-1 py-2 px-2 border-2 border-cream-dk rounded-xl" data-sz="s" onclick="setSize('s')">
                     <div><div class="sz-roof"></div><div class="sz-body"></div></div>
                     <div class="sz-nm text-[.68rem] font-semibold text-brown-dk">Klein</div>
                     <div class="text-[.6rem] text-stone">bis 40 Pers.</div>
                   </button>
-                  <button class="sz-btn on flex flex-col items-center gap-1.5 py-3 px-2 border-2 border-cream-dk rounded-xl" data-sz="m" onclick="setSize('m')">
+                  <button class="sz-btn on flex flex-col items-center gap-1 py-2 px-2 border-2 border-cream-dk rounded-xl" data-sz="m" onclick="setSize('m')">
                     <div><div class="sz-roof"></div><div class="sz-body"></div></div>
                     <div class="sz-nm text-[.68rem] font-semibold text-brown-dk">Mittel</div>
                     <div class="text-[.6rem] text-stone">bis 80 Pers.</div>
                   </button>
-                  <button class="sz-btn flex flex-col items-center gap-1.5 py-3 px-2 border-2 border-cream-dk rounded-xl" data-sz="l" onclick="setSize('l')">
+                  <button class="sz-btn flex flex-col items-center gap-1 py-2 px-2 border-2 border-cream-dk rounded-xl" data-sz="l" onclick="setSize('l')">
                     <div><div class="sz-roof"></div><div class="sz-body"></div></div>
                     <div class="sz-nm text-[.68rem] font-semibold text-brown-dk">Gross</div>
                     <div class="text-[.6rem] text-stone">bis 120 Pers.</div>
@@ -354,15 +346,15 @@ tailwind.config = {
               </div>
 
               <!-- Capacity badge -->
-              <div class="flex items-center gap-2 px-3 py-2 rounded-lg text-[.72rem] text-stone font-medium" style="background:rgba(200,152,42,.1);">
+              <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-[.72rem] text-stone font-medium" style="background:rgba(200,152,42,.1);">
                 👥 Kapazität: <strong class="text-brown-dk" id="cap-text">bis 80 Personen</strong>
               </div>
 
               <!-- Modules -->
               <div>
-                <div class="text-[.58rem] font-bold tracking-[.22em] uppercase text-stone mb-3">Anbauten &amp; Module</div>
+                <div class="text-[.58rem] font-bold tracking-[.22em] uppercase text-stone mb-2">Anbauten &amp; Module</div>
                 <div class="space-y-1.5">
-                  <div class="mod-row flex items-center gap-3 px-3 py-2.5 border border-gray-100 rounded-xl cursor-pointer hover:border-gold/30" data-mod="kueche" onclick="toggleMod('kueche')">
+                  <div class="mod-row flex items-center gap-3 px-3 py-1.5 border border-gray-100 rounded-xl cursor-pointer hover:border-gold/30" data-mod="kueche" onclick="toggleMod('kueche')">
                     <div class="mod-chk"></div>
                     <span class="text-base">🍳</span>
                     <div class="flex-1 min-w-0">
@@ -371,7 +363,7 @@ tailwind.config = {
                     </div>
                     <div class="mod-price text-[.7rem] font-semibold text-stone whitespace-nowrap">+CHF 450/T</div>
                   </div>
-                  <div class="mod-row flex items-center gap-3 px-3 py-2.5 border border-gray-100 rounded-xl cursor-pointer hover:border-gold/30" data-mod="bar" onclick="toggleMod('bar')">
+                  <div class="mod-row flex items-center gap-3 px-3 py-1.5 border border-gray-100 rounded-xl cursor-pointer hover:border-gold/30" data-mod="bar" onclick="toggleMod('bar')">
                     <div class="mod-chk"></div>
                     <span class="text-base">🍺</span>
                     <div class="flex-1 min-w-0">
@@ -380,7 +372,7 @@ tailwind.config = {
                     </div>
                     <div class="mod-price text-[.7rem] font-semibold text-stone whitespace-nowrap">+CHF 380/T</div>
                   </div>
-                  <div class="mod-row flex items-center gap-3 px-3 py-2.5 border border-gray-100 rounded-xl cursor-pointer hover:border-gold/30" data-mod="wc" onclick="toggleMod('wc')">
+                  <div class="mod-row flex items-center gap-3 px-3 py-1.5 border border-gray-100 rounded-xl cursor-pointer hover:border-gold/30" data-mod="wc" onclick="toggleMod('wc')">
                     <div class="mod-chk"></div>
                     <span class="text-base">🚻</span>
                     <div class="flex-1 min-w-0">
@@ -389,7 +381,7 @@ tailwind.config = {
                     </div>
                     <div class="mod-price text-[.7rem] font-semibold text-stone whitespace-nowrap">+CHF 200/T</div>
                   </div>
-                  <div class="mod-row flex items-center gap-3 px-3 py-2.5 border border-gray-100 rounded-xl cursor-pointer hover:border-gold/30" data-mod="terrasse" onclick="toggleMod('terrasse')">
+                  <div class="mod-row flex items-center gap-3 px-3 py-1.5 border border-gray-100 rounded-xl cursor-pointer hover:border-gold/30" data-mod="terrasse" onclick="toggleMod('terrasse')">
                     <div class="mod-chk"></div>
                     <span class="text-base">🌲</span>
                     <div class="flex-1 min-w-0">
@@ -398,7 +390,7 @@ tailwind.config = {
                     </div>
                     <div class="mod-price text-[.7rem] font-semibold text-stone whitespace-nowrap">+CHF 180/T</div>
                   </div>
-                  <div class="mod-row flex items-center gap-3 px-3 py-2.5 border border-gray-100 rounded-xl cursor-pointer hover:border-gold/30" data-mod="lagerraum" onclick="toggleMod('lagerraum')">
+                  <div class="mod-row flex items-center gap-3 px-3 py-1.5 border border-gray-100 rounded-xl cursor-pointer hover:border-gold/30" data-mod="lagerraum" onclick="toggleMod('lagerraum')">
                     <div class="mod-chk"></div>
                     <span class="text-base">📦</span>
                     <div class="flex-1 min-w-0">
@@ -414,100 +406,124 @@ tailwind.config = {
 
           <!-- Tab 2: Ausstattung -->
           <div class="konf-panel" id="tab-ausstattung">
-            <div class="p-5 space-y-5">
+            <div class="p-3 space-y-3">
 
               <div>
-                <div class="text-[.58rem] font-bold tracking-[.22em] uppercase text-stone mb-3">Bestuhlung &amp; Mobiliar</div>
-                <div class="grid grid-cols-2 gap-2">
-                  <div class="eq-item flex flex-col items-center gap-1.5 p-3 border-2 border-cream-dk rounded-xl cursor-pointer hover:border-gold/40 text-center" data-eq="tische" onclick="toggleEq('tische')">
-                    <div class="mod-chk" style="margin:0 auto"></div>
-                    <span class="text-2xl mt-0.5">🪑</span>
-                    <div class="eq-name text-[.68rem] font-medium text-gray-700 leading-tight">Holztische &amp; Bänke</div>
-                    <div class="eq-price text-[.6rem] font-semibold text-stone">+CHF 150/T</div>
+                <div class="text-[.58rem] font-bold tracking-[.22em] uppercase text-stone mb-2">Bestuhlung &amp; Mobiliar</div>
+                <div class="space-y-1.5">
+                  <div class="eq-item flex items-center gap-3 px-3 py-1.5 border border-gray-100 rounded-xl cursor-pointer hover:border-gold/30" data-eq="tische" onclick="toggleEq('tische')">
+                    <div class="mod-chk"></div>
+                    <span class="text-base">🪑</span>
+                    <div class="flex-1 min-w-0">
+                      <div class="eq-name text-[.78rem] font-medium text-gray-800">Holztische &amp; Bänke</div>
+                    </div>
+                    <div class="eq-price text-[.7rem] font-semibold text-stone whitespace-nowrap">+CHF 150/T</div>
                   </div>
-                  <div class="eq-item flex flex-col items-center gap-1.5 p-3 border-2 border-cream-dk rounded-xl cursor-pointer hover:border-gold/40 text-center" data-eq="felle" onclick="toggleEq('felle')">
-                    <div class="mod-chk" style="margin:0 auto"></div>
-                    <span class="text-2xl mt-0.5">🐑</span>
-                    <div class="eq-name text-[.68rem] font-medium text-gray-700 leading-tight">Felle &amp; Kissen</div>
-                    <div class="eq-price text-[.6rem] font-semibold text-stone">+CHF 120/T</div>
+                  <div class="eq-item flex items-center gap-3 px-3 py-1.5 border border-gray-100 rounded-xl cursor-pointer hover:border-gold/30" data-eq="felle" onclick="toggleEq('felle')">
+                    <div class="mod-chk"></div>
+                    <span class="text-base">🐑</span>
+                    <div class="flex-1 min-w-0">
+                      <div class="eq-name text-[.78rem] font-medium text-gray-800">Felle &amp; Kissen</div>
+                    </div>
+                    <div class="eq-price text-[.7rem] font-semibold text-stone whitespace-nowrap">+CHF 120/T</div>
                   </div>
                 </div>
               </div>
 
               <div>
-                <div class="text-[.58rem] font-bold tracking-[.22em] uppercase text-stone mb-3">Dekoration</div>
-                <div class="grid grid-cols-2 gap-2">
-                  <div class="eq-item flex flex-col items-center gap-1.5 p-3 border-2 border-cream-dk rounded-xl cursor-pointer hover:border-gold/40 text-center" data-eq="deko-basis" onclick="toggleEq('deko-basis')">
-                    <div class="mod-chk" style="margin:0 auto"></div>
-                    <span class="text-2xl mt-0.5">🕯️</span>
-                    <div class="eq-name text-[.68rem] font-medium text-gray-700 leading-tight">Deko Basis</div>
-                    <div class="eq-price text-[.6rem] font-semibold text-stone">+CHF 80/T</div>
+                <div class="text-[.58rem] font-bold tracking-[.22em] uppercase text-stone mb-2">Dekoration</div>
+                <div class="space-y-1.5">
+                  <div class="eq-item flex items-center gap-3 px-3 py-1.5 border border-gray-100 rounded-xl cursor-pointer hover:border-gold/30" data-eq="deko-basis" onclick="toggleEq('deko-basis')">
+                    <div class="mod-chk"></div>
+                    <span class="text-base">🕯️</span>
+                    <div class="flex-1 min-w-0">
+                      <div class="eq-name text-[.78rem] font-medium text-gray-800">Deko Basis</div>
+                    </div>
+                    <div class="eq-price text-[.7rem] font-semibold text-stone whitespace-nowrap">+CHF 80/T</div>
                   </div>
-                  <div class="eq-item flex flex-col items-center gap-1.5 p-3 border-2 border-cream-dk rounded-xl cursor-pointer hover:border-gold/40 text-center" data-eq="deko-premium" onclick="toggleEq('deko-premium')">
-                    <div class="mod-chk" style="margin:0 auto"></div>
-                    <span class="text-2xl mt-0.5">🦌</span>
-                    <div class="eq-name text-[.68rem] font-medium text-gray-700 leading-tight">Deko Premium</div>
-                    <div class="eq-price text-[.6rem] font-semibold text-stone">+CHF 280/T</div>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <div class="text-[.58rem] font-bold tracking-[.22em] uppercase text-stone mb-3">Technik &amp; Infrastruktur</div>
-                <div class="grid grid-cols-2 gap-2">
-                  <div class="eq-item flex flex-col items-center gap-1.5 p-3 border-2 border-cream-dk rounded-xl cursor-pointer hover:border-gold/40 text-center" data-eq="sound" onclick="toggleEq('sound')">
-                    <div class="mod-chk" style="margin:0 auto"></div>
-                    <span class="text-2xl mt-0.5">🔊</span>
-                    <div class="eq-name text-[.68rem] font-medium text-gray-700 leading-tight">Sound-Anlage</div>
-                    <div class="eq-price text-[.6rem] font-semibold text-stone">+CHF 200/T</div>
-                  </div>
-                  <div class="eq-item flex flex-col items-center gap-1.5 p-3 border-2 border-cream-dk rounded-xl cursor-pointer hover:border-gold/40 text-center" data-eq="licht" onclick="toggleEq('licht')">
-                    <div class="mod-chk" style="margin:0 auto"></div>
-                    <span class="text-2xl mt-0.5">💡</span>
-                    <div class="eq-name text-[.68rem] font-medium text-gray-700 leading-tight">Licht-Konzept</div>
-                    <div class="eq-price text-[.6rem] font-semibold text-stone">+CHF 150/T</div>
-                  </div>
-                  <div class="eq-item flex flex-col items-center gap-1.5 p-3 border-2 border-cream-dk rounded-xl cursor-pointer hover:border-gold/40 text-center" data-eq="heizung" onclick="toggleEq('heizung')">
-                    <div class="mod-chk" style="margin:0 auto"></div>
-                    <span class="text-2xl mt-0.5">🔥</span>
-                    <div class="eq-name text-[.68rem] font-medium text-gray-700 leading-tight">Pelletofen</div>
-                    <div class="eq-price text-[.6rem] font-semibold text-stone">+CHF 180/T</div>
-                  </div>
-                  <div class="eq-item flex flex-col items-center gap-1.5 p-3 border-2 border-cream-dk rounded-xl cursor-pointer hover:border-gold/40 text-center" data-eq="geschirr" onclick="toggleEq('geschirr')">
-                    <div class="mod-chk" style="margin:0 auto"></div>
-                    <span class="text-2xl mt-0.5">🍽️</span>
-                    <div class="eq-name text-[.68rem] font-medium text-gray-700 leading-tight">Geschirr-Set</div>
-                    <div class="eq-price text-[.6rem] font-semibold text-stone">+CHF 100/T</div>
+                  <div class="eq-item flex items-center gap-3 px-3 py-1.5 border border-gray-100 rounded-xl cursor-pointer hover:border-gold/30" data-eq="deko-premium" onclick="toggleEq('deko-premium')">
+                    <div class="mod-chk"></div>
+                    <span class="text-base">🦌</span>
+                    <div class="flex-1 min-w-0">
+                      <div class="eq-name text-[.78rem] font-medium text-gray-800">Deko Premium</div>
+                    </div>
+                    <div class="eq-price text-[.7rem] font-semibold text-stone whitespace-nowrap">+CHF 280/T</div>
                   </div>
                 </div>
               </div>
 
               <div>
-                <div class="text-[.58rem] font-bold tracking-[.22em] uppercase text-stone mb-3">Aussenbereich</div>
-                <div class="grid grid-cols-2 gap-2">
-                  <div class="eq-item flex flex-col items-center gap-1.5 p-3 border-2 border-cream-dk rounded-xl cursor-pointer hover:border-gold/40 text-center" data-eq="stehtische" onclick="toggleAussen('stehtische')">
-                    <div class="mod-chk" style="margin:0 auto"></div>
-                    <span class="text-2xl mt-0.5">🍺</span>
-                    <div class="eq-name text-[.68rem] font-medium text-gray-700 leading-tight">Stehtische</div>
-                    <div class="eq-price text-[.6rem] font-semibold text-stone">+CHF 80/T</div>
+                <div class="text-[.58rem] font-bold tracking-[.22em] uppercase text-stone mb-2">Technik &amp; Infrastruktur</div>
+                <div class="space-y-1.5">
+                  <div class="eq-item flex items-center gap-3 px-3 py-1.5 border border-gray-100 rounded-xl cursor-pointer hover:border-gold/30" data-eq="sound" onclick="toggleEq('sound')">
+                    <div class="mod-chk"></div>
+                    <span class="text-base">🔊</span>
+                    <div class="flex-1 min-w-0">
+                      <div class="eq-name text-[.78rem] font-medium text-gray-800">Sound-Anlage</div>
+                    </div>
+                    <div class="eq-price text-[.7rem] font-semibold text-stone whitespace-nowrap">+CHF 200/T</div>
                   </div>
-                  <div class="eq-item flex flex-col items-center gap-1.5 p-3 border-2 border-cream-dk rounded-xl cursor-pointer hover:border-gold/40 text-center" data-eq="feuerstelle" onclick="toggleAussen('feuerstelle')">
-                    <div class="mod-chk" style="margin:0 auto"></div>
-                    <span class="text-2xl mt-0.5">🪵</span>
-                    <div class="eq-name text-[.68rem] font-medium text-gray-700 leading-tight">Feuerstelle</div>
-                    <div class="eq-price text-[.6rem] font-semibold text-stone">+CHF 120/T</div>
+                  <div class="eq-item flex items-center gap-3 px-3 py-1.5 border border-gray-100 rounded-xl cursor-pointer hover:border-gold/30" data-eq="licht" onclick="toggleEq('licht')">
+                    <div class="mod-chk"></div>
+                    <span class="text-base">💡</span>
+                    <div class="flex-1 min-w-0">
+                      <div class="eq-name text-[.78rem] font-medium text-gray-800">Licht-Konzept</div>
+                    </div>
+                    <div class="eq-price text-[.7rem] font-semibold text-stone whitespace-nowrap">+CHF 150/T</div>
                   </div>
-                  <div class="eq-item flex flex-col items-center gap-1.5 p-3 border-2 border-cream-dk rounded-xl cursor-pointer hover:border-gold/40 text-center" data-eq="lichterketten" onclick="toggleAussen('lichterketten')">
-                    <div class="mod-chk" style="margin:0 auto"></div>
-                    <span class="text-2xl mt-0.5">✨</span>
-                    <div class="eq-name text-[.68rem] font-medium text-gray-700 leading-tight">Lichterketten</div>
-                    <div class="eq-price text-[.6rem] font-semibold text-stone">+CHF 60/T</div>
+                  <div class="eq-item flex items-center gap-3 px-3 py-1.5 border border-gray-100 rounded-xl cursor-pointer hover:border-gold/30" data-eq="heizung" onclick="toggleEq('heizung')">
+                    <div class="mod-chk"></div>
+                    <span class="text-base">🔥</span>
+                    <div class="flex-1 min-w-0">
+                      <div class="eq-name text-[.78rem] font-medium text-gray-800">Pelletofen</div>
+                    </div>
+                    <div class="eq-price text-[.7rem] font-semibold text-stone whitespace-nowrap">+CHF 180/T</div>
                   </div>
-                  <div class="eq-item flex flex-col items-center gap-1.5 p-3 border-2 border-cream-dk rounded-xl cursor-pointer hover:border-gold/40 text-center" data-eq="terrassenheizer" onclick="toggleAussen('terrassenheizer')">
-                    <div class="mod-chk" style="margin:0 auto"></div>
-                    <span class="text-2xl mt-0.5">🌡️</span>
-                    <div class="eq-name text-[.68rem] font-medium text-gray-700 leading-tight">Terrassenheizer</div>
-                    <div class="eq-price text-[.6rem] font-semibold text-stone">+CHF 90/T</div>
+                  <div class="eq-item flex items-center gap-3 px-3 py-1.5 border border-gray-100 rounded-xl cursor-pointer hover:border-gold/30" data-eq="geschirr" onclick="toggleEq('geschirr')">
+                    <div class="mod-chk"></div>
+                    <span class="text-base">🍽️</span>
+                    <div class="flex-1 min-w-0">
+                      <div class="eq-name text-[.78rem] font-medium text-gray-800">Geschirr-Set</div>
+                    </div>
+                    <div class="eq-price text-[.7rem] font-semibold text-stone whitespace-nowrap">+CHF 100/T</div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="text-[.58rem] font-bold tracking-[.22em] uppercase text-stone mb-2">Aussenbereich</div>
+                <div class="space-y-1.5">
+                  <div class="eq-item flex items-center gap-3 px-3 py-1.5 border border-gray-100 rounded-xl cursor-pointer hover:border-gold/30" data-eq="stehtische" onclick="toggleAussen('stehtische')">
+                    <div class="mod-chk"></div>
+                    <span class="text-base">🍺</span>
+                    <div class="flex-1 min-w-0">
+                      <div class="eq-name text-[.78rem] font-medium text-gray-800">Stehtische</div>
+                    </div>
+                    <div class="eq-price text-[.7rem] font-semibold text-stone whitespace-nowrap">+CHF 80/T</div>
+                  </div>
+                  <div class="eq-item flex items-center gap-3 px-3 py-1.5 border border-gray-100 rounded-xl cursor-pointer hover:border-gold/30" data-eq="feuerstelle" onclick="toggleAussen('feuerstelle')">
+                    <div class="mod-chk"></div>
+                    <span class="text-base">🪵</span>
+                    <div class="flex-1 min-w-0">
+                      <div class="eq-name text-[.78rem] font-medium text-gray-800">Feuerstelle</div>
+                    </div>
+                    <div class="eq-price text-[.7rem] font-semibold text-stone whitespace-nowrap">+CHF 120/T</div>
+                  </div>
+                  <div class="eq-item flex items-center gap-3 px-3 py-1.5 border border-gray-100 rounded-xl cursor-pointer hover:border-gold/30" data-eq="lichterketten" onclick="toggleAussen('lichterketten')">
+                    <div class="mod-chk"></div>
+                    <span class="text-base">✨</span>
+                    <div class="flex-1 min-w-0">
+                      <div class="eq-name text-[.78rem] font-medium text-gray-800">Lichterketten</div>
+                    </div>
+                    <div class="eq-price text-[.7rem] font-semibold text-stone whitespace-nowrap">+CHF 60/T</div>
+                  </div>
+                  <div class="eq-item flex items-center gap-3 px-3 py-1.5 border border-gray-100 rounded-xl cursor-pointer hover:border-gold/30" data-eq="terrassenheizer" onclick="toggleAussen('terrassenheizer')">
+                    <div class="mod-chk"></div>
+                    <span class="text-base">🌡️</span>
+                    <div class="flex-1 min-w-0">
+                      <div class="eq-name text-[.78rem] font-medium text-gray-800">Terrassenheizer</div>
+                    </div>
+                    <div class="eq-price text-[.7rem] font-semibold text-stone whitespace-nowrap">+CHF 90/T</div>
                   </div>
                 </div>
               </div>
@@ -516,7 +532,7 @@ tailwind.config = {
           </div>
           <!-- Tab 3: Datum & Verfügbarkeit -->
           <div class="konf-panel" id="tab-datum">
-            <div class="p-5 space-y-4">
+            <div class="p-3 space-y-3">
               <div>
                 <div class="text-[.58rem] font-bold tracking-[.22em] uppercase text-stone mb-1">Zeitraum wählen</div>
                 <p class="text-[.7rem] text-stone/60 leading-relaxed">Start- dann Enddatum klicken. Gesamtpreis wird automatisch berechnet.</p>
@@ -533,8 +549,8 @@ tailwind.config = {
         </div><!-- end scrollable -->
 
         <!-- Price panel (sticky footer of left col) -->
-        <div class="flex-shrink-0 p-5 bg-forest text-white border-t border-white/5">
-          <div class="flex items-start justify-between gap-4 mb-2">
+        <div class="flex-shrink-0 p-4 bg-forest text-white border-t border-white/5">
+          <div class="flex items-start justify-between gap-4 mb-1">
             <div>
               <div class="text-[.56rem] tracking-[.22em] uppercase text-white/40 mb-1">Mietpreis ab</div>
               <div class="text-[2rem] font-bold text-gold leading-none" id="price-amt">CHF 2'500</div>
@@ -550,9 +566,9 @@ tailwind.config = {
             <div class="text-[.6rem] text-white/45"><span id="price-days">0</span> Tage gewählt</div>
             <div class="text-[.82rem] font-bold text-gold">Gesamt: <span id="price-total"></span></div>
           </div>
-          <div class="text-[.62rem] text-white/30 leading-relaxed mb-3 border-t border-white/5 pt-3" id="price-detail">Basishütte Mittel: CHF 2'500</div>
+          <div class="text-[.62rem] text-white/30 leading-relaxed mb-2 border-t border-white/5 pt-2" id="price-detail">Basishütte Mittel: CHF 2'500</div>
           <!-- Social proof -->
-          <div class="flex items-center gap-2 mb-3 text-[.63rem] text-white/40">
+          <div class="flex items-center gap-2 mb-2 text-[.63rem] text-white/40">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0 animate-pulse"></span>
             <span><span id="viewers-count">4</span> Personen schauen sich gerade diese Konfiguration an</span>
           </div>
@@ -567,12 +583,8 @@ tailwind.config = {
       <div id="konfig-right" class="flex-1 flex flex-col bg-cream/20">
 
         <!-- Toolbar -->
-        <div class="flex items-center justify-between px-5 py-3 bg-white/80 border-b border-gray-100 flex-shrink-0">
-          <div class="text-[.65rem] font-semibold text-stone tracking-wide" id="plan-label">Innenansicht — Vogelperspektive (Dach geschnitten)</div>
-          <div class="flex items-center gap-0.5 bg-gray-100 rounded-lg p-0.5">
-            <button class="pmode on text-[.62rem] font-semibold px-3 py-1.5 rounded-md text-gray-500" onclick="setView('innen')">Innen</button>
-            <button class="pmode text-[.62rem] font-semibold px-3 py-1.5 rounded-md text-gray-400" onclick="setView('aussen')">Aussen</button>
-          </div>
+        <div class="flex items-center px-5 py-3 bg-white/80 border-b border-gray-100 flex-shrink-0">
+          <div class="text-[.65rem] font-semibold text-stone tracking-wide">Grundriss 1:100 — Schnitt 1.0m über Boden</div>
         </div>
 
         <!-- SVG area -->
@@ -736,7 +748,7 @@ tailwind.config = {
 
       <div>
         <div class="text-[.62rem] font-bold tracking-[.25em] uppercase text-gold mb-3">Das Konzept · da Grischun</div>
-        <h2 class="font-display text-4xl font-bold text-gray-900 mb-5 leading-tight">Eine ächti <em>Stüva</em> —<br>wo du sie brauchst</h2>
+        <h2 class="font-display text-4xl font-bold text-gray-900 mb-5 leading-tight">Eine echte <em>Stüva</em> —<br>wo du sie brauchst</h2>
         <p class="text-stone leading-relaxed mb-8 text-[.92rem]">Echtes Altholz, traditionelle Holzfassade, urchiges Bündner Alpenfeeling — überall und zu jeder Zeit. Unsere Stüvas aus Graubünden bringen alpenländische Atmosphäre direkt zu deinem Event, für Tage, Wochen oder eine ganze Saison.</p>
         <div class="space-y-4">
           <div class="flex gap-4 items-start">
@@ -924,7 +936,6 @@ const EQ_P       = { tische:150, felle:120, 'deko-basis':80, 'deko-premium':280,
 const CAP        = { s:'bis 40 Personen', m:'bis 80 Personen', l:'bis 120 Personen' };
 const SZ_LABEL   = { s:'Klein', m:'Mittel', l:'Gross' };
 const AUSSEN_P   = { stehtische:80, feuerstelle:120, lichterketten:60, terrassenheizer:90 };
-let currentView  = 'innen';
 
 // ── DATE STATE ──
 let dateStart = null, dateEnd = null;
@@ -1017,14 +1028,6 @@ function update() {
 }
 
 // ── VIEW TOGGLE ──
-function setView(v) {
-  currentView = v;
-  document.querySelectorAll('.pmode').forEach((b,i) => b.classList.toggle('on', (i===0)===(v==='innen')));
-  document.getElementById('plan-label').textContent = v==='innen'
-    ? 'Innenansicht — Vogelperspektive (Dach geschnitten)'
-    : 'Aussenansicht — Vogelperspektive';
-  drawHut();
-}
 
 // ── SOCIAL PROOF ──
 let _viewers = 3 + Math.floor(Math.random() * 4);
@@ -1147,7 +1150,7 @@ function daysBetween(s, e) {
 
 // ── FLOOR PLAN ──
 function drawHut() {
-  currentView === 'aussen' ? drawHutAussen() : drawHutInnen();
+  drawHutInnen();
 }
 function drawHutInnen() {
   const WT=10;
