@@ -57,6 +57,19 @@ tailwind.config = {
   .konf-panel { display:none; }
   .konf-panel.on { display:block; }
 
+  /* Hero overlay — desktop: side + bottom fade; mobile: lighter so hut is visible */
+  .hero-overlay {
+    background-image:
+      linear-gradient(to right,  rgba(18,12,6,.62) 0%, rgba(18,12,6,.28) 45%, rgba(18,12,6,.04) 75%),
+      linear-gradient(to bottom, rgba(24,20,16,0) 25%, rgba(24,20,16,.5) 70%, rgba(24,20,16,.92) 100%);
+  }
+  @media (max-width: 768px) {
+    .hero-overlay {
+      background-image:
+        linear-gradient(to bottom, rgba(18,12,6,.18) 0%, rgba(18,12,6,.28) 45%, rgba(18,12,6,.88) 100%);
+    }
+  }
+
   /* Module rows */
   .mod-row { transition:all .2s; }
   .mod-row.on { border-color:#C8982A !important; background:rgba(200,152,42,.07) !important; }
@@ -106,7 +119,7 @@ tailwind.config = {
       max-width: 100% !important;
       width: 100% !important;
       border-radius: 0 !important;
-      background: rgba(18,12,6,.58) !important;
+      background: rgba(18,12,6,.42) !important;
     }
     /* Push hero content toward bottom */
     section.h-screen .relative.z-10.flex-1.flex.items-center {
@@ -230,12 +243,8 @@ tailwind.config = {
 
 <!-- ── HERO ── -->
 <section class="relative h-screen min-h-[600px] flex flex-col overflow-hidden">
-  <div class="absolute inset-0 bg-cover bg-center" style="
-    background-image:
-      linear-gradient(to right,  rgba(18,12,6,.6) 0%, rgba(18,12,6,.25) 45%, rgba(18,12,6,.04) 75%),
-      linear-gradient(to bottom, rgba(24,20,16,0) 30%, rgba(24,20,16,.45) 70%, rgba(24,20,16,.92) 100%),
-      url('01_Alphuetta-Chur_front.jpg');
-    background-size:cover;background-position:center;"></div>
+  <div class="absolute inset-0" style="background-image:url('01_Alphuetta-Chur_front.jpg');background-size:cover;background-position:center 40%;"></div>
+  <div class="hero-overlay absolute inset-0"></div>
 
   <div class="relative z-10 flex-1 flex items-center">
     <div class="hero-box ml-12 px-10 py-9 max-w-[560px]" style="
