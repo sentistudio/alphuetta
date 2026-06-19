@@ -141,23 +141,25 @@ tailwind.config = {
       text-align: center !important;
       text-shadow: 0 2px 16px rgba(0,0,0,.9), 0 1px 4px rgba(0,0,0,.8) !important;
     }
-    /* Shadow on CTA button text too */
-    .hero-box .flex.flex-wrap a {
-      text-shadow: none !important;
-    }
-    /* CTA buttons — full-width stacked, centered */
+    /* CTA buttons — side by side, equal width */
     .hero-box .flex.flex-wrap {
-      flex-direction: column !important;
+      flex-direction: row !important;
+      flex-wrap: nowrap !important;
       gap: 10px !important;
-      align-items: center !important;
     }
     .hero-box .flex.flex-wrap a {
-      width: 88% !important;
+      flex: 1 !important;
       text-align: center !important;
       justify-content: center !important;
-      padding: 14px 24px !important;
-      font-size: .8rem !important;
+      padding: 13px 8px !important;
+      font-size: .72rem !important;
       border-radius: 8px !important;
+      text-shadow: none !important;
+    }
+    /* Secondary button — subtle frosted background */
+    .hero-box .flex.flex-wrap a:last-child {
+      background: rgba(255,255,255,0.12) !important;
+      border-color: rgba(255,255,255,0.28) !important;
     }
 
     /* HERO stats bar — 2×2 */
