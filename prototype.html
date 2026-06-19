@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alphuetta — Alpine Blockhütten mieten &amp; kaufen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        gold:      { DEFAULT:'#C8982A', lt:'#D4A840', dk:'#9A7020' },
+        forest:    { DEFAULT:'#2A4028', dk:'#1A2A18' },
+        cream:     { DEFAULT:'#F5F0E8', dk:'#E8DFC8', deep:'#D8CEBC' },
+        brown:     { DEFAULT:'#6B4226', dk:'#4A2810' },
+        stone:     '#8A7A60',
+      },
+      fontFamily: {
+        display: ['"Playfair Display"', 'Georgia', 'serif'],
+        sans:    ['"DM Sans"', 'system-ui', 'sans-serif'],
+      },
+    }
+  }
+}
+</script>
+<style>
+  /* CSS variables kept for JS submit handler */
+  :root { --green:#2A4028; --gold:#C8982A; }
+
+  /* ── JS-toggled interactive states ── */
+
+  /* Nav on scroll */
+  nav.s { background:rgba(18,12,6,.95) !important; box-shadow:0 1px 0 rgba(200,152,42,.25); }
+
+  /* Size button hut icons */
+  .sz-roof { width:0;height:0;border-left:solid transparent;border-right:solid transparent;border-bottom:solid #9A7840;margin:0 auto 1px; }
+  .sz-body { background:#9A7840;margin:0 auto;border-radius:1px; }
+  [data-sz=s] .sz-roof { border-left-width:11px;border-right-width:11px;border-bottom-width:8px; }
+  [data-sz=s] .sz-body { width:22px;height:14px; }
+  [data-sz=m] .sz-roof { border-left-width:16px;border-right-width:16px;border-bottom-width:11px; }
+  [data-sz=m] .sz-body { width:32px;height:19px; }
+  [data-sz=l] .sz-roof { border-left-width:21px;border-right-width:21px;border-bottom-width:15px; }
+  [data-sz=l] .sz-body { width:42px;height:25px; }
+  .sz-btn { transition:all .2s; }
+  .sz-btn.on { border-color:#C8982A !important; background:rgba(200,152,42,.1) !important; }
+  .sz-btn.on .sz-roof { border-bottom-color:#C8982A !important; }
+  .sz-btn.on .sz-body { background:#C8982A !important; }
+  .sz-btn.on .sz-nm  { color:#9A7020 !important; }
+
+  /* Tabs */
+  .ktab { transition:all .2s; }
+  .ktab.on { color:#C8982A !important; border-bottom-color:#C8982A !important; }
+  .konf-panel { display:none; }
+  .konf-panel.on { display:block; }
+
+  /* Module rows */
+  .mod-row { transition:all .2s; }
+  .mod-row.on { border-color:#C8982A !important; background:rgba(200,152,42,.07) !important; }
+  .mod-row.on .mod-name { color:#9A7020 !important; font-weight:600; }
+  .mod-row.on .mod-price { color:#9A7020 !important; }
+
+  /* Checkboxes */
+  .mod-chk {
+    width:16px;height:16px;border:1.5px solid #D8CEBC;border-radius:3px;
+    background:white;transition:all .15s;position:relative;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .mod-row.on .mod-chk,
+  .mod-chk.on { background:#C8982A !important; border-color:#C8982A !important; }
+  .mod-chk::after {
+    content:'';width:8px;height:4px;border-left:2px solid white;border-bottom:2px solid white;
+    transform:rotate(-45deg) translate(0,-1px);opacity:0;transition:opacity .1s;
+  }
+  .mod-row.on .mod-chk::after,
+  .mod-chk.on::after { opacity:1; }
+
+  /* Equipment items */
+  .eq-item { transition:all .2s;position:relative; }
+  .eq-item.on { border-color:#C8982A !important;border-width:2px !important;background:rgba(200,152,42,.12) !important; }
+  .eq-item.on .eq-name { color:#9A7020 !important;font-weight:600; }
+  .eq-item.on .eq-price { color:#9A7020 !important; }
+  .eq-item.on::before { content:'✓';position:absolute;top:5px;right:6px;font-size:.55rem;font-weight:700;color:#C8982A;line-height:1; }
+
+  /* View mode toggle */
+  .pmode { transition:all .15s; }
+  .pmode.on { background:#2A4028 !important; color:white !important; }
+
+  /* Price number */
+  #price-amt { transition:transform .2s; font-family:"Playfair Display",serif; }
+
+  /* SVG floor plan */
+  #svg-wrap { width:100%;height:100%; }
+  #svg-wrap svg { width:100%;height:100%; }
+</style>
+</head>
+<body class="font-sans bg-white text-gray-900 antialiased">
+
+<!-- ── NAV ── -->
+<nav id="nav" class="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-8 py-4 transition-all duration-300"
+  style="background:rgba(18,12,6,.48);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(200,152,42,.14);">
+  <a href="#" class="font-display font-bold text-xl tracking-tight select-none">
+    <span class="text-gold">ALPH</span><span class="text-white">UETTA</span>
+  </a>
+  <ul class="flex gap-8 text-[.72rem] font-medium tracking-[.14em] uppercase list-none">
+    <li><a href="#konzept"      class="text-white/60 hover:text-gold transition-colors">Konzept</a></li>
+    <li><a href="#konfigurator" class="text-white/60 hover:text-gold transition-colors">Konfigurator</a></li>
+    <li><a href="#pakete"       class="text-white/60 hover:text-gold transition-colors">Pakete</a></li>
+    <li><a href="#kontakt"      class="text-white/60 hover:text-gold transition-colors">Kontakt</a></li>
+  </ul>
+  <a href="#kontakt" class="bg-gold text-black text-[.7rem] font-bold tracking-[.1em] uppercase px-5 py-2.5 rounded hover:bg-gold-lt transition-colors">Anfrage</a>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="relative h-screen min-h-[600px] flex flex-col overflow-hidden">
+  <div class="absolute inset-0 bg-cover bg-center" style="
+    background-image:
+      linear-gradient(to right,  rgba(18,12,6,.6) 0%, rgba(18,12,6,.25) 45%, rgba(18,12,6,.04) 75%),
+      linear-gradient(to bottom, rgba(24,20,16,0) 30%, rgba(24,20,16,.45) 70%, rgba(24,20,16,.92) 100%),
+      url('01_Alphuetta-Chur_front.jpg');
+    background-size:cover;background-position:center;"></div>
+
+  <div class="relative z-10 flex-1 flex items-center">
+    <div class="ml-12 px-10 py-9 max-w-[560px]" style="
+      background:rgba(18,12,6,.38);
+      backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+      border-radius:6px;
+      border-right:1px solid rgba(255,255,255,.06);
+      border-bottom:1px solid rgba(255,255,255,.05);">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-7 text-gold text-[.68rem] font-semibold tracking-[.18em] uppercase"
+        style="background:rgba(200,152,42,.2);border:1px solid rgba(200,152,42,.45);">
+        <span class="w-1.5 h-1.5 rounded-full bg-gold animate-pulse"></span>
+        Schweizweit verfügbar — Mieten &amp; Kaufen
+      </div>
+      <h1 class="font-display font-bold text-white leading-none tracking-tight mb-5"
+        style="font-size:clamp(2.4rem,5vw,4.4rem);text-shadow:0 2px 24px rgba(0,0,0,.6);">
+        Deine alpine<br><em class="text-gold font-normal italic">Blockhütte</em><br>überall in der Schweiz
+      </h1>
+      <p class="text-white/75 font-light leading-relaxed mb-8 max-w-sm"
+        style="font-size:.95rem;text-shadow:0 1px 10px rgba(0,0,0,.65);">
+        Premium-Alphütten im Strickbau-Stil für Events, Firmenfeiern, Fondue-Abende und Märkte — modular planbar, schlüsselfertig geliefert.
+      </p>
+      <div class="flex gap-3 flex-wrap">
+        <a href="#konfigurator"
+          class="inline-flex items-center gap-2 bg-gold text-black text-[.75rem] font-bold tracking-[.09em] uppercase px-6 py-3 rounded hover:bg-gold-lt transition-all hover:-translate-y-0.5">
+          Hütte konfigurieren →
+        </a>
+        <a href="#konzept"
+          class="inline-flex items-center gap-2 text-white text-[.75rem] font-semibold tracking-[.09em] uppercase px-6 py-3 rounded border border-white/25 hover:border-gold hover:text-gold transition-all">
+          Konzept ansehen
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats bar -->
+  <div class="relative z-10 grid grid-cols-4 border-t" style="background:rgba(24,20,16,.72);backdrop-filter:blur(10px);border-color:rgba(200,152,42,.2);">
+    <div class="py-4 px-6 text-center border-r" style="border-color:rgba(200,152,42,.12);">
+      <div class="font-display text-gold text-2xl font-bold leading-none">50+</div>
+      <div class="text-white/45 text-[.6rem] tracking-widest uppercase mt-1">Events pro Jahr</div>
+    </div>
+    <div class="py-4 px-6 text-center border-r" style="border-color:rgba(200,152,42,.12);">
+      <div class="font-display text-gold text-2xl font-bold leading-none">120</div>
+      <div class="text-white/45 text-[.6rem] tracking-widest uppercase mt-1">Max. Personenanzahl</div>
+    </div>
+    <div class="py-4 px-6 text-center border-r" style="border-color:rgba(200,152,42,.12);">
+      <div class="font-display text-gold text-2xl font-bold leading-none">26</div>
+      <div class="text-white/45 text-[.6rem] tracking-widest uppercase mt-1">Kantone erreichbar</div>
+    </div>
+    <div class="py-4 px-6 text-center">
+      <div class="font-display text-gold text-2xl font-bold leading-none">48h</div>
+      <div class="text-white/45 text-[.6rem] tracking-widest uppercase mt-1">Aufbauzeit</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONFIGURATOR ── -->
+<section id="konfigurator" class="py-14 bg-gray-50">
+  <div class="max-w-[1320px] mx-auto px-6">
+
+    <div class="mb-7">
+      <div class="text-[.62rem] font-bold tracking-[.25em] uppercase text-gold mb-1.5">Konfigurator</div>
+      <h2 class="font-display text-3xl font-bold text-gray-900">Deine <em>Wunschhütte</em> planen</h2>
+    </div>
+
+    <!-- App panel -->
+    <div class="rounded-2xl overflow-hidden shadow-xl border border-gray-200 flex" style="min-height:700px;">
+
+      <!-- LEFT: Controls -->
+      <div class="w-[370px] flex-shrink-0 flex flex-col bg-white border-r border-gray-100">
+
+        <!-- Tab bar -->
+        <div class="flex border-b border-gray-100 flex-shrink-0">
+          <button class="ktab flex-1 py-3.5 text-[.7rem] font-semibold tracking-[.06em] uppercase text-gray-400 border-b-2 border-transparent"
+            onclick="switchTab('struktur')">Gebäude &amp; Struktur</button>
+          <button class="ktab flex-1 py-3.5 text-[.7rem] font-semibold tracking-[.06em] uppercase text-gray-400 border-b-2 border-transparent"
+            onclick="switchTab('ausstattung')">Ausstattung</button>
+        </div>
+
+        <!-- Scrollable content -->
+        <div class="flex-1 overflow-y-auto">
+
+          <!-- Tab 1: Struktur -->
+          <div class="konf-panel on" id="tab-struktur">
+            <div class="p-5 space-y-5">
+
+              <!-- Size picker -->
+              <div>
+                <div class="text-[.58rem] font-bold tracking-[.22em] uppercase text-stone mb-3">Grösse der Basishütte</div>
+                <div class="grid grid-cols-3 gap-2">
+                  <button class="sz-btn flex flex-col items-center gap-1.5 py-3 px-2 border-2 border-cream-dk rounded-xl" data-sz="s" onclick="setSize('s')">
+                    <div><div class="sz-roof"></div><div class="sz-body"></div></div>
+                    <div class="sz-nm text-[.68rem] font-semibold text-brown-dk">Klein</div>
+                    <div class="text-[.6rem] text-stone">bis 40 Pers.</div>
+                  </button>
+                  <button class="sz-btn on flex flex-col items-center gap-1.5 py-3 px-2 border-2 border-cream-dk rounded-xl" data-sz="m" onclick="setSize('m')">
+                    <div><div class="sz-roof"></div><div class="sz-body"></div></div>
+                    <div class="sz-nm text-[.68rem] font-semibold text-brown-dk">Mittel</div>
+                    <div class="text-[.6rem] text-stone">bis 80 Pers.</div>
+                  </button>
+                  <button class="sz-btn flex flex-col items-center gap-1.5 py-3 px-2 border-2 border-cream-dk rounded-xl" data-sz="l" onclick="setSize('l')">
+                    <div><div class="sz-roof"></div><div class="sz-body"></div></div>
+                    <div class="sz-nm text-[.68rem] font-semibold text-brown-dk">Gross</div>
+                    <div class="text-[.6rem] text-stone">bis 120 Pers.</div>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Capacity badge -->
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg text-[.72rem] text-stone font-medium" style="background:rgba(200,152,42,.1);">
+                👥 Kapazität: <strong class="text-brown-dk" id="cap-text">bis 80 Personen</strong>
+              </div>
+
+              <!-- Modules -->
+              <div>
+                <div class="text-[.58rem] font-bold tracking-[.22em] uppercase text-stone mb-3">Anbauten &amp; Module</div>
+                <div class="space-y-1.5">
+                  <div class="mod-row flex items-center gap-3 px-3 py-2.5 border border-gray-100 rounded-xl cursor-pointer hover:border-gold/30" data-mod="kueche" onclick="toggleMod('kueche')">
+                    <div class="mod-chk"></div>
+                    <span class="text-base">🍳</span>
+                    <div class="flex-1 min-w-0">
+                      <div class="mod-name text-[.78rem] font-medium text-gray-800">Küchenanbau</div>
+                      <div class="text-[.65rem] text-stone">Profiküche, Herd, Kühlung</div>
+                    </div>
+                    <div class="mod-price text-[.7rem] font-semibold text-stone whitespace-nowrap">+CHF 450/T</div>
+                  </div>
+                  <div class="mod-row flex items-center gap-3 px-3 py-2.5 border border-gray-100 rounded-xl cursor-pointer hover:border-gold/30" data-mod="bar" onclick="toggleMod('bar')">
+                    <div class="mod-chk"></div>
+                    <span class="text-base">🍺</span>
+                    <div class="flex-1 min-w-0">
+                      <div class="mod-name text-[.78rem] font-medium text-gray-800">Bar-Modul</div>
+                      <div class="text-[.65rem] text-stone">Zapfanlage, Theke, Kühlung</div>
+                    </div>
+                    <div class="mod-price text-[.7rem] font-semibold text-stone whitespace-nowrap">+CHF 380/T</div>
+                  </div>
+                  <div class="mod-row flex items-center gap-3 px-3 py-2.5 border border-gray-100 rounded-xl cursor-pointer hover:border-gold/30" data-mod="wc" onclick="toggleMod('wc')">
+                    <div class="mod-chk"></div>
+                    <span class="text-base">🚻</span>
+                    <div class="flex-1 min-w-0">
+                      <div class="mod-name text-[.78rem] font-medium text-gray-800">WC / Sanitär</div>
+                      <div class="text-[.65rem] text-stone">Toiletten, Waschbecken</div>
+                    </div>
+                    <div class="mod-price text-[.7rem] font-semibold text-stone whitespace-nowrap">+CHF 200/T</div>
+                  </div>
+                  <div class="mod-row flex items-center gap-3 px-3 py-2.5 border border-gray-100 rounded-xl cursor-pointer hover:border-gold/30" data-mod="terrasse" onclick="toggleMod('terrasse')">
+                    <div class="mod-chk"></div>
+                    <span class="text-base">🌲</span>
+                    <div class="flex-1 min-w-0">
+                      <div class="mod-name text-[.78rem] font-medium text-gray-800">Terrasse</div>
+                      <div class="text-[.65rem] text-stone">Holzdeck mit Geländer</div>
+                    </div>
+                    <div class="mod-price text-[.7rem] font-semibold text-stone whitespace-nowrap">+CHF 180/T</div>
+                  </div>
+                  <div class="mod-row flex items-center gap-3 px-3 py-2.5 border border-gray-100 rounded-xl cursor-pointer hover:border-gold/30" data-mod="lagerraum" onclick="toggleMod('lagerraum')">
+                    <div class="mod-chk"></div>
+                    <span class="text-base">📦</span>
+                    <div class="flex-1 min-w-0">
+                      <div class="mod-name text-[.78rem] font-medium text-gray-800">Lagerraum</div>
+                      <div class="text-[.65rem] text-stone">Abschliessbares Depot</div>
+                    </div>
+                    <div class="mod-price text-[.7rem] font-semibold text-stone whitespace-nowrap">+CHF 120/T</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 2: Ausstattung -->
+          <div class="konf-panel" id="tab-ausstattung">
+            <div class="p-5 space-y-5">
+
+              <div>
+                <div class="text-[.58rem] font-bold tracking-[.22em] uppercase text-stone mb-3">Bestuhlung &amp; Mobiliar</div>
+                <div class="grid grid-cols-2 gap-2">
+                  <div class="eq-item flex flex-col items-center gap-1.5 p-3 border-2 border-cream-dk rounded-xl cursor-pointer hover:border-gold/40 text-center" data-eq="tische" onclick="toggleEq('tische')">
+                    <div class="mod-chk" style="margin:0 auto"></div>
+                    <span class="text-2xl mt-0.5">🪑</span>
+                    <div class="eq-name text-[.68rem] font-medium text-gray-700 leading-tight">Holztische &amp; Bänke</div>
+                    <div class="eq-price text-[.6rem] font-semibold text-stone">+CHF 150/T</div>
+                  </div>
+                  <div class="eq-item flex flex-col items-center gap-1.5 p-3 border-2 border-cream-dk rounded-xl cursor-pointer hover:border-gold/40 text-center" data-eq="felle" onclick="toggleEq('felle')">
+                    <div class="mod-chk" style="margin:0 auto"></div>
+                    <span class="text-2xl mt-0.5">🐑</span>
+                    <div class="eq-name text-[.68rem] font-medium text-gray-700 leading-tight">Felle &amp; Kissen</div>
+                    <div class="eq-price text-[.6rem] font-semibold text-stone">+CHF 120/T</div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="text-[.58rem] font-bold tracking-[.22em] uppercase text-stone mb-3">Dekoration</div>
+                <div class="grid grid-cols-2 gap-2">
+                  <div class="eq-item flex flex-col items-center gap-1.5 p-3 border-2 border-cream-dk rounded-xl cursor-pointer hover:border-gold/40 text-center" data-eq="deko-basis" onclick="toggleEq('deko-basis')">
+                    <div class="mod-chk" style="margin:0 auto"></div>
+                    <span class="text-2xl mt-0.5">🕯️</span>
+                    <div class="eq-name text-[.68rem] font-medium text-gray-700 leading-tight">Deko Basis</div>
+                    <div class="eq-price text-[.6rem] font-semibold text-stone">+CHF 80/T</div>
+                  </div>
+                  <div class="eq-item flex flex-col items-center gap-1.5 p-3 border-2 border-cream-dk rounded-xl cursor-pointer hover:border-gold/40 text-center" data-eq="deko-premium" onclick="toggleEq('deko-premium')">
+                    <div class="mod-chk" style="margin:0 auto"></div>
+                    <span class="text-2xl mt-0.5">🦌</span>
+                    <div class="eq-name text-[.68rem] font-medium text-gray-700 leading-tight">Deko Premium</div>
+                    <div class="eq-price text-[.6rem] font-semibold text-stone">+CHF 280/T</div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="text-[.58rem] font-bold tracking-[.22em] uppercase text-stone mb-3">Technik &amp; Infrastruktur</div>
+                <div class="grid grid-cols-2 gap-2">
+                  <div class="eq-item flex flex-col items-center gap-1.5 p-3 border-2 border-cream-dk rounded-xl cursor-pointer hover:border-gold/40 text-center" data-eq="sound" onclick="toggleEq('sound')">
+                    <div class="mod-chk" style="margin:0 auto"></div>
+                    <span class="text-2xl mt-0.5">🔊</span>
+                    <div class="eq-name text-[.68rem] font-medium text-gray-700 leading-tight">Sound-Anlage</div>
+                    <div class="eq-price text-[.6rem] font-semibold text-stone">+CHF 200/T</div>
+                  </div>
+                  <div class="eq-item flex flex-col items-center gap-1.5 p-3 border-2 border-cream-dk rounded-xl cursor-pointer hover:border-gold/40 text-center" data-eq="licht" onclick="toggleEq('licht')">
+                    <div class="mod-chk" style="margin:0 auto"></div>
+                    <span class="text-2xl mt-0.5">💡</span>
+                    <div class="eq-name text-[.68rem] font-medium text-gray-700 leading-tight">Licht-Konzept</div>
+                    <div class="eq-price text-[.6rem] font-semibold text-stone">+CHF 150/T</div>
+                  </div>
+                  <div class="eq-item flex flex-col items-center gap-1.5 p-3 border-2 border-cream-dk rounded-xl cursor-pointer hover:border-gold/40 text-center" data-eq="heizung" onclick="toggleEq('heizung')">
+                    <div class="mod-chk" style="margin:0 auto"></div>
+                    <span class="text-2xl mt-0.5">🔥</span>
+                    <div class="eq-name text-[.68rem] font-medium text-gray-700 leading-tight">Pelletofen</div>
+                    <div class="eq-price text-[.6rem] font-semibold text-stone">+CHF 180/T</div>
+                  </div>
+                  <div class="eq-item flex flex-col items-center gap-1.5 p-3 border-2 border-cream-dk rounded-xl cursor-pointer hover:border-gold/40 text-center" data-eq="geschirr" onclick="toggleEq('geschirr')">
+                    <div class="mod-chk" style="margin:0 auto"></div>
+                    <span class="text-2xl mt-0.5">🍽️</span>
+                    <div class="eq-name text-[.68rem] font-medium text-gray-700 leading-tight">Geschirr-Set</div>
+                    <div class="eq-price text-[.6rem] font-semibold text-stone">+CHF 100/T</div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="text-[.58rem] font-bold tracking-[.22em] uppercase text-stone mb-3">Aussenbereich</div>
+                <div class="grid grid-cols-2 gap-2">
+                  <div class="eq-item flex flex-col items-center gap-1.5 p-3 border-2 border-cream-dk rounded-xl cursor-pointer hover:border-gold/40 text-center" data-eq="stehtische" onclick="toggleAussen('stehtische')">
+                    <div class="mod-chk" style="margin:0 auto"></div>
+                    <span class="text-2xl mt-0.5">🍺</span>
+                    <div class="eq-name text-[.68rem] font-medium text-gray-700 leading-tight">Stehtische</div>
+                    <div class="eq-price text-[.6rem] font-semibold text-stone">+CHF 80/T</div>
+                  </div>
+                  <div class="eq-item flex flex-col items-center gap-1.5 p-3 border-2 border-cream-dk rounded-xl cursor-pointer hover:border-gold/40 text-center" data-eq="feuerstelle" onclick="toggleAussen('feuerstelle')">
+                    <div class="mod-chk" style="margin:0 auto"></div>
+                    <span class="text-2xl mt-0.5">🪵</span>
+                    <div class="eq-name text-[.68rem] font-medium text-gray-700 leading-tight">Feuerstelle</div>
+                    <div class="eq-price text-[.6rem] font-semibold text-stone">+CHF 120/T</div>
+                  </div>
+                  <div class="eq-item flex flex-col items-center gap-1.5 p-3 border-2 border-cream-dk rounded-xl cursor-pointer hover:border-gold/40 text-center" data-eq="lichterketten" onclick="toggleAussen('lichterketten')">
+                    <div class="mod-chk" style="margin:0 auto"></div>
+                    <span class="text-2xl mt-0.5">✨</span>
+                    <div class="eq-name text-[.68rem] font-medium text-gray-700 leading-tight">Lichterketten</div>
+                    <div class="eq-price text-[.6rem] font-semibold text-stone">+CHF 60/T</div>
+                  </div>
+                  <div class="eq-item flex flex-col items-center gap-1.5 p-3 border-2 border-cream-dk rounded-xl cursor-pointer hover:border-gold/40 text-center" data-eq="terrassenheizer" onclick="toggleAussen('terrassenheizer')">
+                    <div class="mod-chk" style="margin:0 auto"></div>
+                    <span class="text-2xl mt-0.5">🌡️</span>
+                    <div class="eq-name text-[.68rem] font-medium text-gray-700 leading-tight">Terrassenheizer</div>
+                    <div class="eq-price text-[.6rem] font-semibold text-stone">+CHF 90/T</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div><!-- end scrollable -->
+
+        <!-- Price panel (sticky footer of left col) -->
+        <div class="flex-shrink-0 p-5 bg-forest text-white border-t border-white/5">
+          <div class="flex items-start justify-between gap-4 mb-2">
+            <div>
+              <div class="text-[.56rem] tracking-[.22em] uppercase text-white/40 mb-1">Mietpreis ab</div>
+              <div class="text-[2rem] font-bold text-gold leading-none" id="price-amt">CHF 2'500</div>
+              <div class="text-[.6rem] text-white/35 mt-1">pro Tag (exkl. Transport &amp; Montage)</div>
+            </div>
+            <div class="text-right">
+              <div class="text-[.56rem] tracking-[.15em] uppercase text-white/35 mb-1">Kaufpreis ab</div>
+              <div class="text-sm font-semibold text-gold/75" id="price-kauf">CHF 140'000</div>
+            </div>
+          </div>
+          <div class="text-[.62rem] text-white/30 leading-relaxed mb-4 border-t border-white/5 pt-3" id="price-detail">Basishütte Mittel: CHF 2'500</div>
+          <button onclick="goKontakt()"
+            class="w-full py-2.5 bg-gold text-black text-[.7rem] font-bold tracking-[.1em] uppercase rounded-lg hover:bg-gold-lt transition-colors">
+            Jetzt Anfrage stellen →
+          </button>
+        </div>
+      </div><!-- end left col -->
+
+      <!-- RIGHT: Floor plan -->
+      <div class="flex-1 flex flex-col bg-cream/20">
+
+        <!-- Toolbar -->
+        <div class="flex items-center justify-between px-5 py-3 bg-white/80 border-b border-gray-100 flex-shrink-0">
+          <div class="text-[.65rem] font-semibold text-stone tracking-wide" id="plan-label">Innenansicht — Vogelperspektive (Dach geschnitten)</div>
+          <div class="flex items-center gap-0.5 bg-gray-100 rounded-lg p-0.5">
+            <button class="pmode on text-[.62rem] font-semibold px-3 py-1.5 rounded-md text-gray-500" onclick="setView('innen')">Innen</button>
+            <button class="pmode text-[.62rem] font-semibold px-3 py-1.5 rounded-md text-gray-400" onclick="setView('aussen')">Aussen</button>
+          </div>
+        </div>
+
+        <!-- SVG area -->
+        <div id="svg-wrap" class="flex-1 p-3"></div>
+
+        <!-- Info strip -->
+        <div class="flex items-center gap-8 px-5 py-3 bg-white/80 border-t border-gray-100 flex-shrink-0">
+          <div>
+            <div class="text-[.55rem] uppercase tracking-widest text-stone mb-0.5">Grösse</div>
+            <div class="text-[.78rem] font-semibold text-brown-dk" id="prev-sz">Mittel</div>
+          </div>
+          <div>
+            <div class="text-[.55rem] uppercase tracking-widest text-stone mb-0.5">Kapazität</div>
+            <div class="text-[.78rem] font-semibold text-brown-dk" id="prev-cap">bis 80 Personen</div>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="text-[.55rem] uppercase tracking-widest text-stone mb-0.5">Aktive Module</div>
+            <div class="text-[.72rem] text-stone truncate" id="prev-mods"></div>
+          </div>
+        </div>
+      </div><!-- end right col -->
+
+    </div><!-- end app panel -->
+  </div>
+</section>
+
+<!-- ── PAKETE ── -->
+<section id="pakete" class="py-20 bg-white">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="mb-12">
+      <div class="text-[.62rem] font-bold tracking-[.25em] uppercase text-gold mb-2">Unsere Pakete</div>
+      <h2 class="font-display text-3xl font-bold text-gray-900">Fertige <em>Konfigurationen</em> für jeden Anlass</h2>
+    </div>
+    <div class="grid grid-cols-3 gap-5">
+
+      <!-- Fondue -->
+      <div class="rounded-2xl border border-gray-200 overflow-hidden flex flex-col">
+        <div class="p-6">
+          <div class="text-3xl mb-3">🧀</div>
+          <div class="font-display text-xl font-bold text-gray-900 mb-1.5">Fondue-Paket</div>
+          <p class="text-[.77rem] text-stone leading-relaxed">Das klassische Schweizer Erlebnis für Firmenfeiern und Freundesgruppen</p>
+        </div>
+        <div class="px-6 py-4 border-y border-gray-100 bg-gray-50/60">
+          <div class="font-display text-2xl font-bold text-gray-900">CHF 2'800 <span class="text-sm font-normal text-stone">/Tag</span></div>
+          <div class="text-[.68rem] text-stone mt-0.5">bis 40 Personen · Miete</div>
+        </div>
+        <ul class="px-6 py-5 flex-1 space-y-2">
+          <li class="text-[.77rem] text-gray-600 flex items-start gap-2"><span class="text-gold font-bold mt-0.5 flex-shrink-0">✓</span>Basishütte Klein (bis 40 Pers.)</li>
+          <li class="text-[.77rem] text-gray-600 flex items-start gap-2"><span class="text-gold font-bold mt-0.5 flex-shrink-0">✓</span>Holztische &amp; Bänke</li>
+          <li class="text-[.77rem] text-gray-600 flex items-start gap-2"><span class="text-gold font-bold mt-0.5 flex-shrink-0">✓</span>Felle &amp; Kissen</li>
+          <li class="text-[.77rem] text-gray-600 flex items-start gap-2"><span class="text-gold font-bold mt-0.5 flex-shrink-0">✓</span>Deko Basis (Kerzen, Tischläufer)</li>
+          <li class="text-[.77rem] text-gray-600 flex items-start gap-2"><span class="text-gold font-bold mt-0.5 flex-shrink-0">✓</span>Pelletofen</li>
+          <li class="text-[.77rem] text-gray-600 flex items-start gap-2"><span class="text-gold font-bold mt-0.5 flex-shrink-0">✓</span>Geschirr-Set für Fondue</li>
+        </ul>
+        <div class="p-6 pt-0">
+          <button onclick="applyPackage('fondue')"
+            class="w-full py-2.5 border-2 border-gold text-gold text-[.7rem] font-bold tracking-wide uppercase rounded-lg hover:bg-gold hover:text-black transition-all">
+            Paket wählen
+          </button>
+        </div>
+      </div>
+
+      <!-- Event (featured) -->
+      <div class="rounded-2xl border-2 border-gold overflow-hidden flex flex-col relative shadow-lg">
+        <div class="absolute top-0 inset-x-0 flex justify-center z-10">
+          <span class="text-[.58rem] font-bold tracking-widest uppercase bg-gold text-black px-4 py-1 rounded-b-lg">⭐ Beliebtestes Paket</span>
+        </div>
+        <div class="p-6 pt-10 bg-forest/5">
+          <div class="text-3xl mb-3">🎉</div>
+          <div class="font-display text-xl font-bold text-gray-900 mb-1.5">Event-Paket</div>
+          <p class="text-[.77rem] text-stone leading-relaxed">Vollständig ausgestattet für Firmenevents, Weihnachtsmärkte und Feiern</p>
+        </div>
+        <div class="px-6 py-4 border-y border-gold/20 bg-forest/5">
+          <div class="font-display text-2xl font-bold text-gray-900">CHF 4'800 <span class="text-sm font-normal text-stone">/Tag</span></div>
+          <div class="text-[.68rem] text-stone mt-0.5">bis 80 Personen · Miete</div>
+        </div>
+        <ul class="px-6 py-5 flex-1 space-y-2">
+          <li class="text-[.77rem] text-gray-600 flex items-start gap-2"><span class="text-gold font-bold mt-0.5 flex-shrink-0">✓</span>Basishütte Mittel (bis 80 Pers.)</li>
+          <li class="text-[.77rem] text-gray-600 flex items-start gap-2"><span class="text-gold font-bold mt-0.5 flex-shrink-0">✓</span>Bar-Modul mit Zapfanlage</li>
+          <li class="text-[.77rem] text-gray-600 flex items-start gap-2"><span class="text-gold font-bold mt-0.5 flex-shrink-0">✓</span>Holztische, Bänke &amp; Felle</li>
+          <li class="text-[.77rem] text-gray-600 flex items-start gap-2"><span class="text-gold font-bold mt-0.5 flex-shrink-0">✓</span>Deko Premium (Geweihe, Vintage)</li>
+          <li class="text-[.77rem] text-gray-600 flex items-start gap-2"><span class="text-gold font-bold mt-0.5 flex-shrink-0">✓</span>Sound-Anlage &amp; Lichtkonzept</li>
+          <li class="text-[.77rem] text-gray-600 flex items-start gap-2"><span class="text-gold font-bold mt-0.5 flex-shrink-0">✓</span>WC / Sanitärmodul</li>
+          <li class="text-[.77rem] text-gray-600 flex items-start gap-2"><span class="text-gold font-bold mt-0.5 flex-shrink-0">✓</span>Pelletofen &amp; Geschirr</li>
+        </ul>
+        <div class="p-6 pt-0">
+          <button onclick="applyPackage('event')"
+            class="w-full py-2.5 bg-gold text-black text-[.7rem] font-bold tracking-wide uppercase rounded-lg hover:bg-gold-lt transition-all">
+            Paket wählen
+          </button>
+        </div>
+      </div>
+
+      <!-- Markt -->
+      <div class="rounded-2xl border border-gray-200 overflow-hidden flex flex-col">
+        <div class="p-6">
+          <div class="text-3xl mb-3">🏔️</div>
+          <div class="font-display text-xl font-bold text-gray-900 mb-1.5">Markt-Paket</div>
+          <p class="text-[.77rem] text-stone leading-relaxed">Maximale Kapazität für Weihnachtsmärkte, Festivals und Grossevents</p>
+        </div>
+        <div class="px-6 py-4 border-y border-gray-100 bg-gray-50/60">
+          <div class="font-display text-2xl font-bold text-gray-900">CHF 7'200 <span class="text-sm font-normal text-stone">/Tag</span></div>
+          <div class="text-[.68rem] text-stone mt-0.5">bis 120 Personen · Miete</div>
+        </div>
+        <ul class="px-6 py-5 flex-1 space-y-2">
+          <li class="text-[.77rem] text-gray-600 flex items-start gap-2"><span class="text-gold font-bold mt-0.5 flex-shrink-0">✓</span>Basishütte Gross (bis 120 Pers.)</li>
+          <li class="text-[.77rem] text-gray-600 flex items-start gap-2"><span class="text-gold font-bold mt-0.5 flex-shrink-0">✓</span>Küchenanbau &amp; Bar-Modul</li>
+          <li class="text-[.77rem] text-gray-600 flex items-start gap-2"><span class="text-gold font-bold mt-0.5 flex-shrink-0">✓</span>Terrasse mit Geländer</li>
+          <li class="text-[.77rem] text-gray-600 flex items-start gap-2"><span class="text-gold font-bold mt-0.5 flex-shrink-0">✓</span>WC / Sanitärmodul &amp; Lagerraum</li>
+          <li class="text-[.77rem] text-gray-600 flex items-start gap-2"><span class="text-gold font-bold mt-0.5 flex-shrink-0">✓</span>Vollausstattung Deko Premium</li>
+          <li class="text-[.77rem] text-gray-600 flex items-start gap-2"><span class="text-gold font-bold mt-0.5 flex-shrink-0">✓</span>Sound-Anlage (DJ-fähig)</li>
+          <li class="text-[.77rem] text-gray-600 flex items-start gap-2"><span class="text-gold font-bold mt-0.5 flex-shrink-0">✓</span>Komplettes Lichtkonzept</li>
+        </ul>
+        <div class="p-6 pt-0">
+          <button onclick="applyPackage('markt')"
+            class="w-full py-2.5 border-2 border-gold text-gold text-[.7rem] font-bold tracking-wide uppercase rounded-lg hover:bg-gold hover:text-black transition-all">
+            Paket wählen
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── KONZEPT ── -->
+<section id="konzept" class="py-24 bg-cream">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="grid grid-cols-2 gap-20 items-center">
+
+      <!-- Photo stack -->
+      <div class="relative h-[500px]">
+        <div class="absolute inset-0 rounded-2xl overflow-hidden shadow-xl">
+          <img src="alphuetta_inside.jpg" alt="Alphuetta Innenansicht" class="w-full h-full object-cover">
+        </div>
+        <div class="absolute -bottom-6 -right-8 w-48 h-44 rounded-2xl overflow-hidden shadow-xl border-4 border-cream">
+          <img src="01_Alphuetta-Chur_front.jpg" alt="Alphuetta Aussenansicht" class="w-full h-full object-cover">
+        </div>
+      </div>
+
+      <div>
+        <div class="text-[.62rem] font-bold tracking-[.25em] uppercase text-gold mb-3">Das Konzept</div>
+        <h2 class="font-display text-4xl font-bold text-gray-900 mb-5 leading-tight">Eine <em>echte</em> Alpenhütte —<br>wo du sie brauchst</h2>
+        <p class="text-stone leading-relaxed mb-8 text-[.92rem]">Basierend auf dem Original-Alphütte-Konzept aus Graubünden: Massiver Strickbau, authentische Alpine-Dekoration, gemütliche Atmosphäre für bis zu 120 Gäste.</p>
+        <div class="space-y-4">
+          <div class="flex gap-4 items-start">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 text-lg" style="background:rgba(42,64,40,.1);">🪵</div>
+            <div>
+              <div class="font-semibold text-gray-900 text-[.88rem] mb-0.5">Massiver Strickbau</div>
+              <div class="text-[.78rem] text-stone">Echtes Holz, handwerkliche Qualität — keine Zeltkonstruktion</div>
+            </div>
+          </div>
+          <div class="flex gap-4 items-start">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 text-lg" style="background:rgba(42,64,40,.1);">🔧</div>
+            <div>
+              <div class="font-semibold text-gray-900 text-[.88rem] mb-0.5">Modular erweiterbar</div>
+              <div class="text-[.78rem] text-stone">Küche, Bar, WC, Terrasse — individuell konfigurierbar</div>
+            </div>
+          </div>
+          <div class="flex gap-4 items-start">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 text-lg" style="background:rgba(42,64,40,.1);">🚚</div>
+            <div>
+              <div class="font-semibold text-gray-900 text-[.88rem] mb-0.5">Schweizweit lieferbar</div>
+              <div class="text-[.78rem] text-stone">Aufbau &amp; Abbau durch unser Team, in 48h bezugsbereit</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── GALLERY ── -->
+<section class="py-20 bg-white">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="flex items-end justify-between mb-10">
+      <div>
+        <div class="text-[.62rem] font-bold tracking-[.25em] uppercase text-gold mb-2">Galerie</div>
+        <h2 class="font-display text-3xl font-bold text-gray-900">Das Original in Bildern</h2>
+      </div>
+      <a href="#kontakt" class="text-[.7rem] font-bold tracking-wide uppercase text-gold border border-gold px-5 py-2.5 rounded-lg hover:bg-gold hover:text-black transition-all">Besichtigung anfragen</a>
+    </div>
+    <div class="grid grid-cols-3 grid-rows-2 gap-3 h-[440px]">
+      <div class="rounded-2xl overflow-hidden row-span-2 group relative">
+        <img src="01_Alphuetta-Chur_front.jpg" alt="Aussenansicht" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/60 to-transparent px-4 py-3">
+          <div class="text-white text-[.73rem] font-medium">Aussenansicht Alphuetta GR</div>
+        </div>
+      </div>
+      <div class="rounded-2xl overflow-hidden col-span-2 group relative">
+        <img src="alphuetta_inside.jpg" alt="Innenraum" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/60 to-transparent px-4 py-3">
+          <div class="text-white text-[.73rem] font-medium">Innenraum am Tag</div>
+        </div>
+      </div>
+      <div class="rounded-2xl overflow-hidden group relative">
+        <img src="alphuetta_inside.jpg" alt="Abendstimmung" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/60 to-transparent px-4 py-3">
+          <div class="text-white text-[.73rem] font-medium">Abendstimmung &amp; Fondue</div>
+        </div>
+      </div>
+      <div class="rounded-2xl overflow-hidden group relative">
+        <img src="01_Alphuetta-Chur_front.jpg" alt="Detail" class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105">
+        <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/60 to-transparent px-4 py-3">
+          <div class="text-white text-[.73rem] font-medium">Wintermarkt-Aufstellung</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STEPS ── -->
+<section id="wie" class="py-24 bg-forest">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <div class="text-[.62rem] font-bold tracking-[.25em] uppercase text-gold mb-3">So läuft's</div>
+      <h2 class="font-display text-3xl font-bold text-white">In drei Schritten zu <em>deiner Hütte</em></h2>
+    </div>
+    <div class="grid grid-cols-3 gap-12">
+      <div>
+        <div class="font-display text-6xl font-bold leading-none mb-5" style="color:rgba(200,152,42,.18);">01</div>
+        <h3 class="text-white font-semibold text-lg mb-3">Konfigurieren &amp; anfragen</h3>
+        <p class="text-white/45 text-[.82rem] leading-relaxed">Stell deine Wunschhütte online zusammen und schick uns deine Anfrage — inklusive Datum, Standort und Konfiguration.</p>
+      </div>
+      <div>
+        <div class="font-display text-6xl font-bold leading-none mb-5" style="color:rgba(200,152,42,.18);">02</div>
+        <h3 class="text-white font-semibold text-lg mb-3">Offerte &amp; Vertrag</h3>
+        <p class="text-white/45 text-[.82rem] leading-relaxed">Wir erstellen dir innerhalb von 24h eine detaillierte Offerte und sichern deinen Termin mit einem unkomplizierten Mietvertrag.</p>
+      </div>
+      <div>
+        <div class="font-display text-6xl font-bold leading-none mb-5" style="color:rgba(200,152,42,.18);">03</div>
+        <h3 class="text-white font-semibold text-lg mb-3">Lieferung &amp; Genuss</h3>
+        <p class="text-white/45 text-[.82rem] leading-relaxed">Unser Team liefert und richtet ein — innerhalb 48h ist deine Hütte bezugsbereit. Nach dem Event übernehmen wir Abbau und Rücktransport.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="kontakt" class="py-24 bg-cream">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="grid grid-cols-2 gap-20 items-start">
+      <div>
+        <div class="text-[.62rem] font-bold tracking-[.25em] uppercase text-gold mb-3">Kontakt</div>
+        <h2 class="font-display text-4xl font-bold text-gray-900 mb-8 leading-tight">Bereit für deine<br><em>alpine Atmosphäre?</em></h2>
+        <div class="space-y-5">
+          <div class="flex gap-4 items-start">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 text-lg" style="background:rgba(200,152,42,.14);">📞</div>
+            <div>
+              <div class="font-semibold text-gray-900 text-[.88rem] mb-0.5">Persönliche Beratung</div>
+              <div class="text-[.78rem] text-stone leading-relaxed">Dominik Huber · Alphuetta GR<br>alphuetta-gr.ch</div>
+            </div>
+          </div>
+          <div class="flex gap-4 items-start">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 text-lg" style="background:rgba(200,152,42,.14);">📍</div>
+            <div>
+              <div class="font-semibold text-gray-900 text-[.88rem] mb-0.5">Schweizweit verfügbar</div>
+              <div class="text-[.78rem] text-stone leading-relaxed">Lieferung in alle 26 Kantone<br>Transport auf Anfrage kalkuliert</div>
+            </div>
+          </div>
+          <div class="flex gap-4 items-start">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 text-lg" style="background:rgba(200,152,42,.14);">⚡</div>
+            <div>
+              <div class="font-semibold text-gray-900 text-[.88rem] mb-0.5">Schnelle Antwort</div>
+              <div class="text-[.78rem] text-stone leading-relaxed">Offerte innerhalb von 24h<br>Aufbau in 48h möglich</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <form class="bg-white rounded-2xl p-8 shadow-sm border border-cream-deep space-y-3" onsubmit="handleSubmit(event)">
+        <div class="grid grid-cols-2 gap-3">
+          <input type="text" placeholder="Vorname &amp; Name" required
+            class="fin w-full px-4 py-3 text-[.82rem] border border-cream-dk rounded-xl placeholder-stone/60 focus:outline-none focus:border-gold transition-colors" style="background:rgba(245,240,232,.4);">
+          <input type="email" placeholder="E-Mail-Adresse" required
+            class="fin w-full px-4 py-3 text-[.82rem] border border-cream-dk rounded-xl placeholder-stone/60 focus:outline-none focus:border-gold transition-colors" style="background:rgba(245,240,232,.4);">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <input type="tel" placeholder="Telefonnummer"
+            class="fin w-full px-4 py-3 text-[.82rem] border border-cream-dk rounded-xl placeholder-stone/60 focus:outline-none focus:border-gold transition-colors" style="background:rgba(245,240,232,.4);">
+          <input type="text" placeholder="Datum / Zeitraum"
+            class="fin w-full px-4 py-3 text-[.82rem] border border-cream-dk rounded-xl placeholder-stone/60 focus:outline-none focus:border-gold transition-colors" style="background:rgba(245,240,232,.4);">
+        </div>
+        <input type="text" placeholder="Standort / Kanton"
+          class="fin w-full px-4 py-3 text-[.82rem] border border-cream-dk rounded-xl placeholder-stone/60 focus:outline-none focus:border-gold transition-colors" style="background:rgba(245,240,232,.4);">
+        <textarea id="msg-field" rows="4" placeholder="Dein Anlass, gewünschtes Paket, Personenzahl…"
+          class="fin w-full px-4 py-3 text-[.82rem] border border-cream-dk rounded-xl placeholder-stone/60 focus:outline-none focus:border-gold transition-colors resize-none" style="background:rgba(245,240,232,.4);"></textarea>
+        <button type="submit"
+          class="form-send w-full py-3.5 bg-gold text-black text-[.73rem] font-bold tracking-[.1em] uppercase rounded-xl hover:bg-gold-lt transition-colors">
+          Anfrage senden →
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="py-10 px-8 text-center border-t border-gray-100 bg-gray-900">
+  <div class="font-display text-xl font-bold mb-2"><span class="text-gold">Alp</span><span class="text-white">huetta</span></div>
+  <p class="text-white/35 text-[.73rem]">© 2026 Alphuetta — Dominik Huber · Schweizweit</p>
+  <p class="text-white/20 text-[.65rem] mt-1">Prototype — Feedback willkommen</p>
+</footer>
+
+<script>
+// ── STATE ──
+const S = {
+  size: 'm',
+  mods:   { kueche:false, bar:false, wc:false, terrasse:false, lagerraum:false },
+  equip:  { tische:false, felle:false, 'deko-basis':false, 'deko-premium':false, sound:false, licht:false, heizung:false, geschirr:false },
+  aussen: { stehtische:false, feuerstelle:false, lichterketten:false, terrassenheizer:false }
+};
+
+const BASE_RENT  = { s:1500, m:2500, l:3800 };
+const BASE_BUY   = { s:85000, m:140000, l:210000 };
+const MOD_P      = { kueche:450, bar:380, wc:200, terrasse:180, lagerraum:120 };
+const EQ_P       = { tische:150, felle:120, 'deko-basis':80, 'deko-premium':280, sound:200, licht:150, heizung:180, geschirr:100 };
+const CAP        = { s:'bis 40 Personen', m:'bis 80 Personen', l:'bis 120 Personen' };
+const SZ_LABEL   = { s:'Klein', m:'Mittel', l:'Gross' };
+const AUSSEN_P   = { stehtische:80, feuerstelle:120, lichterketten:60, terrassenheizer:90 };
+let currentView  = 'innen';
+
+// ── NAV ──
+window.addEventListener('scroll', () => document.getElementById('nav').classList.toggle('s', scrollY > 60));
+
+// ── TABS ──
+function switchTab(t) {
+  document.querySelectorAll('.ktab').forEach((b,i) => b.classList.toggle('on', (i===0) === (t==='struktur')));
+  document.getElementById('tab-struktur').classList.toggle('on', t==='struktur');
+  document.getElementById('tab-ausstattung').classList.toggle('on', t==='ausstattung');
+}
+
+// ── CONTROLS ──
+function setSize(sz) {
+  S.size = sz;
+  document.querySelectorAll('.sz-btn').forEach(b => b.classList.toggle('on', b.dataset.sz===sz));
+  update();
+}
+function toggleMod(m) {
+  S.mods[m] = !S.mods[m];
+  document.querySelector(`.mod-row[data-mod="${m}"]`).classList.toggle('on', S.mods[m]);
+  update();
+}
+function toggleEq(e) {
+  S.equip[e] = !S.equip[e];
+  document.querySelector(`.eq-item[data-eq="${e}"]`).classList.toggle('on', S.equip[e]);
+  document.querySelector(`.eq-item[data-eq="${e}"] .mod-chk`).classList.toggle('on', S.equip[e]);
+  update();
+}
+
+// ── UPDATE ──
+function update() {
+  let rent = BASE_RENT[S.size];
+  let buy  = BASE_BUY[S.size];
+  const lines = [`Basishütte ${SZ_LABEL[S.size]}: CHF ${BASE_RENT[S.size].toLocaleString('de-CH')}`];
+  const MOD_N  = {kueche:'Küchenanbau',bar:'Bar',wc:'WC',terrasse:'Terrasse',lagerraum:'Lagerraum'};
+  const EQ_N   = {tische:'Tische',felle:'Felle','deko-basis':'Deko Basis','deko-premium':'Deko Premium',sound:'Sound',licht:'Licht',heizung:'Pelletofen',geschirr:'Geschirr'};
+  const AUS_N  = {stehtische:'Stehtische',feuerstelle:'Feuerstelle',lichterketten:'Lichterketten',terrassenheizer:'Terrassenheizer'};
+
+  for (const [k,v] of Object.entries(S.mods))   { if(v){ rent+=MOD_P[k];    lines.push(`+ ${MOD_N[k]}: CHF ${MOD_P[k]}`); }}
+  for (const [k,v] of Object.entries(S.equip))  { if(v){ rent+=EQ_P[k];     lines.push(`+ ${EQ_N[k]}: CHF ${EQ_P[k]}`); }}
+  for (const [k,v] of Object.entries(S.aussen)) { if(v){ rent+=AUSSEN_P[k]; lines.push(`+ ${AUS_N[k]}: CHF ${AUSSEN_P[k]}`); }}
+
+  const pa = document.getElementById('price-amt');
+  pa.style.transform='scale(1.06)';
+  pa.textContent = `CHF ${rent.toLocaleString('de-CH')}`;
+  setTimeout(()=>pa.style.transform='scale(1)',200);
+
+  document.getElementById('price-kauf').textContent = `CHF ${(buy).toLocaleString('de-CH')}`;
+  document.getElementById('price-detail').innerHTML = lines.join('<br>');
+  document.getElementById('cap-text').textContent = CAP[S.size];
+  document.getElementById('prev-sz').textContent = SZ_LABEL[S.size];
+  document.getElementById('prev-cap').textContent = CAP[S.size];
+
+  const activeMods = Object.entries(S.mods).filter(([,v])=>v).map(([k])=>MOD_N[k]);
+  document.getElementById('prev-mods').textContent = activeMods.join(' · ');
+
+  drawHut();
+}
+
+// ── VIEW TOGGLE ──
+function setView(v) {
+  currentView = v;
+  document.querySelectorAll('.pmode').forEach((b,i) => b.classList.toggle('on', (i===0)===(v==='innen')));
+  document.getElementById('plan-label').textContent = v==='innen'
+    ? 'Innenansicht — Vogelperspektive (Dach geschnitten)'
+    : 'Aussenansicht — Vogelperspektive';
+  drawHut();
+}
+
+// ── FLOOR PLAN ──
+function drawHut() {
+  currentView === 'aussen' ? drawHutAussen() : drawHutInnen();
+}
+function drawHutInnen() {
+  const WT=10;
+  const RO=18;
+
+  // Floor plan footprint dims — scaled up ~1.4× for clarity
+  const SD={
+    s:{w:226, d:134, posts:2},
+    m:{w:312, d:178, posts:2},
+    l:{w:424, d:222, posts:3}
+  };
+
+  const MP={
+    kueche:   {side:'L', depth:96,  lenFrac:1.00},
+    lagerraum:{side:'L', depth:120, lenFrac:0.62},
+    bar:      {side:'R', depth:106, lenFrac:0.72},
+    wc:       {side:'R', depth:70,  lenFrac:0.50},
+    terrasse: {side:'F', depth:124, lenFrac:0.80}
+  };
+
+  const D=SD[S.size];
+  const SC=S.size==='s'?.82:S.size==='m'?1:1.36;
+
+  function mDepth(k){ return Math.round(MP[k].depth*SC); }
+  function mLenPx(k){ return MP[k].lenFrac===1 ? D.d : Math.round(MP[k].lenFrac*D.d); }
+
+  const lDep = (S.mods.kueche?mDepth('kueche'):0)+(S.mods.lagerraum?mDepth('lagerraum'):0);
+  const rDep = S.mods.bar ? mDepth('bar') : 0;
+  const fDep = S.mods.terrasse ? mDepth('terrasse') : 0;
+  const tDep = S.mods.wc ? mDepth('wc') : 0;
+  const wLen = S.mods.wc ? Math.round(.36*D.w) : 0;
+
+  const totalW=lDep+D.w+rDep;
+
+  // Center on a virtual 900×560 canvas; dynamic viewBox will zoom into content
+  const hutX=Math.round((900-totalW)/2)+lDep;
+  const hutY=Math.round((560-(D.d+fDep+tDep))/2)+tDep;
+
+  // ── DYNAMIC VIEWBOX — tight crop around content ──
+  const cL=hutX-lDep-RO, cR=hutX+D.w+rDep+RO;
+  const cT=hutY-tDep-RO, cB=hutY+D.d+fDep+RO;
+  const dimSpB=52, dimSpL=36, roofLblR=114, hdrT=24, legH=68;
+  const padH=20, padV=16;
+  const vbX=cL-dimSpL-padH;
+  const vbY=cT-hdrT-padV;
+  const vbW=(cR-cL)+dimSpL+roofLblR+padH*2;
+  const vbH=(cB-cT)+hdrT+Math.max(dimSpB,legH)+padV*2;
+
+  // Colors
+  const C_PAPER='#EDEACF', C_GRID='rgba(140,120,70,.1)';
+  const C_WALL='#7A5828',  C_WALLFILL='#A07840';
+  const C_FLOOR='#E0CFA0', C_MODFLOOR='#D4C290';
+  const C_GLASS='rgba(148,210,230,.82)';
+  const C_DECK_F='rgba(196,164,32,.22)', C_DECK_S='#9A7A20';
+  const C_TABLE='#6A4020', C_BENCH='#8A5830', C_FELT='#E8D8B4';
+
+  let g='';
+
+  // Paper + grid (fills dynamic viewBox)
+  g+=`<rect x="${vbX}" y="${vbY}" width="${vbW}" height="${vbH}" fill="${C_PAPER}"/>`;
+  for(let x=Math.ceil(vbX/20)*20;x<vbX+vbW;x+=20)
+    g+=`<line x1="${x}" y1="${vbY}" x2="${x}" y2="${vbY+vbH}" stroke="${C_GRID}" stroke-width=".5"/>`;
+  for(let y=Math.ceil(vbY/20)*20;y<vbY+vbH;y+=20)
+    g+=`<line x1="${vbX}" y1="${y}" x2="${vbX+vbW}" y2="${y}" stroke="${C_GRID}" stroke-width=".5"/>`;
+
+  // Header label
+  g+=`<text x="${vbX+10}" y="${vbY+16}" fill="#9A8040" font-family="DM Sans,sans-serif" font-size="8.5" font-weight="600" letter-spacing="2.5">GRUNDRISS 1:100 — SCHNITT 1.0M ÜBER BODEN</text>`;
+
+  // ── ROOF PROJECTION (dashed overhang outline) ──
+  const roofX=hutX-lDep-RO, roofY=hutY-RO;
+  const roofW=lDep+D.w+rDep+RO*2, roofH=D.d+RO*2;
+  g+=`<rect x="${roofX}" y="${roofY}" width="${roofW}" height="${roofH}" fill="rgba(160,130,60,.05)" stroke="#B09030" stroke-width="1.5" stroke-dasharray="7,3" rx="3"/>`;
+  g+=`<line x1="${hutX-lDep-RO}" y1="${hutY+D.d/2}" x2="${hutX+D.w+rDep+RO}" y2="${hutY+D.d/2}" stroke="#B09030" stroke-width="1.2" stroke-dasharray="10,4" opacity=".55"/>`;
+  g+=`<text x="${hutX+D.w+rDep+RO+4}" y="${hutY+D.d/2+4}" fill="#B09030" font-family="DM Sans,sans-serif" font-size="7" opacity=".7">Dach (geschnitten)</text>`;
+
+  // ── TERRASSE (front/bottom, before walls) ──
+  if(S.mods.terrasse){
+    const tLen=Math.round(MP.terrasse.lenFrac*D.w);
+    const tX=hutX+(D.w-tLen)/2, tY=hutY+D.d;
+    const tD=mDepth('terrasse');
+    g+=`<rect x="${tX}" y="${tY}" width="${tLen}" height="${tD}" fill="${C_DECK_F}" stroke="${C_DECK_S}" stroke-width="2"/>`;
+    const nPlanks=Math.floor(tLen/14);
+    for(let i=0;i<=nPlanks;i++) g+=`<line x1="${tX+tLen*i/nPlanks}" y1="${tY}" x2="${tX+tLen*i/nPlanks}" y2="${tY+tD}" stroke="${C_DECK_S}" stroke-width=".8" opacity=".45"/>`;
+    const posts=[0,.25,.5,.75,1];
+    posts.forEach(p=>{ const px=tX+tLen*p; g+=`<circle cx="${px}" cy="${tY+tD-5}" r="3.5" fill="${C_DECK_S}"/>`; });
+    g+=`<line x1="${tX}" y1="${tY+tD-5}" x2="${tX+tLen}" y2="${tY+tD-5}" stroke="${C_DECK_S}" stroke-width="2.2"/>`;
+    g+=`<line x1="${tX}" y1="${tY}" x2="${tX}" y2="${tY+tD}" stroke="${C_DECK_S}" stroke-width="2.2"/>`;
+    g+=`<line x1="${tX+tLen}" y1="${tY}" x2="${tX+tLen}" y2="${tY+tD}" stroke="${C_DECK_S}" stroke-width="2.2"/>`;
+    g+=`<rect x="${tX+8}" y="${tY+tD*.3}" width="${tLen-16}" height="9" fill="${C_DECK_S}" rx="2" opacity=".5"/>`;
+    g+=`<text x="${tX+tLen/2}" y="${tY+tD*.72}" text-anchor="middle" fill="${C_DECK_S}" font-family="DM Sans,sans-serif" font-size="9" font-weight="600" letter-spacing="2">TERRASSE</text>`;
+  }
+
+  // ── MODULE FLOORS ──
+  if(S.mods.kueche){
+    const kD=mDepth('kueche'), kL=mLenPx('kueche');
+    const kX=hutX-kD, kY=hutY;
+    g+=`<rect x="${kX}" y="${kY}" width="${kD}" height="${kL}" fill="${C_MODFLOOR}"/>`;
+    const cT=11;
+    g+=`<rect x="${kX+WT}" y="${kY+WT}" width="${cT}" height="${kL-WT*2}" fill="#9A7840" rx="1" opacity=".65"/>`;
+    g+=`<rect x="${kX+WT}" y="${kY+WT}" width="${kD-WT*2}" height="${cT}" fill="#9A7840" rx="1" opacity=".55"/>`;
+    [{x:.35,y:.12},{x:.65,y:.12},{x:.35,y:.22},{x:.65,y:.22}].forEach(b=>{
+      g+=`<circle cx="${kX+WT+cT/2+(kD-WT*2-cT)*b.x}" cy="${kY+WT+cT+(kL-WT*2-cT)*b.y}" r="5" fill="none" stroke="#6A3810" stroke-width="1.5" opacity=".5"/>`;
+    });
+  }
+  if(S.mods.lagerraum){
+    const lD=mDepth('lagerraum'), lL=mLenPx('lagerraum');
+    const kD=S.mods.kueche?mDepth('kueche'):0;
+    const lX=hutX-kD-lD, lY=hutY+(D.d-lL)/2;
+    g+=`<rect x="${lX}" y="${lY}" width="${lD}" height="${lL}" fill="#CEC090"/>`;
+    for(let i=1;i<5;i++) g+=`<line x1="${lX+WT}" y1="${lY+lL*i/5}" x2="${lX+lD-WT}" y2="${lY+lL*i/5}" stroke="#8A6830" stroke-width="1" opacity=".4"/>`;
+    g+=`<line x1="${lX+lD/2}" y1="${lY+WT}" x2="${lX+lD/2}" y2="${lY+lL-WT}" stroke="#8A6830" stroke-width="1" opacity=".3"/>`;
+  }
+  if(S.mods.bar){
+    const bD=mDepth('bar'), bL=mLenPx('bar');
+    const bX=hutX+D.w, bY=hutY+(D.d-bL)/2;
+    g+=`<rect x="${bX}" y="${bY}" width="${bD}" height="${bL}" fill="${C_MODFLOOR}"/>`;
+    const cT=11;
+    g+=`<rect x="${bX+WT}" y="${bY+WT}" width="${cT}" height="${bL-WT*2}" fill="#9A7840" rx="1" opacity=".7"/>`;
+    for(let i=0;i<3;i++) g+=`<circle cx="${bX+WT+cT/2}" cy="${bY+WT+bL*.18+i*(bL*.22)}" r="4" fill="#C8A040" stroke="#A07820" stroke-width=".8" opacity=".6"/>`;
+    for(let i=0;i<3;i++) g+=`<circle cx="${bX+bD-WT-5}" cy="${bY+WT+bL*.15+i*(bL*.22)}" r="5" fill="rgba(110,70,30,.35)" stroke="rgba(80,50,20,.4)" stroke-width="1"/>`;
+  }
+  if(S.mods.wc){
+    const wcFlX=hutX+(D.w-wLen)/2, wcFlY=hutY-tDep;
+    g+=`<rect x="${wcFlX}" y="${wcFlY}" width="${wLen}" height="${tDep}" fill="#D0C490"/>`;
+    // Toilet (top view): tank + bowl
+    const tSz=Math.min(wLen*.38,30), tX=wcFlX+WT+6, tY=wcFlY+WT+5;
+    g+=`<rect x="${tX}" y="${tY}" width="${tSz*.7}" height="${tSz*.38}" fill="#A89860" rx="3" opacity=".6"/>`;
+    g+=`<ellipse cx="${tX+tSz*.35}" cy="${tY+tSz*.38+tSz*.26}" rx="${tSz*.26}" ry="${tSz*.26}" fill="#B8A870" opacity=".45"/>`;
+    // Sink
+    const sX=wcFlX+wLen-WT-tSz*.82-4, sY=wcFlY+WT+5;
+    g+=`<rect x="${sX}" y="${sY}" width="${tSz*.82}" height="${tSz*.5}" fill="#A89860" rx="3" opacity=".5"/>`;
+    g+=`<circle cx="${sX+tSz*.41}" cy="${sY+tSz*.25}" r="${Math.max(2,tSz*.08)}" fill="#8A7850" opacity=".5"/>`;
+  }
+
+  // ── MAIN HUT — outer fill then inner floor ──
+  g+=`<rect x="${hutX}" y="${hutY}" width="${D.w}" height="${D.d}" fill="${C_WALLFILL}" stroke="${C_WALL}" stroke-width="1.5"/>`;
+  g+=`<rect x="${hutX+WT}" y="${hutY+WT}" width="${D.w-WT*2}" height="${D.d-WT*2}" fill="${C_FLOOR}"/>`;
+
+  // ── MODULE WALLS ──
+  if(S.mods.kueche){
+    const kD=mDepth('kueche'), kL=mLenPx('kueche');
+    const kX=hutX-kD, kY=hutY;
+    g+=`<rect x="${kX}" y="${kY}" width="${kD+WT}" height="${WT}" fill="${C_WALLFILL}" stroke="${C_WALL}" stroke-width="1"/>`;
+    g+=`<rect x="${kX}" y="${kY+kL-WT}" width="${kD+WT}" height="${WT}" fill="${C_WALLFILL}" stroke="${C_WALL}" stroke-width="1"/>`;
+    g+=`<rect x="${kX}" y="${kY}" width="${WT}" height="${kL}" fill="${C_WALLFILL}" stroke="${C_WALL}" stroke-width="1"/>`;
+    g+=`<text x="${kX+kD/2}" y="${kY+kL/2}" text-anchor="middle" dominant-baseline="middle" fill="#7A5818" font-family="DM Sans,sans-serif" font-size="8" font-weight="700" letter-spacing="1.8" transform="rotate(-90,${kX+kD/2},${kY+kL/2})" opacity=".7">KÜCHE</text>`;
+  }
+  if(S.mods.lagerraum){
+    const lD=mDepth('lagerraum'), lL=mLenPx('lagerraum');
+    const kD=S.mods.kueche?mDepth('kueche'):0;
+    const lX=hutX-kD-lD, lY=hutY+(D.d-lL)/2;
+    g+=`<rect x="${lX}" y="${lY}" width="${lD+WT}" height="${WT}" fill="${C_WALLFILL}" stroke="${C_WALL}" stroke-width="1"/>`;
+    g+=`<rect x="${lX}" y="${lY+lL-WT}" width="${lD+WT}" height="${WT}" fill="${C_WALLFILL}" stroke="${C_WALL}" stroke-width="1"/>`;
+    g+=`<rect x="${lX}" y="${lY}" width="${WT}" height="${lL}" fill="${C_WALLFILL}" stroke="${C_WALL}" stroke-width="1"/>`;
+    if(!S.mods.kueche){
+      g+=`<rect x="${hutX}" y="${hutY}" width="${WT}" height="${lY-hutY}" fill="${C_WALLFILL}" stroke="${C_WALL}" stroke-width="1"/>`;
+      g+=`<rect x="${hutX}" y="${lY+lL}" width="${WT}" height="${hutY+D.d-lY-lL}" fill="${C_WALLFILL}" stroke="${C_WALL}" stroke-width="1"/>`;
+    }
+    g+=`<text x="${lX+lD/2}" y="${lY+lL/2}" text-anchor="middle" dominant-baseline="middle" fill="#7A5818" font-family="DM Sans,sans-serif" font-size="8" font-weight="700" letter-spacing="1.8" transform="rotate(-90,${lX+lD/2},${lY+lL/2})" opacity=".7">LAGER</text>`;
+  }
+  if(S.mods.bar){
+    const bD=mDepth('bar'), bL=mLenPx('bar');
+    const bX=hutX+D.w, bY=hutY+(D.d-bL)/2;
+    g+=`<rect x="${bX-WT}" y="${bY}" width="${bD+WT}" height="${WT}" fill="${C_WALLFILL}" stroke="${C_WALL}" stroke-width="1"/>`;
+    g+=`<rect x="${bX-WT}" y="${bY+bL-WT}" width="${bD+WT}" height="${WT}" fill="${C_WALLFILL}" stroke="${C_WALL}" stroke-width="1"/>`;
+    g+=`<rect x="${bX+bD-WT}" y="${bY}" width="${WT}" height="${bL}" fill="${C_WALLFILL}" stroke="${C_WALL}" stroke-width="1"/>`;
+    g+=`<rect x="${bX-WT}" y="${hutY}" width="${WT}" height="${bY-hutY}" fill="${C_WALLFILL}" stroke="${C_WALL}" stroke-width="1"/>`;
+    g+=`<rect x="${bX-WT}" y="${bY+bL}" width="${WT}" height="${hutY+D.d-bY-bL}" fill="${C_WALLFILL}" stroke="${C_WALL}" stroke-width="1"/>`;
+    g+=`<text x="${bX+bD/2}" y="${bY+bL/2}" text-anchor="middle" dominant-baseline="middle" fill="#7A5818" font-family="DM Sans,sans-serif" font-size="9" font-weight="700" font-style="italic" transform="rotate(-90,${bX+bD/2},${bY+bL/2})" opacity=".8">Bar</text>`;
+  }
+  if(S.mods.wc){
+    const wcX=hutX+(D.w-wLen)/2, wcY=hutY-tDep;
+    // Left wall
+    g+=`<rect x="${wcX}" y="${wcY}" width="${WT}" height="${tDep+WT}" fill="${C_WALLFILL}" stroke="${C_WALL}" stroke-width="1"/>`;
+    // Right wall
+    g+=`<rect x="${wcX+wLen-WT}" y="${wcY}" width="${WT}" height="${tDep+WT}" fill="${C_WALLFILL}" stroke="${C_WALL}" stroke-width="1"/>`;
+    // Back wall (exterior top of WC) with small window
+    g+=`<rect x="${wcX}" y="${wcY}" width="${wLen}" height="${WT}" fill="${C_WALLFILL}" stroke="${C_WALL}" stroke-width="1"/>`;
+    const wcWinW=Math.round(wLen*.32);
+    g+=`<rect x="${wcX+wLen/2-wcWinW/2}" y="${wcY}" width="${wcWinW}" height="${WT}" fill="${C_GLASS}"/>`;
+    g+=`<line x1="${wcX+wLen/2}" y1="${wcY}" x2="${wcX+wLen/2}" y2="${wcY+WT}" stroke="rgba(70,130,150,.6)" stroke-width=".8"/>`;
+    // WC label
+    g+=`<text x="${wcX+wLen/2}" y="${wcY+tDep/2}" text-anchor="middle" dominant-baseline="middle" fill="#7A5818" font-family="DM Sans,sans-serif" font-size="8" font-weight="700" letter-spacing="1.5" opacity=".7">WC</text>`;
+  }
+
+  // ── MAIN WALLS ──
+  if(S.mods.wc){
+    // Back wall split by WC doorway
+    const wcWX=hutX+(D.w-wLen)/2;
+    g+=`<rect x="${hutX}" y="${hutY}" width="${wcWX-hutX}" height="${WT}" fill="${C_WALLFILL}" stroke="${C_WALL}" stroke-width="1.2"/>`;
+    g+=`<rect x="${wcWX+wLen}" y="${hutY}" width="${hutX+D.w-wcWX-wLen}" height="${WT}" fill="${C_WALLFILL}" stroke="${C_WALL}" stroke-width="1.2"/>`;
+    g+=`<rect x="${wcWX}" y="${hutY}" width="${wLen}" height="${WT}" fill="${C_FLOOR}"/>`;
+    // Windows on solid back-wall sections (left and right of WC opening)
+    const wW=18;
+    const lSec=wcWX-hutX, rSec=hutX+D.w-wcWX-wLen;
+    if(lSec>wW+10){ const lw=hutX+lSec/2-wW/2; g+=`<rect x="${lw}" y="${hutY}" width="${wW}" height="${WT}" fill="${C_GLASS}"/><line x1="${lw+wW/2}" y1="${hutY}" x2="${lw+wW/2}" y2="${hutY+WT}" stroke="rgba(70,130,150,.6)" stroke-width=".8"/>`; }
+    if(rSec>wW+10){ const rw=wcWX+wLen+rSec/2-wW/2; g+=`<rect x="${rw}" y="${hutY}" width="${wW}" height="${WT}" fill="${C_GLASS}"/><line x1="${rw+wW/2}" y1="${hutY}" x2="${rw+wW/2}" y2="${hutY+WT}" stroke="rgba(70,130,150,.6)" stroke-width=".8"/>`; }
+  } else {
+    g+=`<rect x="${hutX}" y="${hutY}" width="${D.w}" height="${WT}" fill="${C_WALLFILL}" stroke="${C_WALL}" stroke-width="1.2"/>`;
+    const nWinBack=D.w>240?3:2;
+    const wW=20, wSp=D.w/(nWinBack+1);
+    for(let i=1;i<=nWinBack;i++){
+      const wx=hutX+wSp*i-wW/2;
+      g+=`<rect x="${wx}" y="${hutY}" width="${wW}" height="${WT}" fill="${C_GLASS}"/>`;
+      g+=`<line x1="${wx+wW/2}" y1="${hutY}" x2="${wx+wW/2}" y2="${hutY+WT}" stroke="rgba(70,130,150,.6)" stroke-width=".8"/>`;
+    }
+  }
+
+  g+=`<rect x="${hutX}" y="${hutY+D.d-WT}" width="${D.w}" height="${WT}" fill="${C_WALLFILL}" stroke="${C_WALL}" stroke-width="1.2"/>`;
+  const dW=Math.max(22,Math.round(D.w*.14)), dX=hutX+D.w/2-dW/2;
+  g+=`<rect x="${dX}" y="${hutY+D.d-WT}" width="${dW}" height="${WT}" fill="${C_FLOOR}"/>`;
+  const dArcR=dW;
+  g+=`<path d="M${dX},${hutY+D.d-WT} A${dArcR},${dArcR} 0 0,0 ${dX},${hutY+D.d-WT-dArcR}" fill="rgba(170,140,80,.12)" stroke="#9A7828" stroke-width=".9" stroke-dasharray="3,2"/>`;
+  g+=`<line x1="${dX}" y1="${hutY+D.d-WT}" x2="${dX}" y2="${hutY+D.d-WT-dArcR}" stroke="#9A7828" stroke-width=".9"/>`;
+  const fwW=16;
+  [[hutX+WT+8, fwW],[hutX+D.w-WT-8-fwW, fwW]].forEach(([wx,ww])=>{
+    if(wx+ww < dX-3 || wx > dX+dW+3){
+      g+=`<rect x="${wx}" y="${hutY+D.d-WT}" width="${ww}" height="${WT}" fill="${C_GLASS}"/>`;
+    }
+  });
+
+  g+=`<rect x="${hutX}" y="${hutY}" width="${WT}" height="${D.d}" fill="${C_WALLFILL}" stroke="${C_WALL}" stroke-width="1.2"/>`;
+  if(S.mods.kueche || S.mods.lagerraum){
+    const aKey=S.mods.kueche?'kueche':'lagerraum';
+    const oL=mLenPx(aKey);
+    const oY=hutY+D.d/2-oL/2;
+    g+=`<rect x="${hutX}" y="${oY}" width="${WT}" height="${oL}" fill="${C_FLOOR}"/>`;
+    if(S.mods.kueche && S.mods.lagerraum){
+      const lL=mLenPx('lagerraum');
+      const lOY=hutY+D.d/2-lL/2;
+      const kD=mDepth('kueche');
+      g+=`<rect x="${hutX-kD}" y="${lOY}" width="${WT}" height="${lL}" fill="${C_MODFLOOR}"/>`;
+    }
+  }
+
+  g+=`<rect x="${hutX+D.w-WT}" y="${hutY}" width="${WT}" height="${D.d}" fill="${C_WALLFILL}" stroke="${C_WALL}" stroke-width="1.2"/>`;
+  if(S.mods.bar){
+    const bL=mLenPx('bar');
+    const oY=hutY+D.d/2-bL/2;
+    g+=`<rect x="${hutX+D.w-WT}" y="${oY}" width="${WT}" height="${bL}" fill="${C_FLOOR}"/>`;
+  }
+
+  // ── INTERIOR FEATURES ──
+  const postS=8, postSpX=D.w/(D.posts+1);
+  for(let i=1;i<=D.posts;i++){
+    const px=hutX+postSpX*i, py=hutY+D.d/2;
+    g+=`<rect x="${px-postS/2+2}" y="${py-postS/2+2}" width="${postS}" height="${postS}" fill="rgba(0,0,0,.18)" rx="1"/>`;
+    g+=`<rect x="${px-postS/2}" y="${py-postS/2}" width="${postS}" height="${postS}" fill="#4A2808" stroke="#2A1408" stroke-width="1.2" rx="1"/>`;
+  }
+
+  if(S.equip.tische){
+    const iX=hutX+WT+8, iY=hutY+WT+8;
+    const iW=D.w-WT*2-16, iH=D.d-WT*2-16;
+    const tH=22, bH=8, gap=5, rowH=tH+bH*2+gap*2;
+    const nCols=D.w>250?3:2;
+    const colW=iW/nCols, tW=colW-20;
+    const nRows=Math.max(1,Math.floor(iH/rowH));
+    const yOff=(iH-nRows*rowH)/2;
+    for(let row=0;row<nRows;row++){
+      for(let col=0;col<nCols;col++){
+        const tx=iX+col*colW+10, ty=iY+yOff+row*rowH+bH+gap;
+        const bFill=S.equip.felle?C_FELT:C_BENCH;
+        g+=`<rect x="${tx}" y="${ty-bH-gap}" width="${tW}" height="${bH}" fill="${bFill}" rx="1" opacity=".9"/>`;
+        if(S.equip.felle){
+          for(let f=0;f<3;f++) g+=`<line x1="${tx+tW*.15+f*tW*.25}" y1="${ty-bH-gap+2}" x2="${tx+tW*.2+f*tW*.25}" y2="${ty-gap-1}" stroke="rgba(200,180,140,.6)" stroke-width="1.5" stroke-linecap="round"/>`;
+        }
+        g+=`<rect x="${tx}" y="${ty}" width="${tW}" height="${tH}" fill="${C_TABLE}" rx="1" opacity=".8"/>`;
+        g+=`<line x1="${tx+tW/3}" y1="${ty+2}" x2="${tx+tW/3}" y2="${ty+tH-2}" stroke="rgba(255,220,180,.2)" stroke-width=".8"/>`;
+        g+=`<line x1="${tx+tW*2/3}" y1="${ty+2}" x2="${tx+tW*2/3}" y2="${ty+tH-2}" stroke="rgba(255,220,180,.2)" stroke-width=".8"/>`;
+        g+=`<rect x="${tx}" y="${ty+tH+gap}" width="${tW}" height="${bH}" fill="${bFill}" rx="1" opacity=".9"/>`;
+        for(let gi=0;gi<Math.min(3,Math.floor(tW/16));gi++) g+=`<circle cx="${tx+tW*.18+gi*(tW*.28)}" cy="${ty+tH/2}" r="3" fill="rgba(200,230,240,.75)" stroke="rgba(100,160,180,.5)" stroke-width=".7"/>`;
+        if(S.equip['deko-basis']||S.equip['deko-premium']){
+          g+=`<rect x="${tx+tW*.47}" y="${ty+tH*.25}" width="4" height="7" fill="#E8C840" rx="1" opacity=".85"/>`;
+          g+=`<ellipse cx="${tx+tW*.49}" cy="${ty+tH*.22}" rx="2.5" ry="3" fill="rgba(255,180,60,.6)"/>`;
+        }
+      }
+    }
+  }
+
+  if(S.equip.licht){
+    const lSpX=D.w/Math.max(3,Math.round(D.w/55));
+    const lSpY=D.d/Math.max(2,Math.round(D.d/55));
+    for(let xi=1;xi<Math.round(D.w/lSpX);xi++){
+      for(let yi=1;yi<Math.round(D.d/lSpY);yi++){
+        const lx=hutX+xi*lSpX, ly=hutY+yi*lSpY;
+        g+=`<circle cx="${lx}" cy="${ly}" r="5" fill="rgba(255,210,100,.3)" stroke="rgba(200,160,40,.35)" stroke-width=".8"/>`;
+        g+=`<circle cx="${lx}" cy="${ly}" r="2.5" fill="rgba(255,230,140,.7)"/>`;
+      }
+    }
+  }
+
+  if(S.equip['deko-premium']){
+    const antlerPositions=[.3,.5,.7];
+    antlerPositions.forEach(p=>{
+      const ax=hutX+D.w*p;
+      g+=`<text x="${ax}" y="${hutY+WT+14}" text-anchor="middle" font-size="14" opacity=".18">🦌</text>`;
+    });
+  }
+
+  if(S.equip.heizung){
+    const ovX=hutX+D.w-WT-28, ovY=hutY+WT+6, ovS=22;
+    g+=`<rect x="${ovX}" y="${ovY}" width="${ovS}" height="${ovS}" fill="#4A2010" stroke="#2A1008" stroke-width="1.5" rx="3"/>`;
+    g+=`<circle cx="${ovX+ovS/2}" cy="${ovY+ovS/2}" r="7" fill="none" stroke="#D04020" stroke-width="1.5" opacity=".7"/>`;
+    g+=`<circle cx="${ovX+ovS/2}" cy="${ovY+ovS/2}" r="3.5" fill="rgba(220,80,20,.55)"/>`;
+    g+=`<text x="${ovX+ovS/2}" y="${ovY+ovS+9}" text-anchor="middle" fill="#7A4018" font-family="DM Sans,sans-serif" font-size="6.5" font-weight="600" opacity=".75">OFEN</text>`;
+  }
+
+  if(S.equip.sound){
+    const spkW=7, spkH=14;
+    [[hutX+WT+10, hutY+D.d*.28],[hutX+D.w-WT-10-spkW, hutY+D.d*.28]].forEach(([sx,sy])=>{
+      g+=`<rect x="${sx}" y="${sy}" width="${spkW}" height="${spkH}" fill="#3A2010" stroke="#2A1408" stroke-width="1" rx="2" opacity=".8"/>`;
+      g+=`<ellipse cx="${sx+spkW/2}" cy="${sy+spkH*.55}" rx="${spkW*.38}" ry="${spkH*.28}" fill="#6A4020" opacity=".6"/>`;
+      g+=`<circle cx="${sx+spkW/2}" cy="${sy+spkH*.55}" r="1.8" fill="#C8A040" opacity=".7"/>`;
+    });
+  }
+
+  if(S.equip.geschirr){
+    const sbW=Math.round(D.w*.22), sbH=10, sbX=hutX+D.w/2-sbW/2, sbY=hutY+WT+4;
+    g+=`<rect x="${sbX}" y="${sbY}" width="${sbW}" height="${sbH}" fill="#7A5828" stroke="#5A3818" stroke-width="1" rx="1" opacity=".8"/>`;
+    const nDiv=Math.floor(sbW/14);
+    for(let d=1;d<nDiv;d++) g+=`<line x1="${sbX+sbW*d/nDiv}" y1="${sbY+1}" x2="${sbX+sbW*d/nDiv}" y2="${sbY+sbH-1}" stroke="#5A3818" stroke-width=".8" opacity=".5"/>`;
+    for(let d=0;d<nDiv;d++) g+=`<circle cx="${sbX+sbW*(d+0.5)/nDiv}" cy="${sbY-4}" r="3.5" fill="none" stroke="#9A7840" stroke-width="1" opacity=".65"/>`;
+    g+=`<text x="${sbX+sbW/2}" y="${sbY+sbH+9}" text-anchor="middle" fill="#7A5018" font-family="DM Sans,sans-serif" font-size="6.5" font-weight="600" opacity=".75">GESCHIRR</text>`;
+  }
+
+  // ── DIMENSION LINES ──
+  const dimY = hutY + D.d + fDep + 36;
+  g+=`<line x1="${hutX}" y1="${dimY}" x2="${hutX+D.w}" y2="${dimY}" stroke="#9A8040" stroke-width="1"/>`;
+  g+=`<line x1="${hutX}" y1="${dimY-6}" x2="${hutX}" y2="${dimY+6}" stroke="#9A8040" stroke-width="1.2"/>`;
+  g+=`<line x1="${hutX+D.w}" y1="${dimY-6}" x2="${hutX+D.w}" y2="${dimY+6}" stroke="#9A8040" stroke-width="1.2"/>`;
+  const mW={s:'~12m',m:'~17m',l:'~23m'}[S.size];
+  g+=`<text x="${hutX+D.w/2}" y="${dimY+16}" text-anchor="middle" fill="#9A8040" font-family="DM Sans,sans-serif" font-size="8">${mW} Länge</text>`;
+
+  const dimX = hutX - lDep - 22;
+  g+=`<line x1="${dimX}" y1="${hutY}" x2="${dimX}" y2="${hutY+D.d}" stroke="#9A8040" stroke-width="1"/>`;
+  g+=`<line x1="${dimX-6}" y1="${hutY}" x2="${dimX+6}" y2="${hutY}" stroke="#9A8040" stroke-width="1.2"/>`;
+  g+=`<line x1="${dimX-6}" y1="${hutY+D.d}" x2="${dimX+6}" y2="${hutY+D.d}" stroke="#9A8040" stroke-width="1.2"/>`;
+  const mD={s:'~7m',m:'~10m',l:'~12m'}[S.size];
+  g+=`<text x="${dimX-4}" y="${hutY+D.d/2+4}" text-anchor="end" fill="#9A8040" font-family="DM Sans,sans-serif" font-size="8">${mD}</text>`;
+
+  // ── NORTH ARROW (bottom-right of dynamic viewBox) ──
+  g+=`<g transform="translate(${vbX+vbW-32},${vbY+vbH-32})">
+    <circle cx="0" cy="0" r="20" fill="rgba(237,234,207,.85)" stroke="#9A8040" stroke-width="1.2"/>
+    <polygon points="0,-15 -4.5,2 4.5,2" fill="#3A2808"/>
+    <polygon points="0,15 -4.5,-2 4.5,-2" fill="#9A8040"/>
+    <text x="0" y="-5" text-anchor="middle" fill="#FDFCF8" font-family="DM Sans,sans-serif" font-size="7" font-weight="700">N</text>
+    <text x="0" y="12" text-anchor="middle" fill="#9A8040" font-family="DM Sans,sans-serif" font-size="6">S</text>
+  </g>`;
+
+  // ── LEGEND (bottom-left of dynamic viewBox) ──
+  const legX=vbX+10, legY=vbY+vbH-legH+10;
+  g+=`<text x="${legX}" y="${legY}" fill="#9A8040" font-family="DM Sans,sans-serif" font-size="7.5" font-weight="600" letter-spacing="1.5">LEGENDE</text>`;
+  [
+    ['#A07840','Wand (Strickbau)'],
+    [C_FLOOR,'Boden (Innenraum)'],
+    [C_GLASS,'Fenster / Verglasung'],
+  ].forEach(([col,lbl],i)=>{
+    g+=`<rect x="${legX}" y="${legY+8+i*14}" width="12" height="8" fill="${col}" stroke="${C_WALL}" stroke-width=".8" rx="1"/>`;
+    g+=`<text x="${legX+16}" y="${legY+16+i*14}" fill="#9A8040" font-family="DM Sans,sans-serif" font-size="7.5">${lbl}</text>`;
+  });
+
+  g+=`<text x="${hutX+D.w/2}" y="${hutY+D.d-WT-dArcR-6}" text-anchor="middle" fill="#9A8040" font-family="DM Sans,sans-serif" font-size="7" letter-spacing="1.8" opacity=".6">▼ EINGANG</text>`;
+
+  document.getElementById('svg-wrap').innerHTML=`<svg viewBox="${vbX} ${vbY} ${vbW} ${vbH}" xmlns="http://www.w3.org/2000/svg">${g}</svg>`;
+}
+
+// ── AUSSEN VIEW ──
+function drawHutAussen() {
+  const WT=10, RO=18;
+  const SD={s:{w:226,d:134,posts:2},m:{w:312,d:178,posts:2},l:{w:424,d:222,posts:3}};
+  const MP={
+    kueche:   {side:'L',depth:96,  lenFrac:1.00},
+    lagerraum:{side:'L',depth:120, lenFrac:0.62},
+    bar:      {side:'R',depth:106, lenFrac:0.72},
+    wc:       {side:'R',depth:70,  lenFrac:0.50},
+    terrasse: {side:'F',depth:124, lenFrac:0.80}
+  };
+  const D=SD[S.size];
+  const SC=S.size==='s'?.82:S.size==='m'?1:1.36;
+  function mDepth(k){ return Math.round(MP[k].depth*SC); }
+  function mLenPx(k){ return MP[k].lenFrac===1?D.d:Math.round(MP[k].lenFrac*D.d); }
+
+  const lDep=(S.mods.kueche?mDepth('kueche'):0)+(S.mods.lagerraum?mDepth('lagerraum'):0);
+  const rDep=S.mods.bar?mDepth('bar'):0;
+  const fDep=S.mods.terrasse?mDepth('terrasse'):0;
+  const tDep=S.mods.wc?mDepth('wc'):0;
+  const wLen=S.mods.wc?Math.round(.36*D.w):0;
+  const hutX=Math.round((900-(lDep+D.w+rDep))/2)+lDep;
+  const hutY=Math.round((560-(D.d+fDep+tDep))/2)+tDep;
+
+  const cL=hutX-lDep-RO, cR=hutX+D.w+rDep+RO;
+  const cT=hutY-tDep-RO, cB=hutY+D.d+fDep+RO;
+  const dimSpB=90, dimSpL=36, roofLblR=80, hdrT=24, legH=48;
+  const padH=20, padV=16;
+  const vbX=cL-dimSpL-padH;
+  const vbY=cT-hdrT-padV;
+  const vbW=(cR-cL)+dimSpL+roofLblR+padH*2;
+  const vbH=(cB-cT)+hdrT+Math.max(dimSpB,legH)+padV*2;
+
+  const C_PAPER='#EDEACF', C_GRID='rgba(140,120,70,.1)';
+  const C_ROOF='#7A4820', C_RIDGE='#2A1408', C_GRAIN='rgba(255,220,160,.09)';
+  const C_DECK_F='rgba(196,164,32,.22)', C_DECK_S='#9A7A20';
+  let g='';
+
+  // Paper + grid
+  g+=`<rect x="${vbX}" y="${vbY}" width="${vbW}" height="${vbH}" fill="${C_PAPER}"/>`;
+  for(let x=Math.ceil(vbX/20)*20;x<vbX+vbW;x+=20)
+    g+=`<line x1="${x}" y1="${vbY}" x2="${x}" y2="${vbY+vbH}" stroke="${C_GRID}" stroke-width=".5"/>`;
+  for(let y=Math.ceil(vbY/20)*20;y<vbY+vbH;y+=20)
+    g+=`<line x1="${vbX}" y1="${y}" x2="${vbX+vbW}" y2="${y}" stroke="${C_GRID}" stroke-width=".5"/>`;
+  g+=`<text x="${vbX+10}" y="${vbY+16}" fill="#9A8040" font-family="DM Sans,sans-serif" font-size="8.5" font-weight="600" letter-spacing="2.5">AUSSENANSICHT 1:100 — VOGELPERSPEKTIVE</text>`;
+
+  // Roof eave shadow outline
+  g+=`<rect x="${hutX-lDep-RO}" y="${hutY-RO}" width="${lDep+D.w+rDep+RO*2}" height="${D.d+RO*2}" fill="rgba(30,16,4,.07)" stroke="${C_RIDGE}" stroke-width="2.5" rx="2"/>`;
+
+  // Terrasse
+  if(S.mods.terrasse){
+    const tLen=Math.round(MP.terrasse.lenFrac*D.w);
+    const tX=hutX+(D.w-tLen)/2, tY=hutY+D.d, tDp=mDepth('terrasse');
+    g+=`<rect x="${tX}" y="${tY}" width="${tLen}" height="${tDp}" fill="${C_DECK_F}" stroke="${C_DECK_S}" stroke-width="2"/>`;
+    const nPlanks=Math.floor(tLen/14);
+    for(let i=0;i<=nPlanks;i++) g+=`<line x1="${tX+tLen*i/nPlanks}" y1="${tY}" x2="${tX+tLen*i/nPlanks}" y2="${tY+tDp}" stroke="${C_DECK_S}" stroke-width=".8" opacity=".45"/>`;
+    [0,.25,.5,.75,1].forEach(p=>{ g+=`<circle cx="${tX+tLen*p}" cy="${tY+tDp-5}" r="3.5" fill="${C_DECK_S}"/>`; });
+    g+=`<line x1="${tX}" y1="${tY+tDp-5}" x2="${tX+tLen}" y2="${tY+tDp-5}" stroke="${C_DECK_S}" stroke-width="2.2"/>`;
+    g+=`<line x1="${tX}" y1="${tY}" x2="${tX}" y2="${tY+tDp}" stroke="${C_DECK_S}" stroke-width="2.2"/>`;
+    g+=`<line x1="${tX+tLen}" y1="${tY}" x2="${tX+tLen}" y2="${tY+tDp}" stroke="${C_DECK_S}" stroke-width="2.2"/>`;
+    g+=`<text x="${tX+tLen/2}" y="${tY+tDp*.58}" text-anchor="middle" fill="${C_DECK_S}" font-family="DM Sans,sans-serif" font-size="9" font-weight="600" letter-spacing="2" opacity=".8">TERRASSE</text>`;
+  }
+
+  // Left-side module roofs
+  if(S.mods.kueche||S.mods.lagerraum){
+    const kD=S.mods.kueche?mDepth('kueche'):0;
+    const lD=S.mods.lagerraum?mDepth('lagerraum'):0;
+    const tLD=kD+lD;
+    g+=`<rect x="${hutX-tLD}" y="${hutY}" width="${tLD}" height="${D.d}" fill="${C_ROOF}"/>`;
+    const ridX=hutX-tLD/2;
+    g+=`<line x1="${ridX}" y1="${hutY}" x2="${ridX}" y2="${hutY+D.d}" stroke="${C_RIDGE}" stroke-width="2.5"/>`;
+    const nG=Math.ceil(D.d/14);
+    for(let i=0;i<=nG;i++){
+      const gy=hutY+D.d*i/nG;
+      g+=`<line x1="${hutX-tLD}" y1="${gy}" x2="${ridX}" y2="${gy}" stroke="${C_GRAIN}" stroke-width=".8"/>`;
+      g+=`<line x1="${ridX}" y1="${gy}" x2="${hutX}" y2="${gy}" stroke="${C_GRAIN}" stroke-width=".8"/>`;
+    }
+    g+=`<rect x="${hutX-tLD}" y="${hutY}" width="${tLD}" height="${D.d}" fill="none" stroke="rgba(20,8,0,.35)" stroke-width="5"/>`;
+    g+=`<rect x="${hutX-tLD}" y="${hutY}" width="${tLD}" height="${D.d}" fill="none" stroke="${C_RIDGE}" stroke-width="1.2"/>`;
+    if(S.mods.kueche) g+=`<text x="${hutX-lD-kD/2}" y="${hutY+D.d/2}" text-anchor="middle" dominant-baseline="middle" fill="rgba(255,240,200,.26)" font-family="DM Sans,sans-serif" font-size="7.5" font-weight="700" letter-spacing="1.5" transform="rotate(-90,${hutX-lD-kD/2},${hutY+D.d/2})">KÜCHE</text>`;
+    if(S.mods.lagerraum) g+=`<text x="${hutX-lD/2}" y="${hutY+D.d/2}" text-anchor="middle" dominant-baseline="middle" fill="rgba(255,240,200,.26)" font-family="DM Sans,sans-serif" font-size="7" font-weight="700" letter-spacing="1.5" transform="rotate(-90,${hutX-lD/2},${hutY+D.d/2})">LAGER</text>`;
+  }
+
+  // Right-side module roof (bar only)
+  if(S.mods.bar){
+    const bD=mDepth('bar');
+    g+=`<rect x="${hutX+D.w}" y="${hutY}" width="${bD}" height="${D.d}" fill="${C_ROOF}"/>`;
+    const ridX=hutX+D.w+bD/2;
+    g+=`<line x1="${ridX}" y1="${hutY}" x2="${ridX}" y2="${hutY+D.d}" stroke="${C_RIDGE}" stroke-width="2.5"/>`;
+    const nG=Math.ceil(D.d/14);
+    for(let i=0;i<=nG;i++){
+      const gy=hutY+D.d*i/nG;
+      g+=`<line x1="${hutX+D.w}" y1="${gy}" x2="${ridX}" y2="${gy}" stroke="${C_GRAIN}" stroke-width=".8"/>`;
+      g+=`<line x1="${ridX}" y1="${gy}" x2="${hutX+D.w+bD}" y2="${gy}" stroke="${C_GRAIN}" stroke-width=".8"/>`;
+    }
+    g+=`<rect x="${hutX+D.w}" y="${hutY}" width="${bD}" height="${D.d}" fill="none" stroke="rgba(20,8,0,.35)" stroke-width="5"/>`;
+    g+=`<rect x="${hutX+D.w}" y="${hutY}" width="${bD}" height="${D.d}" fill="none" stroke="${C_RIDGE}" stroke-width="1.2"/>`;
+    g+=`<text x="${hutX+D.w+bD/2}" y="${hutY+D.d/2}" text-anchor="middle" dominant-baseline="middle" fill="rgba(255,240,200,.26)" font-family="DM Sans,sans-serif" font-size="8" font-weight="700" font-style="italic" transform="rotate(-90,${hutX+D.w+bD/2},${hutY+D.d/2})">Bar</text>`;
+  }
+
+  // WC roof on back (top) wall — independently accessible
+  if(S.mods.wc){
+    const wcX=hutX+(D.w-wLen)/2, wcY=hutY-tDep;
+    g+=`<rect x="${wcX}" y="${wcY}" width="${wLen}" height="${tDep}" fill="${C_ROOF}"/>`;
+    const wcRidgeY=wcY+tDep/2;
+    g+=`<line x1="${wcX}" y1="${wcRidgeY}" x2="${wcX+wLen}" y2="${wcRidgeY}" stroke="${C_RIDGE}" stroke-width="2.2"/>`;
+    const nG=Math.ceil(wLen/14);
+    for(let i=0;i<=nG;i++){
+      const rx=wcX+wLen*i/nG;
+      g+=`<line x1="${rx}" y1="${wcY}" x2="${rx}" y2="${wcRidgeY}" stroke="${C_GRAIN}" stroke-width=".8"/>`;
+      g+=`<line x1="${rx}" y1="${wcRidgeY}" x2="${rx}" y2="${wcY+tDep}" stroke="${C_GRAIN}" stroke-width=".8"/>`;
+    }
+    g+=`<rect x="${wcX}" y="${wcY}" width="${wLen}" height="${tDep}" fill="none" stroke="rgba(20,8,0,.35)" stroke-width="5"/>`;
+    g+=`<rect x="${wcX}" y="${wcY}" width="${wLen}" height="${tDep}" fill="none" stroke="${C_RIDGE}" stroke-width="1.2"/>`;
+    g+=`<text x="${wcX+wLen/2}" y="${wcY+tDep/2}" text-anchor="middle" dominant-baseline="middle" fill="rgba(255,240,200,.3)" font-family="DM Sans,sans-serif" font-size="8" font-weight="700" letter-spacing="1.5" opacity=".9">WC</text>`;
+  }
+
+  // Main hut roof
+  g+=`<rect x="${hutX}" y="${hutY}" width="${D.w}" height="${D.d}" fill="${C_ROOF}"/>`;
+  const ridgeY=hutY+D.d/2;
+  g+=`<line x1="${hutX}" y1="${ridgeY}" x2="${hutX+D.w}" y2="${ridgeY}" stroke="${C_RIDGE}" stroke-width="3.5"/>`;
+  const nGr=Math.ceil(D.w/16);
+  for(let i=0;i<=nGr;i++){
+    const rx=hutX+D.w*i/nGr;
+    g+=`<line x1="${rx}" y1="${hutY}" x2="${rx}" y2="${ridgeY}" stroke="${C_GRAIN}" stroke-width=".8"/>`;
+    g+=`<line x1="${rx}" y1="${ridgeY}" x2="${rx}" y2="${hutY+D.d}" stroke="${C_GRAIN}" stroke-width=".8"/>`;
+  }
+  g+=`<rect x="${hutX}" y="${hutY}" width="${D.w}" height="${D.d}" fill="none" stroke="rgba(10,4,0,.38)" stroke-width="8"/>`;
+  g+=`<rect x="${hutX}" y="${hutY}" width="${D.w}" height="${D.d}" fill="none" stroke="${C_RIDGE}" stroke-width="1.8"/>`;
+  g+=`<text x="${hutX+D.w+RO+5}" y="${ridgeY+4}" fill="${C_RIDGE}" font-family="DM Sans,sans-serif" font-size="7" opacity=".55">First</text>`;
+
+  // Chimney (if pelletofen)
+  if(S.equip.heizung){
+    const chX=hutX+D.w*.7, chY=ridgeY-6, chW=12, chH=12;
+    g+=`<rect x="${chX}" y="${chY}" width="${chW}" height="${chH}" fill="#1A0804" stroke="#0A0402" stroke-width="1.2" rx="1"/>`;
+    g+=`<rect x="${chX+2}" y="${chY+2}" width="${chW-4}" height="${chH-4}" fill="#2A1008" rx="1"/>`;
+    for(let s=0;s<3;s++){
+      const smX=chX+chW/2+(s-1)*3;
+      g+=`<path d="M${smX},${chY-3} Q${smX+(s-1)*4},${chY-10} ${smX+(s-1)*2},${chY-17}" fill="none" stroke="rgba(200,190,180,.4)" stroke-width="${1.8-s*.4}" stroke-linecap="round"/>`;
+    }
+    g+=`<text x="${chX+chW/2}" y="${chY+chH+9}" text-anchor="middle" fill="#7A4018" font-family="DM Sans,sans-serif" font-size="6.5" opacity=".7">KAMIN</text>`;
+  }
+
+  // Entrance arrow
+  g+=`<text x="${hutX+D.w/2}" y="${hutY+D.d+RO*.4}" text-anchor="middle" fill="#9A8040" font-family="DM Sans,sans-serif" font-size="7" letter-spacing="1.8" opacity=".6">▼ EINGANG</text>`;
+
+  // ── LICHTERKETTEN ──
+  if(S.aussen.lichterketten){
+    const lkX1=hutX-lDep-RO*.5, lkX2=hutX+D.w+rDep+RO*.5;
+    const lkY1=hutY-RO*.5, lkY2=hutY+D.d+(S.mods.terrasse?mDepth('terrasse'):RO*.5);
+    g+=`<line x1="${lkX1}" y1="${lkY1}" x2="${lkX2}" y2="${lkY1}" stroke="rgba(200,160,20,.25)" stroke-width=".8"/>`;
+    g+=`<line x1="${lkX1}" y1="${lkY2}" x2="${lkX2}" y2="${lkY2}" stroke="rgba(200,160,20,.25)" stroke-width=".8"/>`;
+    for(let x=lkX1;x<=lkX2;x+=10){
+      g+=`<circle cx="${x}" cy="${lkY1}" r="2.8" fill="rgba(255,220,80,.9)" stroke="rgba(200,160,20,.4)" stroke-width=".5"/>`;
+      g+=`<circle cx="${x}" cy="${lkY2}" r="2.8" fill="rgba(255,220,80,.9)" stroke="rgba(200,160,20,.4)" stroke-width=".5"/>`;
+    }
+    g+=`<text x="${hutX+D.w/2}" y="${lkY1-6}" text-anchor="middle" fill="#B09020" font-family="DM Sans,sans-serif" font-size="7" letter-spacing="1.2" opacity=".75">✦ LICHTERKETTEN</text>`;
+  }
+
+  // ── STEHTISCHE ──
+  if(S.aussen.stehtische){
+    const baseY=hutY+D.d+fDep+26;
+    [hutX+D.w*.22, hutX+D.w*.5, hutX+D.w*.78].forEach(px=>{
+      g+=`<circle cx="${px}" cy="${baseY}" r="7" fill="#8A5828" stroke="#5A3010" stroke-width="1.2"/>`;
+      g+=`<line x1="${px-5}" y1="${baseY}" x2="${px+5}" y2="${baseY}" stroke="rgba(200,150,80,.4)" stroke-width=".8"/>`;
+      g+=`<line x1="${px}" y1="${baseY-5}" x2="${px}" y2="${baseY+5}" stroke="rgba(200,150,80,.4)" stroke-width=".8"/>`;
+      [0,Math.PI/2,Math.PI,Math.PI*3/2].forEach(a=>{
+        g+=`<circle cx="${px+Math.cos(a)*12}" cy="${baseY+Math.sin(a)*12}" r="3" fill="#6A3818" stroke="#4A2008" stroke-width=".8"/>`;
+      });
+    });
+    g+=`<text x="${hutX+D.w/2}" y="${baseY+24}" text-anchor="middle" fill="#7A5018" font-family="DM Sans,sans-serif" font-size="7.5" font-weight="600" letter-spacing="1.5" opacity=".8">STEHTISCHE</text>`;
+  }
+
+  // ── FEUERSTELLE ──
+  if(S.aussen.feuerstelle){
+    const fX=hutX+D.w+rDep+38, fY=hutY+D.d*.42, outerR=14;
+    g+=`<circle cx="${fX}" cy="${fY}" r="${outerR+6}" fill="rgba(220,100,20,.1)"/>`;
+    for(let a=0;a<12;a++){
+      const ang=a/12*Math.PI*2;
+      g+=`<circle cx="${fX+Math.cos(ang)*outerR}" cy="${fY+Math.sin(ang)*outerR}" r="3" fill="#7A5828" stroke="#4A2808" stroke-width=".8"/>`;
+    }
+    g+=`<circle cx="${fX}" cy="${fY}" r="9" fill="rgba(100,50,10,.4)"/>`;
+    g+=`<ellipse cx="${fX}" cy="${fY}" rx="5" ry="8" fill="rgba(230,90,20,.72)"/>`;
+    g+=`<ellipse cx="${fX-3}" cy="${fY+1}" rx="3" ry="5.5" fill="rgba(250,150,20,.58)"/>`;
+    g+=`<ellipse cx="${fX+3}" cy="${fY+1}" rx="3" ry="5.5" fill="rgba(250,150,20,.58)"/>`;
+    g+=`<ellipse cx="${fX}" cy="${fY-1}" rx="2.5" ry="4" fill="rgba(255,210,60,.5)"/>`;
+    g+=`<text x="${fX}" y="${fY+outerR+11}" text-anchor="middle" fill="#8A4018" font-family="DM Sans,sans-serif" font-size="7.5" font-weight="600" letter-spacing="1.2" opacity=".8">FEUERSTELLE</text>`;
+  }
+
+  // ── TERRASSENHEIZER ──
+  if(S.aussen.terrassenheizer){
+    let hPos;
+    if(S.mods.terrasse){
+      const tLen=Math.round(MP.terrasse.lenFrac*D.w);
+      const tX=hutX+(D.w-tLen)/2, tY=hutY+D.d, tDp=mDepth('terrasse');
+      hPos=[{x:tX+14,y:tY+tDp/2},{x:tX+tLen-14,y:tY+tDp/2}];
+    } else {
+      hPos=[{x:hutX+D.w/2-30,y:hutY+D.d+18},{x:hutX+D.w/2+30,y:hutY+D.d+18}];
+    }
+    hPos.forEach(({x:hx,y:hy})=>{
+      const hw=5, hh=22;
+      g+=`<rect x="${hx-hw/2}" y="${hy-hh/2}" width="${hw}" height="${hh}" fill="#1A0804" stroke="#0A0402" stroke-width="1" rx="2"/>`;
+      g+=`<circle cx="${hx}" cy="${hy-hh/2-5}" r="5.5" fill="rgba(200,70,20,.3)" stroke="rgba(220,100,30,.5)" stroke-width="1"/>`;
+      for(let w=0;w<3;w++){
+        g+=`<path d="M${hx+(w-1)*3},${hy-hh/2-11} Q${hx+(w-1)*4},${hy-hh/2-17} ${hx+(w-1)*2},${hy-hh/2-22}" fill="none" stroke="rgba(220,100,30,.25)" stroke-width=".8" stroke-linecap="round"/>`;
+      }
+    });
+    const tLblY=S.mods.terrasse?hutY+D.d+mDepth('terrasse')+16:hutY+D.d+38;
+    g+=`<text x="${hutX+D.w/2}" y="${tLblY}" text-anchor="middle" fill="#8A4018" font-family="DM Sans,sans-serif" font-size="7" opacity=".75" letter-spacing="1">TERRASSENHEIZER</text>`;
+  }
+
+  // Dimension lines
+  const dimY=hutY+D.d+fDep+58;
+  g+=`<line x1="${hutX}" y1="${dimY}" x2="${hutX+D.w}" y2="${dimY}" stroke="#9A8040" stroke-width="1"/>`;
+  g+=`<line x1="${hutX}" y1="${dimY-6}" x2="${hutX}" y2="${dimY+6}" stroke="#9A8040" stroke-width="1.2"/>`;
+  g+=`<line x1="${hutX+D.w}" y1="${dimY-6}" x2="${hutX+D.w}" y2="${dimY+6}" stroke="#9A8040" stroke-width="1.2"/>`;
+  g+=`<text x="${hutX+D.w/2}" y="${dimY+14}" text-anchor="middle" fill="#9A8040" font-family="DM Sans,sans-serif" font-size="8">${{s:'~12m',m:'~17m',l:'~23m'}[S.size]} Länge</text>`;
+  const dimX=hutX-lDep-22;
+  g+=`<line x1="${dimX}" y1="${hutY}" x2="${dimX}" y2="${hutY+D.d}" stroke="#9A8040" stroke-width="1"/>`;
+  g+=`<line x1="${dimX-6}" y1="${hutY}" x2="${dimX+6}" y2="${hutY}" stroke="#9A8040" stroke-width="1.2"/>`;
+  g+=`<line x1="${dimX-6}" y1="${hutY+D.d}" x2="${dimX+6}" y2="${hutY+D.d}" stroke="#9A8040" stroke-width="1.2"/>`;
+  g+=`<text x="${dimX-4}" y="${hutY+D.d/2+4}" text-anchor="end" fill="#9A8040" font-family="DM Sans,sans-serif" font-size="8">${{s:'~7m',m:'~10m',l:'~12m'}[S.size]}</text>`;
+
+  // North arrow
+  g+=`<g transform="translate(${vbX+vbW-32},${vbY+vbH-32})">
+    <circle cx="0" cy="0" r="20" fill="rgba(237,234,207,.85)" stroke="#9A8040" stroke-width="1.2"/>
+    <polygon points="0,-15 -4.5,2 4.5,2" fill="#3A2808"/>
+    <polygon points="0,15 -4.5,-2 4.5,-2" fill="#9A8040"/>
+    <text x="0" y="-5" text-anchor="middle" fill="#FDFCF8" font-family="DM Sans,sans-serif" font-size="7" font-weight="700">N</text>
+    <text x="0" y="12" text-anchor="middle" fill="#9A8040" font-family="DM Sans,sans-serif" font-size="6">S</text>
+  </g>`;
+
+  // Legend
+  const legX=vbX+10, legY=vbY+vbH-legH+10;
+  g+=`<text x="${legX}" y="${legY}" fill="#9A8040" font-family="DM Sans,sans-serif" font-size="7.5" font-weight="600" letter-spacing="1.5">LEGENDE</text>`;
+  [['#7A4820','Dach (Holzschindeln)'],['#9A7A20','Terrasse / Holzdeck']].forEach(([col,lbl],i)=>{
+    g+=`<rect x="${legX}" y="${legY+8+i*14}" width="12" height="8" fill="${col}" stroke="${C_RIDGE}" stroke-width=".8" rx="1"/>`;
+    g+=`<text x="${legX+16}" y="${legY+16+i*14}" fill="#9A8040" font-family="DM Sans,sans-serif" font-size="7.5">${lbl}</text>`;
+  });
+
+  document.getElementById('svg-wrap').innerHTML=`<svg viewBox="${vbX} ${vbY} ${vbW} ${vbH}" xmlns="http://www.w3.org/2000/svg">${g}</svg>`;
+}
+
+function toggleAussen(k) {
+  S.aussen[k] = !S.aussen[k];
+  document.querySelector(`.eq-item[data-eq="${k}"]`).classList.toggle('on', S.aussen[k]);
+  document.querySelector(`.eq-item[data-eq="${k}"] .mod-chk`).classList.toggle('on', S.aussen[k]);
+  update();
+}
+
+// ── PACKAGES ──
+function applyPackage(pkg) {
+  Object.keys(S.mods).forEach(k=>S.mods[k]=false);
+  Object.keys(S.equip).forEach(k=>S.equip[k]=false);
+  Object.keys(S.aussen).forEach(k=>S.aussen[k]=false);
+
+  if(pkg==='fondue') {
+    setSize('s');
+    S.equip.tische=true; S.equip.felle=true; S.equip['deko-basis']=true; S.equip.heizung=true; S.equip.geschirr=true;
+  } else if(pkg==='event') {
+    setSize('m');
+    S.mods.bar=true; S.mods.wc=true;
+    S.equip.tische=true; S.equip.felle=true; S.equip['deko-premium']=true; S.equip.sound=true; S.equip.licht=true; S.equip.heizung=true; S.equip.geschirr=true;
+  } else if(pkg==='markt') {
+    setSize('l');
+    S.mods.kueche=true; S.mods.bar=true; S.mods.terrasse=true; S.mods.wc=true; S.mods.lagerraum=true;
+    S.equip['deko-premium']=true; S.equip.sound=true; S.equip.licht=true;
+  }
+
+  document.querySelectorAll('.mod-row').forEach(r=>r.classList.toggle('on',S.mods[r.dataset.mod]));
+  document.querySelectorAll('.eq-item').forEach(r=>{
+    const on=S.equip[r.dataset.eq];
+    r.classList.toggle('on',on);
+    r.querySelector('.mod-chk').classList.toggle('on',on);
+  });
+
+  update();
+  document.getElementById('konfigurator').scrollIntoView({behavior:'smooth'});
+}
+
+// ── CONTACT ──
+function goKontakt(){ document.getElementById('kontakt').scrollIntoView({behavior:'smooth'}); }
+
+function handleSubmit(e){
+  e.preventDefault();
+  const mf=document.getElementById('msg-field');
+  if(!mf.value.trim()){
+    const SZL={s:'Klein (bis 40 Pers.)',m:'Mittel (bis 80 Pers.)',l:'Gross (bis 120 Pers.)'};
+    const MN={kueche:'Küchenanbau',bar:'Bar',wc:'WC',terrasse:'Terrasse',lagerraum:'Lagerraum'};
+    const EN={tische:'Tische & Bänke',felle:'Felle & Kissen','deko-basis':'Deko Basis','deko-premium':'Deko Premium',sound:'Sound',licht:'Licht',heizung:'Pelletofen',geschirr:'Geschirr'};
+    const mods=Object.entries(S.mods).filter(([,v])=>v).map(([k])=>MN[k]);
+    const equip=Object.entries(S.equip).filter(([,v])=>v).map(([k])=>EN[k]);
+    mf.value=`Hütte: ${SZL[S.size]}${mods.length?'\nModule: '+mods.join(', '):''}${equip.length?'\nAusstattung: '+equip.join(', '):''}`;
+  }
+  const btn=e.target.querySelector('.form-send');
+  btn.textContent='✓ Gesendet — wir melden uns innerhalb 24h!';
+  btn.style.background='var(--green)';
+  btn.style.color='var(--gold)';
+  btn.disabled=true;
+}
+
+// ── INIT ──
+update();
+</script>
+</body>
+</html>

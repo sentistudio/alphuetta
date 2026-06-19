@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alphuetta — Alpine Blockhütten</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background: #F5F0E8;
+    color: #1A1612;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -.5px;
+    margin-bottom: 6px;
+  }
+  .logo span { color: #C8982A; }
+  .tagline {
+    font-size: 13px;
+    color: #8A7A60;
+    letter-spacing: .06em;
+    margin-bottom: 48px;
+    text-align: center;
+  }
+  .cards {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 600px;
+  }
+  .card {
+    background: white;
+    border: 1.5px solid #E0D8C8;
+    border-radius: 12px;
+    padding: 28px 32px;
+    text-decoration: none;
+    color: inherit;
+    width: 260px;
+    transition: border-color .15s, box-shadow .15s, transform .15s;
+  }
+  .card:hover {
+    border-color: #C8982A;
+    box-shadow: 0 6px 24px rgba(200,152,42,.15);
+    transform: translateY(-2px);
+  }
+  .card-icon { font-size: 28px; margin-bottom: 12px; }
+  .card-title { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: #2A4028; margin-bottom: 6px; }
+  .card-desc { font-size: 12px; color: #8A7A60; line-height: 1.6; }
+  .card-cta {
+    display: inline-block;
+    margin-top: 14px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #C8982A;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+  .footer {
+    margin-top: 48px;
+    font-size: 11px;
+    color: #8A7A60;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+  <div class="logo"><span>Alph</span>uetta</div>
+  <div class="tagline">Alpine Blockhütten · Mieten &amp; Kaufen · Schweiz</div>
+
+  <div class="cards">
+    <a href="prototype.html" class="card">
+      <div class="card-icon">🏔</div>
+      <div class="card-title">Konfigurator</div>
+      <div class="card-desc">Interaktiver Prototyp — Hütte konfigurieren, Module wählen, Preis berechnen.</div>
+      <div class="card-cta">Prototype öffnen →</div>
+    </a>
+    <a href="scope.html" class="card">
+      <div class="card-icon">📋</div>
+      <div class="card-title">Projektofferte</div>
+      <div class="card-desc">Umfang, Module und Preise für die Produktionsumsetzung inkl. Revenue Share Option.</div>
+      <div class="card-cta">Offerte öffnen →</div>
+    </a>
+  </div>
+
+  <div class="footer">Internes Dokument · Vertraulich · senti.studio</div>
+</body>
+</html>

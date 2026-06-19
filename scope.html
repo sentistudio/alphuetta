@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alphuetta — Projektumfang & Offerte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold:    #C8982A;
+    --forest:  #2A4028;
+    --cream:   #F5F0E8;
+    --brown:   #6B4226;
+    --stone:   #8A7A60;
+    --ink:     #1A1612;
+    --border:  #E0D8C8;
+  }
+
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 13px;
+    color: var(--ink);
+    background: #fff;
+    line-height: 1.55;
+  }
+
+  /* ── PAGE WRAPPER ── */
+  .page { max-width: 860px; margin: 0 auto; padding: 60px 56px; }
+
+  /* ── HEADER ── */
+  .doc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 28px;
+    border-bottom: 2px solid var(--gold);
+    margin-bottom: 40px;
+  }
+  .logo { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; letter-spacing: -.5px; }
+  .logo span { color: var(--gold); }
+  .doc-meta { text-align: right; }
+  .doc-meta .doc-title { font-size: 18px; font-weight: 700; color: var(--forest); margin-bottom: 4px; }
+  .doc-meta .doc-sub { font-size: 11px; color: var(--stone); letter-spacing: .06em; }
+
+  /* ── META TABLE ── */
+  .meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
+  .meta-cell {
+    padding: 14px 18px;
+    border-right: 1px solid var(--border);
+  }
+  .meta-cell:last-child { border-right: none; }
+  .meta-label { font-size: 9px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--stone); margin-bottom: 4px; }
+  .meta-value { font-size: 13px; font-weight: 500; color: var(--ink); }
+  .meta-value input[type="text"] {
+    width: 100%; border: none; border-bottom: 1px dashed var(--border);
+    font-family: inherit; font-size: 13px; font-weight: 500; color: var(--ink);
+    background: transparent; outline: none; padding: 2px 0;
+  }
+
+  /* ── SECTION ── */
+  .section { margin-bottom: 44px; }
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+  .section-num {
+    width: 26px; height: 26px;
+    background: var(--forest);
+    color: white;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: var(--forest); }
+  .section-desc { font-size: 11.5px; color: var(--stone); margin-bottom: 16px; padding-left: 38px; }
+
+  /* ── STATUS BANNER (already done) ── */
+  .status-done {
+    background: rgba(42,64,40,.07);
+    border-left: 3px solid var(--forest);
+    border-radius: 0 6px 6px 0;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    font-size: 11.5px;
+    color: var(--forest);
+    font-weight: 500;
+  }
+  .status-done strong { font-weight: 700; }
+
+  /* ── MODULE TABLE ── */
+  .module-table { width: 100%; border-collapse: collapse; }
+  .module-table thead tr {
+    background: var(--cream);
+    border-bottom: 1px solid var(--border);
+  }
+  .module-table thead th {
+    padding: 8px 12px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--stone);
+    text-align: left;
+  }
+  .module-table thead th.right { text-align: right; }
+  .module-table thead th.center { text-align: center; }
+
+  .module-table tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background .1s;
+  }
+  .module-table tbody tr:last-child { border-bottom: none; }
+  .module-table tbody tr:hover { background: rgba(200,152,42,.04); }
+  .module-table tbody tr.subrow td { padding-top: 2px; padding-bottom: 2px; }
+  .module-table tbody tr.category td {
+    background: var(--cream);
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--stone);
+    padding: 6px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .module-table td { padding: 10px 12px; vertical-align: top; }
+  .module-table td.check { width: 36px; text-align: center; padding-top: 11px; }
+  .module-table td.price { text-align: right; white-space: nowrap; font-weight: 600; color: var(--forest); font-size: 13px; }
+  .module-table td.price .range { font-size: 10px; color: var(--stone); font-weight: 400; display: block; }
+  .module-table td.tag { width: 80px; text-align: center; }
+
+  .mod-name { font-weight: 600; font-size: 12.5px; color: var(--ink); }
+  .mod-desc { font-size: 11px; color: var(--stone); margin-top: 1px; }
+
+  /* Checkbox */
+  .chk {
+    width: 16px; height: 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 3px;
+    display: inline-block;
+    cursor: pointer;
+    background: white;
+  }
+
+  /* Tags */
+  .tag-pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .tag-rec  { background: rgba(42,64,40,.1);  color: var(--forest); }
+  .tag-opt  { background: rgba(138,122,96,.1); color: var(--stone); }
+  .tag-done { background: rgba(200,152,42,.15); color: #9A7020; }
+  .tag-ch   { background: rgba(200,50,50,.1);  color: #8A2020; }
+
+  /* ── TOTALS BOX ── */
+  .totals-box {
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .totals-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12.5px;
+  }
+  .totals-row:last-child { border-bottom: none; }
+  .totals-row.total {
+    background: var(--forest);
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .totals-row.total .tval { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--gold); }
+  .totals-row.sub { background: rgba(200,152,42,.06); }
+  .totals-row .tlabel { color: inherit; }
+  .totals-row .tval { font-weight: 700; color: var(--forest); }
+  .totals-row .tnote { font-size: 10px; color: var(--stone); font-weight: 400; margin-top: 1px; }
+
+  /* ── RECURRING TABLE ── */
+  .recurring-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .rec-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .rec-card-head {
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--stone);
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .rec-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 4px 0;
+    font-size: 12px;
+    border-bottom: 1px dashed rgba(0,0,0,.06);
+  }
+  .rec-item:last-child { border-bottom: none; }
+  .rec-item .ri-name { color: var(--stone); }
+  .rec-item .ri-price { font-weight: 600; color: var(--ink); font-size: 11.5px; }
+
+  /* ── NOTES / TERMS ── */
+  .notes-box {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    font-size: 11.5px;
+    color: var(--stone);
+    line-height: 1.7;
+  }
+  .notes-box strong { color: var(--ink); font-weight: 600; }
+
+  /* ── SIGN OFF ── */
+  .signoff {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 12px;
+  }
+  .sign-block { }
+  .sign-label { font-size: 9.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--stone); margin-bottom: 32px; }
+  .sign-line { border-bottom: 1px solid var(--ink); margin-bottom: 6px; }
+  .sign-name { font-size: 11px; color: var(--stone); }
+
+  /* ── FOOTER ── */
+  .doc-footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 10.5px;
+    color: var(--stone);
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { font-size: 11px; }
+    .page { padding: 32px 40px; }
+    .section { margin-bottom: 28px; }
+    .no-print { display: none; }
+    @page { margin: 0; }
+  }
+
+  /* ── PHASE BADGE ── */
+  .phase-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(200,152,42,.12);
+    border: 1px solid rgba(200,152,42,.3);
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #9A7020;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  /* Print button */
+  .print-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--forest);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: .04em;
+    z-index: 100;
+  }
+  .print-btn:hover { background: #1a2a18; }
+  @media print { .print-btn { display: none; } }
+
+  .divider { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+  .highlight-row td { background: rgba(200,152,42,.06) !important; }
+  .indent { padding-left: 28px !important; }
+
+  /* ── PARTNER / REVENUE SHARE SECTION ── */
+  .partner-section {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid var(--gold);
+    margin-bottom: 44px;
+  }
+  .partner-header {
+    background: var(--forest);
+    color: white;
+    padding: 28px 32px 24px;
+  }
+  .partner-tag {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .partner-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 6px;
+  }
+  .partner-sub {
+    font-size: 11.5px;
+    color: rgba(255,255,255,.5);
+    letter-spacing: .03em;
+  }
+  .partner-body { padding: 26px 32px; background: #FAFAF8; }
+  .partner-intro {
+    font-size: 12.5px;
+    color: var(--stone);
+    margin-bottom: 22px;
+    line-height: 1.7;
+    max-width: 620px;
+  }
+  .partner-intro strong { color: var(--ink); font-weight: 600; }
+
+  /* Comparison */
+  .partner-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+  .pc-col { border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+  .pc-col-b { border-color: var(--gold); box-shadow: 0 0 0 2px rgba(200,152,42,.15); }
+  .pc-head { padding: 10px 14px; font-size: 9.5px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+  .pc-col-a .pc-head { background: var(--cream); color: var(--stone); }
+  .pc-col-b .pc-head { background: var(--forest); color: var(--gold); }
+  .pc-item {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 9px 14px; border-bottom: 1px solid var(--border); font-size: 11.5px;
+  }
+  .pc-item:last-child { border-bottom: none; }
+  .pc-item span { color: var(--stone); }
+  .pc-item strong { font-size: 12.5px; }
+  .pc-col-a .pc-item strong { color: var(--ink); }
+  .pc-col-b .pc-item strong { color: var(--forest); }
+
+  /* Revenue share cards */
+  .rs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+  .rs-card {
+    background: white; border: 1px solid var(--border); border-radius: 8px;
+    padding: 14px 12px; text-align: center;
+  }
+  .rs-card.rs-highlight { border-color: var(--gold); background: rgba(200,152,42,.04); }
+  .rs-label { font-size: 9px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--stone); margin-bottom: 6px; }
+  .rs-value { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--forest); line-height: 1; margin-bottom: 3px; }
+  .rs-sub { font-size: 10px; color: var(--stone); }
+
+  /* Beispielrechnung */
+  .example-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  .example-table th {
+    font-size: 9px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--stone); padding: 7px 10px; background: var(--cream); border-bottom: 1px solid var(--border); text-align: left;
+  }
+  .example-table th.right { text-align: right; }
+  .example-table td { padding: 9px 10px; font-size: 12px; border-bottom: 1px solid var(--border); }
+  .example-table td.right { text-align: right; font-weight: 600; }
+  .example-table tr:last-child td { border-bottom: none; font-weight: 700; background: rgba(42,64,40,.04); }
+  .example-table .win { color: var(--forest); font-weight: 700; }
+
+  /* Includes grid */
+  .pi-head { font-size: 9.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--stone); margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  .pi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-bottom: 20px; }
+  .pi-item { font-size: 12px; color: var(--ink); padding: 3px 0; }
+  .pi-item span { color: var(--forest); font-weight: 700; margin-right: 5px; }
+
+  /* Terms */
+  .partner-terms {
+    background: rgba(42,64,40,.04); border: 1px solid rgba(42,64,40,.1);
+    border-radius: 8px; padding: 14px 18px; font-size: 11px; color: var(--stone); line-height: 1.85;
+  }
+  .partner-terms strong { color: var(--ink); font-weight: 600; }
+
+  /* Revenue share sign-off */
+  .rs-signoff {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 22px;
+    padding-top: 20px; border-top: 1px dashed rgba(200,152,42,.4);
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 600px) {
+    .page { padding: 32px 20px; }
+    .doc-header { flex-direction: column; gap: 16px; }
+    .doc-meta { text-align: left; }
+    .meta-grid { grid-template-columns: 1fr; }
+    .meta-cell { border-right: none; border-bottom: 1px solid var(--border); }
+    .meta-cell:last-child { border-bottom: none; }
+    .signoff, .partner-compare, .rs-grid, .pi-grid { grid-template-columns: 1fr; }
+    .recurring-grid { grid-template-columns: 1fr; }
+    .partner-header, .partner-body { padding: 20px; }
+    .doc-footer { flex-direction: column; gap: 4px; }
+    .module-table thead th.center, .module-table td.tag { display: none; }
+    .rs-signoff { grid-template-columns: 1fr; }
+    .example-table { font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+
+<button class="print-btn no-print" onclick="window.print()">Als PDF speichern ↓</button>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div>
+      <div class="logo"><span>Alph</span>uetta</div>
+      <div style="font-size:10.5px;color:var(--stone);margin-top:4px;">Alpine Blockhütten · Mieten &amp; Kaufen · Schweiz</div>
+    </div>
+    <div class="doc-meta">
+      <div class="doc-title">Projektumfang &amp; Offerte</div>
+      <div class="doc-sub">Website · E-Commerce · Marketing</div>
+      <div style="font-size:10.5px;color:var(--stone);margin-top:4px;">Version 1.0 · Zur Genehmigung</div>
+    </div>
+  </div>
+
+  <!-- META -->
+  <div class="meta-grid">
+    <div class="meta-cell">
+      <div class="meta-label">Auftraggeber</div>
+      <div class="meta-value">Dominik Huber · Alphuetta GR</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">Datum</div>
+      <div class="meta-value"><input type="text" placeholder="TT.MM.JJJJ"></div>
+    </div>
+    <div class="meta-cell" style="border-right:none;">
+      <div class="meta-label">Offerte gültig bis</div>
+      <div class="meta-value"><input type="text" placeholder="TT.MM.JJJJ (30 Tage)"></div>
+    </div>
+  </div>
+
+  <!-- SECTION 0: STATUS -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">✓</div>
+      <div class="section-title">Aktueller Stand <span class="phase-badge">Phase 1 abgeschlossen</span></div>
+    </div>
+    <div class="section-desc">Der interaktive Prototyp ist fertig und läuft lokal. Ca. 40% des Gesamtprojekts sind abgeschlossen.</div>
+    <div class="status-done">
+      <strong>Bereits fertiggestellt (im Preis inbegriffen):</strong> Visueller Konfigurator mit SVG-Grundriss, Innen-/Aussenansicht, Modul-Picker, Ausstattung, Preisrechner, Paketkarten (Fondue / Event / Markt), Kontaktformular, Hero-Sektion, Konzept, Galerie, Schritte, responsives Layout. Alle Interaktionen und Animationen funktionsfähig.
+    </div>
+    <div class="status-done" style="background:rgba(200,152,42,.08);border-color:var(--gold);">
+      <strong>Noch ausstehend (Umfang dieser Offerte):</strong> Backend, Datenbank, Bestellabwicklung, Zahlungen, E-Mail-System, Admin-Dashboard, Content-Management, Analytics, SEO, schweizweite Verbreitung.
+    </div>
+  </div>
+
+  <!-- SECTION 1: BACKEND & DATABASE -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">1</div>
+      <div class="section-title">Backend &amp; Datenbank</div>
+    </div>
+    <div class="section-desc">Serverinfrastruktur, Datenpersistenz und API-Schicht. Basis für alle weiteren Module. <strong>Pflichtmodul.</strong></div>
+
+    <table class="module-table">
+      <thead>
+        <tr>
+          <th style="width:36px"></th>
+          <th>Modul</th>
+          <th class="center" style="width:80px">Priorität</th>
+          <th class="right" style="width:110px">Einmalig (CHF)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="highlight-row">
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Hosting &amp; Deployment Setup</div>
+            <div class="mod-desc">Next.js auf Vercel, CI/CD Pipeline, SSL, Custom Domain (alphuetta.ch)</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-rec">Pflicht</span></td>
+          <td class="price">CHF 2'800</td>
+        </tr>
+        <tr class="highlight-row">
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Datenbank &amp; API (Supabase)</div>
+            <div class="mod-desc">PostgreSQL-Datenbank, REST-API, Datenschutz (DSG/DSGVO-konform), EU-Region Hosting</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-rec">Pflicht</span></td>
+          <td class="price">CHF 2'800</td>
+        </tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Anfragen-/Bestellsystem</div>
+            <div class="mod-desc">Anfragen aus dem Konfigurator werden gespeichert (Grösse, Module, Datum, Kontakt)</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-rec">Pflicht</span></td>
+          <td class="price">CHF 3'500</td>
+        </tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Kunden-CRM (einfach)</div>
+            <div class="mod-desc">Kundendaten verwalten, Verlauf, Notizen, Status pro Anfrage</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
+          <td class="price">CHF 2'100</td>
+        </tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Datei-Storage</div>
+            <div class="mod-desc">Verträge, Rechnungen, Fotos sicher speichern und abrufen</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
+          <td class="price">CHF 1'120</td>
+        </tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Backup &amp; Monitoring</div>
+            <div class="mod-desc">Automatische tägliche Backups, Uptime-Monitoring, Alarmierung bei Ausfall</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-rec">Empfohlen</span></td>
+          <td class="price">CHF 980</td>
+        </tr>
+
+        <tr class="category"><td colspan="4">Frontend — Produktionsreife &amp; Mobile</td></tr>
+        <tr class="highlight-row">
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Prototype → Produktions-Website (Next.js)</div>
+            <div class="mod-desc">Migration des HTML-Prototyps in eine skalierbare React/Next.js-App; Komponentenstruktur, Routing, State-Management, SEO-Ready</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-rec">Pflicht</span></td>
+          <td class="price">CHF 3'500</td>
+        </tr>
+        <tr class="highlight-row">
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Mobile Responsiveness — vollständig</div>
+            <div class="mod-desc">Touch-optimierter Konfigurator (SVG-Grundriss auf Mobile, Swipe-Gesten), responsive Navigation, alle Breakpoints 320px–1440px getestet auf iOS &amp; Android</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-rec">Pflicht</span></td>
+          <td class="price">CHF 2'800</td>
+        </tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Performance &amp; Core Web Vitals</div>
+            <div class="mod-desc">Google PageSpeed ≥90 (LCP, CLS, INP), Bildkomprimierung, Lazy Loading, Font-Subsetting — relevant für SEO-Ranking</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-rec">Empfohlen</span></td>
+          <td class="price">CHF 1'260</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 2: PAYMENT -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">2</div>
+      <div class="section-title">Zahlungsabwicklung</div>
+    </div>
+    <div class="section-desc">Für Mietbuchungen (CHF 2'500–7'200/Tag) empfehlen wir eine Online-Anzahlung per Stripe. Kauftransaktionen (CHF 85k–210k) sollten per Banküberweisung + Stripe-Deposit abgewickelt werden.</div>
+
+    <table class="module-table">
+      <thead>
+        <tr>
+          <th style="width:36px"></th>
+          <th>Modul</th>
+          <th class="center" style="width:80px">Priorität</th>
+          <th class="right" style="width:110px">Einmalig (CHF)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="highlight-row">
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Stripe Checkout (Anzahlung)</div>
+            <div class="mod-desc">Online-Anzahlung (z.B. 20% der Mietkosten), sichere Zahlungsseite, automatische Bestätigung</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-rec">Empfohlen</span></td>
+          <td class="price">CHF 2'800</td>
+        </tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Twint Integration</div>
+            <div class="mod-desc">Schweizer Standardzahlung, besonders wichtig für B2C-Kunden unter 50 Jahren</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-ch">🇨🇭 CH-Markt</span></td>
+          <td class="price">CHF 1'680</td>
+        </tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">PDF-Rechnungsgenerierung</div>
+            <div class="mod-desc">Automatisch erstellte Rechnungen mit QR-Referenz (Swiss QR-Bill Standard), MwSt.-konform</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-rec">Empfohlen</span></td>
+          <td class="price">CHF 1'960</td>
+        </tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">MwSt.-Handling (8.1%)</div>
+            <div class="mod-desc">Automatische Steuerberechnung, MwSt.-Ausweis auf Dokumenten</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-ch">🇨🇭 CH-Pflicht</span></td>
+          <td class="price">CHF 840</td>
+        </tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Restbetrag-Zahlungslink</div>
+            <div class="mod-desc">Automatisch versendeter Zahlungslink für den Restbetrag (z.B. 14 Tage vor Event)</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
+          <td class="price">CHF 1'120</td>
+        </tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Stornierung &amp; Rückerstattung</div>
+            <div class="mod-desc">Stornierungsrichtlinien, automatische Teil-/Vollrückerstattung über Stripe</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
+          <td class="price">CHF 980</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="notes-box" style="margin-top:12px;font-size:10.5px;">
+      <strong>Stripe-Gebühren (nicht im Pauschalpreis):</strong> 1.5% + CHF 0.25 pro Transaktion (europäische Karten). Twint-Gebühren: ca. 1.3% + CHF 0.15. Diese werden direkt von Stripe / SIX abgezogen — kein monatliches Abo.
+    </div>
+  </div>
+
+  <!-- SECTION 3: COMMUNICATION -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">3</div>
+      <div class="section-title">Kommunikation &amp; Benachrichtigungen</div>
+    </div>
+    <div class="section-desc">Automatisierte E-Mails und Benachrichtigungen für Kunden und Dominik Huber.</div>
+
+    <table class="module-table">
+      <thead>
+        <tr>
+          <th style="width:36px"></th>
+          <th>Modul</th>
+          <th class="center" style="width:80px">Priorität</th>
+          <th class="right" style="width:110px">Einmalig (CHF)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="highlight-row">
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Transaktions-E-Mails (Resend)</div>
+            <div class="mod-desc">Buchungsbestätigung an Kunden, neue Anfrage-Alert an Dominik, Zahlungsbestätigung</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-rec">Pflicht</span></td>
+          <td class="price">CHF 1'400</td>
+        </tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">E-Mail-Sequenz (Post-Buchung)</div>
+            <div class="mod-desc">Automatische Follow-ups: 7 Tage vor Event (Checkliste), 1 Tag davor (Kontakt), nach Event (Bewertung)</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-rec">Empfohlen</span></td>
+          <td class="price">CHF 1'680</td>
+        </tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Newsletter-Integration</div>
+            <div class="mod-desc">Mailchimp-Anbindung, Anmeldeformular, Opt-in bei Buchung (DSGVO-konform)</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
+          <td class="price">CHF 1'120</td>
+        </tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">WhatsApp Business API</div>
+            <div class="mod-desc">Anfrage-Benachrichtigung per WhatsApp an Dominik, optionale Kundenbenachrichtigungen</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
+          <td class="price">CHF 840</td>
+        </tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">SMS-Benachrichtigung</div>
+            <div class="mod-desc">Buchungsbestätigung per SMS (Twilio), besonders zuverlässig für Eventbestätigungen</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
+          <td class="price">CHF 700</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 4: ADMIN -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">4</div>
+      <div class="section-title">Admin-Dashboard &amp; Backoffice</div>
+    </div>
+    <div class="section-desc">Verwaltungsoberfläche für Dominik Huber zur Bearbeitung von Anfragen, Buchungen und Kundendaten.</div>
+
+    <table class="module-table">
+      <thead>
+        <tr>
+          <th style="width:36px"></th>
+          <th>Modul</th>
+          <th class="center" style="width:80px">Priorität</th>
+          <th class="right" style="width:110px">Einmalig (CHF)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="highlight-row">
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Admin-Dashboard (Bestellübersicht)</div>
+            <div class="mod-desc">Alle Anfragen/Buchungen auf einen Blick, Status (Offen / Bestätigt / Abgeschlossen), Suchfunktion</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-rec">Empfohlen</span></td>
+          <td class="price">CHF 4'200</td>
+        </tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Verfügbarkeitskalender</div>
+            <div class="mod-desc">Kalenderansicht der gebuchten Daten, Blockierungsfunktion für interne Nutzung</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-rec">Empfohlen</span></td>
+          <td class="price">CHF 2'100</td>
+        </tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Dokumentenverwaltung</div>
+            <div class="mod-desc">Mietverträge, Rechnungen und Lieferscheine pro Buchung speichern und versenden</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
+          <td class="price">CHF 1'680</td>
+        </tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Export (CSV / Excel)</div>
+            <div class="mod-desc">Buchungslisten für Buchhaltung/Treuhänder exportieren</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
+          <td class="price">CHF 560</td>
+        </tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Mehrere Admin-Nutzer</div>
+            <div class="mod-desc">Verschiedene Zugriffsrollen (Admin / Mitarbeiter / Buchhalter)</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
+          <td class="price">CHF 840</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 5: CONTENT -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">5</div>
+      <div class="section-title">Content Management &amp; SEO</div>
+    </div>
+    <div class="section-desc">Ermöglicht Dominik, Inhalte selbstständig zu pflegen. SEO-Basis für organische Sichtbarkeit in der Schweiz.</div>
+
+    <table class="module-table">
+      <thead>
+        <tr>
+          <th style="width:36px"></th>
+          <th>Modul</th>
+          <th class="center" style="width:80px">Priorität</th>
+          <th class="right" style="width:110px">Einmalig (CHF)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">CMS (Sanity.io)</div>
+            <div class="mod-desc">Texte, Bilder, Pakete und Preise selbstständig bearbeiten — ohne Entwickler</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
+          <td class="price">CHF 2'520</td>
+        </tr>
+        <tr class="highlight-row">
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">SEO-Grundoptimierung</div>
+            <div class="mod-desc">Meta-Tags, Open Graph, Sitemap, robots.txt, Google Search Console, strukturierte Daten (Schema.org)</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-rec">Empfohlen</span></td>
+          <td class="price">CHF 1'400</td>
+        </tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Mehrsprachigkeit DE / FR / IT</div>
+            <div class="mod-desc">Komplette Übersetzung für alle drei Landessprachen, URL-Struktur (/de, /fr, /it)</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-ch">🇨🇭 CH-Markt</span></td>
+          <td class="price">CHF 3'500</td>
+        </tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Blog / News-Sektion</div>
+            <div class="mod-desc">Veranstaltungsberichte, Referenzprojekte, saisionale Inhalte für SEO-Relevanz</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
+          <td class="price">CHF 1'680</td>
+        </tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Kantonale Landingpages</div>
+            <div class="mod-desc">Standortspezifische Seiten für Zürich, Bern, Basel, Luzern usw. — höhere lokale Sichtbarkeit</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
+          <td class="price">CHF 2'800</td>
+        </tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Press Kit / Medienpage</div>
+            <div class="mod-desc">Pressemitteilung, Logos, Bilder-Download für Medien und Eventveranstalter</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
+          <td class="price">CHF 1'120</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 6: ANALYTICS & MARKETING -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">6</div>
+      <div class="section-title">Analytics &amp; Marketing-Tracking</div>
+    </div>
+    <div class="section-desc">Datengrundlage für Marketingentscheide. Alle Tools werden DSGVO/DSG-konform eingebunden (Cookie-Consent obligatorisch).</div>
+
+    <table class="module-table">
+      <thead>
+        <tr>
+          <th style="width:36px"></th>
+          <th>Modul</th>
+          <th class="center" style="width:80px">Priorität</th>
+          <th class="right" style="width:110px">Einmalig (CHF)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="category"><td colspan="4">Basis-Analytics</td></tr>
+        <tr class="highlight-row">
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Google Tag Manager (GTM)</div>
+            <div class="mod-desc">Zentraler Tag-Container — alle anderen Tracking-Pixel werden über GTM eingebunden</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-rec">Basis</span></td>
+          <td class="price">CHF 840</td>
+        </tr>
+        <tr class="highlight-row">
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Google Analytics 4 (GA4)</div>
+            <div class="mod-desc">Seitenaufrufe, Traffic-Quellen, Nutzerfluss, Konversionstrichter, Konfiguratornutzung</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-rec">Basis</span></td>
+          <td class="price">CHF 700</td>
+        </tr>
+        <tr class="highlight-row">
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Cookie Consent Banner</div>
+            <div class="mod-desc">Cookiebot oder Usercentrics — rechtlich zwingend für GA4, Hotjar, Meta Pixel (DSG ab 2023)</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-rec">Pflicht</span></td>
+          <td class="price">CHF 840</td>
+        </tr>
+
+        <tr class="category"><td colspan="4">Nutzerverhalten</td></tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Hotjar (Heatmaps &amp; Session Recordings)</div>
+            <div class="mod-desc">Visuelle Analyse wo Nutzer klicken, scrollen und abspringen — ideal um den Konfigurator zu optimieren</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-rec">Empfohlen</span></td>
+          <td class="price">CHF 560</td>
+        </tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Hotjar Surveys (Feedback-Widgets)</div>
+            <div class="mod-desc">Kurze In-App-Umfragen: «Was hat dich überzeugt?» / «Warum hast du nicht gebucht?»</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
+          <td class="price">CHF 420</td>
+        </tr>
+
+        <tr class="category"><td colspan="4">Paid Advertising Tracking</td></tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Meta Pixel (Facebook &amp; Instagram)</div>
+            <div class="mod-desc">Konversionstracking für bezahlte Social-Ads, Retargeting-Zielgruppen aufbauen</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
+          <td class="price">CHF 560</td>
+        </tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Google Ads Conversion Tracking</div>
+            <div class="mod-desc">Kaufabschlüsse und Anfragen als Konversionen messen, Smart Bidding optimieren</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
+          <td class="price">CHF 560</td>
+        </tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">LinkedIn Insight Tag</div>
+            <div class="mod-desc">Relevant für B2B-Zielgruppe (Firmenevents, HR-Verantwortliche)</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
+          <td class="price">CHF 420</td>
+        </tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Schema.org Rich Snippets</div>
+            <div class="mod-desc">Strukturierte Daten für Event-Listings, Preise, Bewertungen in Google-Suchergebnissen</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
+          <td class="price">CHF 700</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 7: SWISS DISTRIBUTION -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">7</div>
+      <div class="section-title">Schweizweite Verbreitung</div>
+    </div>
+    <div class="section-desc">Massnahmen für lokale Sichtbarkeit und Marktpräsenz in allen relevanten Schweizer Kantonen.</div>
+
+    <table class="module-table">
+      <thead>
+        <tr>
+          <th style="width:36px"></th>
+          <th>Modul</th>
+          <th class="center" style="width:80px">Priorität</th>
+          <th class="right" style="width:110px">Einmalig (CHF)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="highlight-row">
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Google My Business Setup &amp; Optimierung</div>
+            <div class="mod-desc">Profil-Optimierung, Fotos, Q&amp;A, regelmässige Posts, Bewertungsmanagement</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-rec">Empfohlen</span></td>
+          <td class="price">CHF 840</td>
+        </tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Schweizer Verzeichnisse (local.ch, search.ch, Cylex)</div>
+            <div class="mod-desc">Einträge in relevanten Schweizer Business-Verzeichnissen, NAP-Konsistenz</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-ch">🇨🇭 CH-Markt</span></td>
+          <td class="price">CHF 560</td>
+        </tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Event-Plattformen Integration</div>
+            <div class="mod-desc">Profil auf Eventlocation-Portalen (z.B. eveosblog.de, micelab.ch), automatische Karte auf Google Maps</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
+          <td class="price">CHF 980</td>
+        </tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Swiss Maps Integration (Swisstopo / Google Maps)</div>
+            <div class="mod-desc">Interaktive Karte mit Liefergebieten nach Kantonen, Standortsuche</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
+          <td class="price">CHF 840</td>
+        </tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">Referenzprojekte-Sektion</div>
+            <div class="mod-desc">Galerie abgeschlossener Events mit Testimonials, Kantonsbadge, Datum — stärkt Vertrauen</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-rec">Empfohlen</span></td>
+          <td class="price">CHF 1'260</td>
+        </tr>
+        <tr>
+          <td class="check"><div class="chk"></div></td>
+          <td>
+            <div class="mod-name">PostFinance Card (Debit/Kreditkarte CH)</div>
+            <div class="mod-desc">Direktintegration PostFinance für ältere Zielgruppen ohne Kreditkarte</div>
+          </td>
+          <td class="tag"><span class="tag-pill tag-ch">🇨🇭 CH-Markt</span></td>
+          <td class="price">CHF 1'400</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 8: RECURRING -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">8</div>
+      <div class="section-title">Laufende Kosten (monatlich)</div>
+    </div>
+    <div class="section-desc">Infrastruktur- und Lizenzkosten nach Go-Live. Werden jährlich im Voraus fakturiert (12 Monate).</div>
+
+    <div class="recurring-grid">
+      <div class="rec-card">
+        <div class="rec-card-head">Infrastruktur — obligatorisch</div>
+        <div class="rec-item"><span class="ri-name">Domain alphuetta.ch</span><span class="ri-price">CHF 3/Mo</span></div>
+        <div class="rec-item"><span class="ri-name">Hosting (Vercel Pro)</span><span class="ri-price">CHF 28/Mo</span></div>
+        <div class="rec-item"><span class="ri-name">Datenbank (Supabase Pro)</span><span class="ri-price">CHF 32/Mo</span></div>
+        <div class="rec-item"><span class="ri-name">E-Mail Service (Resend)</span><span class="ri-price">CHF 20/Mo</span></div>
+        <div class="rec-item"><span class="ri-name">Monitoring &amp; Backup</span><span class="ri-price">CHF 14/Mo</span></div>
+        <div class="rec-item" style="font-weight:700;border-top:1px solid var(--border);padding-top:8px;margin-top:4px;">
+          <span class="ri-name" style="color:var(--ink);">Total Infra</span>
+          <span class="ri-price" style="color:var(--forest);">CHF 97/Mo</span>
+        </div>
+      </div>
+      <div class="rec-card">
+        <div class="rec-card-head">Marketing Tools — nach Wahl</div>
+        <div class="rec-item"><span class="ri-name">Hotjar (Basic)</span><span class="ri-price">CHF 55/Mo</span></div>
+        <div class="rec-item"><span class="ri-name">Cookie Consent (Cookiebot)</span><span class="ri-price">CHF 18/Mo</span></div>
+        <div class="rec-item"><span class="ri-name">Mailchimp Essentials</span><span class="ri-price">CHF 22/Mo</span></div>
+        <div class="rec-item"><span class="ri-name">WhatsApp Business API</span><span class="ri-price">CHF 15/Mo + Nutzung</span></div>
+        <div class="rec-item"><span class="ri-name">GA4 + GTM</span><span class="ri-price">kostenlos</span></div>
+        <div class="rec-item" style="font-weight:700;border-top:1px solid var(--border);padding-top:8px;margin-top:4px;">
+          <span class="ri-name" style="color:var(--ink);">Total Marketing</span>
+          <span class="ri-price" style="color:var(--forest);">CHF 55–110/Mo</span>
+        </div>
+      </div>
+    </div>
+    <div class="notes-box" style="margin-top:12px;font-size:10.5px;">
+      <strong>Wartungsretainer (empfohlen):</strong> CHF 350/Monat — beinhaltet Dependency-Updates, Sicherheitspatches, bis zu 2h Änderungen pro Monat. Ad-hoc-Support ausserhalb des Retainers: CHF 210/Stunde.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- INVESTMENT SUMMARY -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">∑</div>
+      <div class="section-title">Investment-Übersicht</div>
+    </div>
+    <div class="section-desc">Drei Ausbaustufen zur Orientierung. Basierend auf den angekreuzten Modulen wird eine massgeschneiderte Offerte erstellt.</div>
+
+    <div class="totals-box">
+      <div class="totals-row">
+        <div>
+          <div class="tlabel" style="font-weight:600;">🚀 Stufe 1 — Launch MVP</div>
+          <div class="tnote">Deployment + Anfragen-Backend + E-Mails + Stripe Deposit + GA4/GTM + Cookie Consent</div>
+        </div>
+        <div class="tval" style="color:var(--forest);">CHF 14'000 – 17'000</div>
+      </div>
+      <div class="totals-row">
+        <div>
+          <div class="tlabel" style="font-weight:600;">⚙️ Stufe 2 — Full Production</div>
+          <div class="tnote">+ Admin Dashboard + Kalender + Rechnungen + Twint + Hotjar + SEO + Mehrsprachigkeit DE/FR</div>
+        </div>
+        <div class="tval" style="color:var(--forest);">CHF 28'000 – 36'000</div>
+      </div>
+      <div class="totals-row sub">
+        <div>
+          <div class="tlabel" style="font-weight:600;">🇨🇭 Stufe 3 — Swiss Market Full</div>
+          <div class="tnote">+ DE/FR/IT, Kantonale Seiten, PostFinance, alle Analytics-Pixel, CMS, Event-Verzeichnisse</div>
+        </div>
+        <div class="tval" style="color:var(--forest);">CHF 42'000 – 56'000</div>
+      </div>
+      <div class="totals-row total">
+        <div>
+          <div>Laufende Kosten (Infra + Wartung)</div>
+          <div style="font-size:11px;opacity:.65;font-weight:400;margin-top:2px;">Monatlich · nach Go-Live · jährlich fakturiert</div>
+        </div>
+        <div class="tval">CHF 450 – 560 / Mo</div>
+      </div>
+    </div>
+
+    <div class="notes-box" style="margin-top:16px;">
+      <strong>Hinweis zu den Preisen:</strong> Alle Beträge in CHF exkl. MwSt. (8.1%). Die Preise beinhalten eine Agentur-Marge von 40%. Zahlungsbedingungen: 40% Anzahlung bei Projektstart, 30% bei Abnahme Backend, 30% bei Go-Live. Projekt-Kick-off innert 5 Werktagen nach Anzahlungseingang.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- REVENUE SHARE / PARTNERSCHAFT -->
+  <div class="partner-section">
+    <div class="partner-header">
+      <div class="partner-tag">Alternative Offerte · Partnerschaftsmodell</div>
+      <div class="partner-title">Modell B — Digital Partner &amp; Revenue Share</div>
+      <div class="partner-sub">Minimale Fixkosten · Agentur wird langfristiger Partner · Geteiltes Risiko, geteilter Erfolg</div>
+    </div>
+    <div class="partner-body">
+
+      <p class="partner-intro">Statt eines klassischen Projektauftrags bieten wir die Möglichkeit, als <strong>langfristiger Digital-Partner</strong> einzusteigen. Die Agentur trägt das Entwicklungsrisiko und übernimmt Hosting, Wartung und Weiterentwicklung eigenverantwortlich — dafür partizipiert sie am generierten Umsatz. Beide Seiten haben damit dasselbe Ziel: Alphuetta wächst.</p>
+
+      <!-- Modell A vs B Vergleich -->
+      <div class="pi-head" style="margin-bottom:12px;">Modell A vs. Modell B — Direktvergleich</div>
+      <div class="partner-compare">
+        <div class="pc-col pc-col-a">
+          <div class="pc-head">Modell A · Klassischer Auftrag</div>
+          <div class="pc-item"><span>Einmalig (Stufe 2)</span><strong>CHF 28'000–36'000</strong></div>
+          <div class="pc-item"><span>Monatlich (Infra + Wartung)</span><strong>CHF 450–560</strong></div>
+          <div class="pc-item"><span>Revenue Share</span><strong>0%</strong></div>
+          <div class="pc-item"><span>Risiko Agentur</span><strong>Keins</strong></div>
+          <div class="pc-item"><span>Inhalt Upside</span><strong>100% bei Ihnen</strong></div>
+        </div>
+        <div class="pc-col pc-col-b">
+          <div class="pc-head">Modell B · Partnerschaft</div>
+          <div class="pc-item"><span>Einmalig (Setup-Fee)</span><strong>CHF 8'400</strong></div>
+          <div class="pc-item"><span>Monatliches Minimum</span><strong>CHF 200</strong></div>
+          <div class="pc-item"><span>Revenue Share Miete</span><strong>8% der Mieterlöse</strong></div>
+          <div class="pc-item"><span>Revenue Share Kauf</span><strong>2% der Kauferlöse</strong></div>
+          <div class="pc-item"><span>Mindestlaufzeit</span><strong>36 Monate</strong></div>
+        </div>
+      </div>
+
+      <!-- Revenue Share Karten -->
+      <div class="pi-head" style="margin-bottom:12px;">Revenue Share — Konditionen</div>
+      <div class="rs-grid">
+        <div class="rs-card rs-highlight">
+          <div class="rs-label">Setup-Fee (einmalig)</div>
+          <div class="rs-value">8'400</div>
+          <div class="rs-sub">CHF exkl. MwSt.</div>
+        </div>
+        <div class="rs-card rs-highlight">
+          <div class="rs-label">Anteil Mieterlöse</div>
+          <div class="rs-value">8%</div>
+          <div class="rs-sub">des Brutto-Mietumsatzes</div>
+        </div>
+        <div class="rs-card">
+          <div class="rs-label">Anteil Kauferlöse</div>
+          <div class="rs-value">2%</div>
+          <div class="rs-sub">des via Website angebahnten Kaufpreises</div>
+        </div>
+      </div>
+
+      <!-- Beispielrechnung -->
+      <div class="pi-head" style="margin-bottom:10px;">Beispielrechnung — 3-Jahres-Horizont</div>
+      <table class="example-table">
+        <thead>
+          <tr>
+            <th>Szenario</th>
+            <th>Mietumsatz/Jahr</th>
+            <th class="right">Agentur-Anteil/Jahr</th>
+            <th class="right">Ihr Kostenvergleich<br><span style="font-weight:400;text-transform:none;letter-spacing:0;">(3 Jahre, Modell A vs B)</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Start (Jahr 1)</td>
+            <td>CHF 40'000</td>
+            <td class="right">CHF 3'200</td>
+            <td class="right">A: CHF 39'200 | <span class="win">B: CHF 18'000</span></td>
+          </tr>
+          <tr>
+            <td>Wachstum (Jahr 2)</td>
+            <td>CHF 90'000</td>
+            <td class="right">CHF 7'200</td>
+            <td class="right">A: CHF 6'720 | <span class="win">B: CHF 7'200</span></td>
+          </tr>
+          <tr>
+            <td>Etabliert (Jahr 3)</td>
+            <td>CHF 150'000</td>
+            <td class="right">CHF 12'000</td>
+            <td class="right">A: CHF 6'720 | B: CHF 12'000</td>
+          </tr>
+          <tr>
+            <td><strong>Total 3 Jahre</strong></td>
+            <td><strong>CHF 280'000</strong></td>
+            <td class="right"><strong>CHF 22'400</strong></td>
+            <td class="right">A: CHF 52'640 | <span class="win">B: CHF 37'200</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="font-size:10px;color:var(--stone);margin-top:-10px;margin-bottom:20px;">* Modell A inkl. CHF 33'000 Setup (Stufe 2 Mitte) + CHF 560/Mo laufend. Modell B inkl. Setup-Fee + CHF 200/Mo Minimum + Revenue Share. Ab ca. CHF 180k Jahresmietumsatz wird Modell A günstiger für Sie.</div>
+
+      <!-- Was inbegriffen ist -->
+      <div class="pi-head" style="margin-bottom:10px;">Im Partnerschaftsmodell inbegriffen (kein Aufpreis gegenüber Stufe 2)</div>
+      <div class="pi-grid" style="margin-bottom:20px;">
+        <div class="pi-item"><span>✓</span> Komplette Stufe 2 Umsetzung</div>
+        <div class="pi-item"><span>✓</span> Hosting &amp; Infrastruktur (CHF 97/Mo übernommen)</div>
+        <div class="pi-item"><span>✓</span> Laufende Wartung &amp; Security-Updates</div>
+        <div class="pi-item"><span>✓</span> Monatliches Analytics-Reporting</div>
+        <div class="pi-item"><span>✓</span> 1 Marketing-Kampagne pro Quartal</div>
+        <div class="pi-item"><span>✓</span> Feature-Weiterentwicklung nach Absprache</div>
+        <div class="pi-item"><span>✓</span> Mobile Responsiveness &amp; Performance</div>
+        <div class="pi-item"><span>✓</span> Admin-Dashboard &amp; Verfügbarkeitskalender</div>
+      </div>
+
+      <!-- Konditionen / Rechtliches -->
+      <div class="partner-terms">
+        <strong>Laufzeit &amp; Kündigung:</strong> Mindestlaufzeit 36 Monate, danach jährlich kündbar mit 3 Monaten Vorlaufzeit.<br>
+        <strong>Buyout-Klausel:</strong> Dominik Huber kann das Modell jederzeit beenden durch Zahlung von 24× dem Durchschnitts-Monatsbetrag der letzten 12 Monate (Minimum CHF 9'600). Danach Übergabe aller Assets, Daten und Zugänge.<br>
+        <strong>Transparenz:</strong> Alphuetta stellt monatlich einen Export der Website-Buchungen zur Verfügung (automatisch via Admin-Dashboard). Revenue Share wird auf Nettobuchungen berechnet (exkl. Stornierungen, exkl. MwSt.).<br>
+        <strong>Exklusivität:</strong> Agentur verpflichtet sich, keine direkten Konkurrenten in der Blockhütten-Vermietung in der Schweiz mit vergleichbarer Plattform zu betreuen während der Mindestlaufzeit.<br>
+        <strong>Eigentumsrechte:</strong> Domain, Daten und Marke verbleiben jederzeit bei Dominik Huber. Die Agentur hält lediglich das Nutzungsrecht am Code bis zum Ende der Laufzeit oder Buyout.
+      </div>
+
+      <div class="rs-signoff">
+        <div class="sign-block">
+          <div class="sign-label">Auftraggeber — Partnerschaft akzeptiert</div>
+          <div class="sign-line" style="height:40px;"></div>
+          <div class="sign-name">Dominik Huber · Alphuetta GR · Datum</div>
+        </div>
+        <div class="sign-block">
+          <div class="sign-label">Agentur — Partnerschaft bestätigt</div>
+          <div class="sign-line" style="height:40px;"></div>
+          <div class="sign-name">Agentur · Projektleitung · Datum</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- SIGN OFF -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">✍</div>
+      <div class="section-title">Modulauswahl &amp; Genehmigung</div>
+    </div>
+    <div class="section-desc">Bitte die gewünschten Module oben ankreuzen, das Modell wählen und dieses Dokument unterzeichnet zurücksenden.</div>
+
+    <div style="border:1px solid var(--border);border-radius:8px;padding:18px 20px;margin-bottom:20px;">
+      <div style="font-size:11.5px;color:var(--stone);margin-bottom:10px;font-weight:600;">Welches Modell bevorzugen Sie?</div>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid var(--border);">
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;"><input type="radio" name="modell"> Modell A · Klassischer Auftrag</label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;font-weight:600;color:var(--forest)"><input type="radio" name="modell"> Modell B · Partnerschaft &amp; Revenue Share</label>
+      </div>
+      <div style="font-size:11.5px;color:var(--stone);margin-bottom:10px;font-weight:500;">Bei Modell A — Ausbaustufe:</div>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;margin-bottom:18px;">
+        <label style="display:flex;align-items:center;gap:8px;font-size:12.5px;cursor:pointer;"><input type="radio" name="stufe"> Stufe 1 — Launch MVP</label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:12.5px;cursor:pointer;"><input type="radio" name="stufe"> Stufe 2 — Full Production</label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:12.5px;cursor:pointer;"><input type="radio" name="stufe"> Stufe 3 — Swiss Market Full</label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:12.5px;cursor:pointer;"><input type="radio" name="stufe"> Individuell (Module oben)</label>
+      </div>
+      <div style="font-size:11.5px;color:var(--stone);margin-bottom:6px;">Angestrebtes Go-Live-Datum:</div>
+      <input type="text" placeholder="TT.MM.JJJJ" style="border:none;border-bottom:1px dashed var(--border);font-family:inherit;font-size:13px;width:200px;padding:4px 0;outline:none;background:transparent;">
+      <div style="font-size:11.5px;color:var(--stone);margin-top:14px;margin-bottom:6px;">Bemerkungen / Sonderwünsche:</div>
+      <textarea style="width:100%;border:1px solid var(--border);border-radius:6px;padding:10px 12px;font-family:inherit;font-size:12px;color:var(--ink);min-height:70px;resize:vertical;outline:none;" placeholder="z.B. Priorität Mehrsprachigkeit, Modell B mit angepasstem Prozentsatz, spezifische Integrationswünsche..."></textarea>
+    </div>
+
+    <div class="signoff">
+      <div class="sign-block">
+        <div class="sign-label">Auftraggeber — Genehmigung</div>
+        <div class="sign-line" style="height:40px;"></div>
+        <div class="sign-name">Dominik Huber · Alphuetta GR · Datum</div>
+      </div>
+      <div class="sign-block">
+        <div class="sign-label">Agentur — Bestätigung</div>
+        <div class="sign-line" style="height:40px;"></div>
+        <div class="sign-name">Agentur · Projektleitung · Datum</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    <div>Alphuetta · Projektumfang &amp; Offerte · Vertraulich</div>
+    <div>Alle Preise in CHF exkl. MwSt. 8.1% · Gültig 30 Tage</div>
+    <div>alphuetta.ch</div>
+  </div>
+
+</div>
+
+</body>
+</html>
