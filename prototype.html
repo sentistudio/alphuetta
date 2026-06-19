@@ -132,13 +132,18 @@ tailwind.config = {
       padding-bottom: 0 !important;
     }
     /* Hide badge and body copy — keep it tight like Tesla */
-    .hero-box .inline-flex { display: none !important; }
+    .hero-badge { display: none !important; }
     section.h-screen p { display: none !important; }
-    /* Headline: centered, slightly smaller */
+    /* Headline: centered, strong shadow for legibility over image */
     section.h-screen h1 {
       font-size: clamp(2.2rem,9.5vw,2.8rem) !important;
       margin-bottom: 18px !important;
       text-align: center !important;
+      text-shadow: 0 2px 16px rgba(0,0,0,.9), 0 1px 4px rgba(0,0,0,.8) !important;
+    }
+    /* Shadow on CTA button text too */
+    .hero-box .flex.flex-wrap a {
+      text-shadow: none !important;
     }
     /* CTA buttons — full-width stacked, centered */
     .hero-box .flex.flex-wrap {
@@ -266,7 +271,7 @@ tailwind.config = {
       border-radius:6px;
       border-right:1px solid rgba(255,255,255,.06);
       border-bottom:1px solid rgba(255,255,255,.05);">
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-7 text-gold text-[.68rem] font-semibold tracking-[.18em] uppercase"
+      <div class="hero-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-7 text-gold text-[.68rem] font-semibold tracking-[.18em] uppercase"
         style="background:rgba(200,152,42,.2);border:1px solid rgba(200,152,42,.45);">
         <span class="w-1.5 h-1.5 rounded-full bg-gold animate-pulse"></span>
         Echte Stüvas · da Grischun · Mieten &amp; Kaufen
