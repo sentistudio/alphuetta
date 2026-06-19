@@ -194,7 +194,7 @@ tailwind.config = {
       height: auto !important;
     }
     .gallery-main { grid-row: span 1 !important; height: 220px !important; }
-    .gallery-grid > div { height: 180px !important; }
+    .gallery-grid > div { height: 200px !important; grid-column: span 1 !important; }
 
     /* STEPS — single column */
     .steps-grid {
@@ -318,11 +318,11 @@ tailwind.config = {
         <!-- Tab bar -->
         <div class="flex border-b border-gray-100 flex-shrink-0">
           <button class="ktab flex-1 py-2.5 text-[.65rem] font-semibold tracking-[.06em] uppercase text-gray-400 border-b-2 border-transparent"
-            onclick="switchTab('struktur')">Gebäude</button>
+            onclick="switchTab('struktur')"><span class="text-[.5rem] opacity-50 mr-0.5">1·</span>Gebäude</button>
           <button class="ktab flex-1 py-2.5 text-[.65rem] font-semibold tracking-[.06em] uppercase text-gray-400 border-b-2 border-transparent"
-            onclick="switchTab('ausstattung')">Ausstattung</button>
+            onclick="switchTab('ausstattung')"><span class="text-[.5rem] opacity-50 mr-0.5">2·</span>Ausstattung</button>
           <button class="ktab flex-1 py-2.5 text-[.65rem] font-semibold tracking-[.06em] uppercase text-gray-400 border-b-2 border-transparent"
-            onclick="switchTab('datum')">Datum</button>
+            onclick="switchTab('datum')"><span class="text-[.5rem] opacity-50 mr-0.5">3·</span>Datum</button>
         </div>
 
         <!-- Scrollable content -->
@@ -410,6 +410,11 @@ tailwind.config = {
                   </div>
                 </div>
               </div>
+
+              <button onclick="switchTab('ausstattung')"
+                class="w-full py-2 text-[.62rem] font-bold tracking-[.08em] uppercase text-gold border border-gold/30 rounded-xl hover:border-gold hover:bg-gold/5 transition-all">
+                2 · Ausstattung wählen →
+              </button>
             </div>
           </div>
 
@@ -537,6 +542,10 @@ tailwind.config = {
                 </div>
               </div>
 
+              <button onclick="switchTab('datum')"
+                class="w-full py-2 text-[.62rem] font-bold tracking-[.08em] uppercase text-gold border border-gold/30 rounded-xl hover:border-gold hover:bg-gold/5 transition-all">
+                3 · Datum wählen →
+              </button>
             </div>
           </div>
           <!-- Tab 3: Datum & Verfügbarkeit -->
@@ -1054,7 +1063,7 @@ function renderCalendar() {
   const now = new Date();
   const todayStr = now.toISOString().split('T')[0];
   let html = '';
-  for (let mo = 0; mo < 2; mo++) {
+  for (let mo = 0; mo < 6; mo++) {
     const d = new Date(now.getFullYear(), now.getMonth() + mo, 1);
     const yr = d.getFullYear(), mn = d.getMonth();
     const daysInMo = new Date(yr, mn + 1, 0).getDate();
