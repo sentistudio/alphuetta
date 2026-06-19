@@ -95,6 +95,105 @@ tailwind.config = {
   /* SVG floor plan */
   #svg-wrap { width:100%;height:100%; }
   #svg-wrap svg { width:100%;height:100%; }
+
+  /* ── MOBILE (≤ 768px) ── */
+  @media (max-width: 768px) {
+
+    /* NAV — hide links, tighten padding */
+    nav { padding: 14px 18px !important; }
+    #nav-links { display: none !important; }
+    nav .bg-gold { font-size:.65rem !important; padding: 8px 14px !important; }
+
+    /* HERO — shrink text box, remove heavy left margin */
+    .hero-box {
+      margin-left: 10px !important;
+      margin-right: 10px !important;
+      padding: 22px !important;
+      max-width: calc(100% - 20px) !important;
+    }
+    /* HERO stats bar — 2×2 */
+    .stats-bar {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+    .stats-bar > div {
+      padding: 12px !important;
+    }
+
+    /* CONFIGURATOR — stack vertically, floor plan on top */
+    #konfig-panel {
+      flex-direction: column !important;
+      min-height: auto !important;
+    }
+    /* Floor plan shows FIRST on mobile */
+    #konfig-right {
+      order: -1;
+      height: 260px !important;
+      flex: none !important;
+      min-height: 0 !important;
+    }
+    /* Controls panel scrolls naturally below */
+    #konfig-left {
+      order: 0;
+      width: 100% !important;
+      border-right: none !important;
+      border-top: 1px solid #f0ede6;
+    }
+    /* Taller tap targets for tabs on mobile */
+    .ktab { padding-top: 14px !important; padding-bottom: 14px !important; font-size: .72rem !important; }
+    /* Info strip on mobile — compact */
+    #konfig-right .flex.items-center.gap-8 {
+      gap: 12px !important;
+      padding: 6px 12px !important;
+      flex-wrap: wrap;
+    }
+    /* Floor plan toolbar — shrink label */
+    #plan-label { font-size: .52rem !important; }
+
+    /* KONZEPT — stack */
+    .konzept-grid {
+      grid-template-columns: 1fr !important;
+      gap: 32px !important;
+    }
+    .konzept-photo {
+      height: 260px !important;
+    }
+    /* hide small overlay photo on mobile */
+    .konzept-overlay { display: none !important; }
+
+    /* GALLERY — 1 column */
+    .gallery-grid {
+      grid-template-columns: 1fr !important;
+      grid-template-rows: auto !important;
+      height: auto !important;
+    }
+    .gallery-main { grid-row: span 1 !important; height: 220px !important; }
+    .gallery-grid > div { height: 180px !important; }
+
+    /* STEPS — single column */
+    .steps-grid {
+      grid-template-columns: 1fr !important;
+      gap: 24px !important;
+    }
+
+    /* CONTACT — stack */
+    .contact-grid {
+      grid-template-columns: 1fr !important;
+      gap: 24px !important;
+    }
+    /* Contact form inputs — single column */
+    .form-2col {
+      grid-template-columns: 1fr !important;
+    }
+    /* Contact form — full padding */
+    #kontakt form { padding: 24px !important; }
+
+    /* General section padding reduction */
+    .max-w-5xl, .max-w-\\[1320px\\], .max-w-\\[5xl\\] { padding-left: 16px !important; padding-right: 16px !important; }
+    section { padding-top: 48px !important; padding-bottom: 48px !important; }
+
+    /* Footer spacing */
+    footer { padding: 24px 16px !important; }
+  }
 </style>
 </head>
 <body class="font-sans bg-white text-gray-900 antialiased">
@@ -105,7 +204,7 @@ tailwind.config = {
   <a href="#" class="font-display font-bold text-xl tracking-tight select-none">
     <span class="text-gold">ALPH</span><span class="text-white">UETTA</span>
   </a>
-  <ul class="flex gap-8 text-[.72rem] font-medium tracking-[.14em] uppercase list-none">
+  <ul id="nav-links" class="flex gap-8 text-[.72rem] font-medium tracking-[.14em] uppercase list-none">
     <li><a href="#konzept"      class="text-white/60 hover:text-gold transition-colors">Konzept</a></li>
     <li><a href="#konfigurator" class="text-white/60 hover:text-gold transition-colors">Konfigurator</a></li>
     <li><a href="#pakete"       class="text-white/60 hover:text-gold transition-colors">Pakete</a></li>
@@ -124,7 +223,7 @@ tailwind.config = {
     background-size:cover;background-position:center;"></div>
 
   <div class="relative z-10 flex-1 flex items-center">
-    <div class="ml-12 px-10 py-9 max-w-[560px]" style="
+    <div class="hero-box ml-12 px-10 py-9 max-w-[560px]" style="
       background:rgba(18,12,6,.38);
       backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
       border-radius:6px;
@@ -157,7 +256,7 @@ tailwind.config = {
   </div>
 
   <!-- Stats bar -->
-  <div class="relative z-10 grid grid-cols-4 border-t" style="background:rgba(24,20,16,.72);backdrop-filter:blur(10px);border-color:rgba(200,152,42,.2);">
+  <div class="stats-bar relative z-10 grid grid-cols-2 md:grid-cols-4 border-t" style="background:rgba(24,20,16,.72);backdrop-filter:blur(10px);border-color:rgba(200,152,42,.2);">
     <div class="py-4 px-6 text-center border-r" style="border-color:rgba(200,152,42,.12);">
       <div class="font-display text-gold text-2xl font-bold leading-none">50+</div>
       <div class="text-white/45 text-[.6rem] tracking-widest uppercase mt-1">Events pro Jahr</div>
@@ -187,10 +286,10 @@ tailwind.config = {
     </div>
 
     <!-- App panel -->
-    <div class="rounded-2xl overflow-hidden shadow-xl border border-gray-200 flex" style="min-height:700px;">
+    <div id="konfig-panel" class="rounded-2xl overflow-hidden shadow-xl border border-gray-200 flex" style="min-height:700px;">
 
       <!-- LEFT: Controls -->
-      <div class="w-[370px] flex-shrink-0 flex flex-col bg-white border-r border-gray-100">
+      <div id="konfig-left" class="w-[370px] flex-shrink-0 flex flex-col bg-white border-r border-gray-100">
 
         <!-- Tab bar -->
         <div class="flex border-b border-gray-100 flex-shrink-0">
@@ -414,7 +513,7 @@ tailwind.config = {
       </div><!-- end left col -->
 
       <!-- RIGHT: Floor plan -->
-      <div class="flex-1 flex flex-col bg-cream/20">
+      <div id="konfig-right" class="flex-1 flex flex-col bg-cream/20">
 
         <!-- Toolbar -->
         <div class="flex items-center justify-between px-5 py-3 bg-white/80 border-b border-gray-100 flex-shrink-0">
@@ -456,7 +555,7 @@ tailwind.config = {
       <div class="text-[.62rem] font-bold tracking-[.25em] uppercase text-gold mb-2">Unsere Pakete</div>
       <h2 class="font-display text-3xl font-bold text-gray-900">Fertige <em>Konfigurationen</em> für jeden Anlass</h2>
     </div>
-    <div class="grid grid-cols-3 gap-5">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
 
       <!-- Fondue -->
       <div class="rounded-2xl border border-gray-200 overflow-hidden flex flex-col">
@@ -551,14 +650,14 @@ tailwind.config = {
 <!-- ── KONZEPT ── -->
 <section id="konzept" class="py-24 bg-cream">
   <div class="max-w-5xl mx-auto px-6">
-    <div class="grid grid-cols-2 gap-20 items-center">
+    <div class="konzept-grid grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center">
 
       <!-- Photo stack -->
-      <div class="relative h-[500px]">
+      <div class="konzept-photo relative h-[500px]">
         <div class="absolute inset-0 rounded-2xl overflow-hidden shadow-xl">
           <img src="alphuetta_inside.jpg" alt="Alphuetta Innenansicht" class="w-full h-full object-cover">
         </div>
-        <div class="absolute -bottom-6 -right-8 w-48 h-44 rounded-2xl overflow-hidden shadow-xl border-4 border-cream">
+        <div class="konzept-overlay absolute -bottom-6 -right-8 w-48 h-44 rounded-2xl overflow-hidden shadow-xl border-4 border-cream">
           <img src="01_Alphuetta-Chur_front.jpg" alt="Alphuetta Aussenansicht" class="w-full h-full object-cover">
         </div>
       </div>
@@ -605,8 +704,8 @@ tailwind.config = {
       </div>
       <a href="#kontakt" class="text-[.7rem] font-bold tracking-wide uppercase text-gold border border-gold px-5 py-2.5 rounded-lg hover:bg-gold hover:text-black transition-all">Besichtigung anfragen</a>
     </div>
-    <div class="grid grid-cols-3 grid-rows-2 gap-3 h-[440px]">
-      <div class="rounded-2xl overflow-hidden row-span-2 group relative">
+    <div class="gallery-grid grid grid-cols-3 grid-rows-2 gap-3 h-[440px]">
+      <div class="gallery-main rounded-2xl overflow-hidden row-span-2 group relative">
         <img src="01_Alphuetta-Chur_front.jpg" alt="Aussenansicht" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
         <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/60 to-transparent px-4 py-3">
           <div class="text-white text-[.73rem] font-medium">Aussenansicht Alphuetta GR</div>
@@ -641,7 +740,7 @@ tailwind.config = {
       <div class="text-[.62rem] font-bold tracking-[.25em] uppercase text-gold mb-3">So läuft's</div>
       <h2 class="font-display text-3xl font-bold text-white">In drei Schritten zu <em>deiner Hütte</em></h2>
     </div>
-    <div class="grid grid-cols-3 gap-12">
+    <div class="steps-grid grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
       <div>
         <div class="font-display text-6xl font-bold leading-none mb-5" style="color:rgba(200,152,42,.18);">01</div>
         <h3 class="text-white font-semibold text-lg mb-3">Konfigurieren &amp; anfragen</h3>
@@ -664,7 +763,7 @@ tailwind.config = {
 <!-- ── CONTACT ── -->
 <section id="kontakt" class="py-24 bg-cream">
   <div class="max-w-5xl mx-auto px-6">
-    <div class="grid grid-cols-2 gap-20 items-start">
+    <div class="contact-grid grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-start">
       <div>
         <div class="text-[.62rem] font-bold tracking-[.25em] uppercase text-gold mb-3">Kontakt</div>
         <h2 class="font-display text-4xl font-bold text-gray-900 mb-8 leading-tight">Bereit für deine<br><em>alpine Atmosphäre?</em></h2>
@@ -694,13 +793,13 @@ tailwind.config = {
       </div>
 
       <form class="bg-white rounded-2xl p-8 shadow-sm border border-cream-deep space-y-3" onsubmit="handleSubmit(event)">
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <input type="text" placeholder="Vorname &amp; Name" required
             class="fin w-full px-4 py-3 text-[.82rem] border border-cream-dk rounded-xl placeholder-stone/60 focus:outline-none focus:border-gold transition-colors" style="background:rgba(245,240,232,.4);">
           <input type="email" placeholder="E-Mail-Adresse" required
             class="fin w-full px-4 py-3 text-[.82rem] border border-cream-dk rounded-xl placeholder-stone/60 focus:outline-none focus:border-gold transition-colors" style="background:rgba(245,240,232,.4);">
         </div>
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <input type="tel" placeholder="Telefonnummer"
             class="fin w-full px-4 py-3 text-[.82rem] border border-cream-dk rounded-xl placeholder-stone/60 focus:outline-none focus:border-gold transition-colors" style="background:rgba(245,240,232,.4);">
           <input type="text" placeholder="Datum / Zeitraum"
