@@ -614,81 +614,59 @@ function checkPw(){
     </div>
   </div>
 
-  <!-- SECTION 0: STATUS -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-num">✓</div>
-      <div class="section-title">Aktueller Stand <span class="phase-badge">Phase 1 abgeschlossen</span></div>
-    </div>
-    <div class="section-desc">Der interaktive Prototyp ist fertig und läuft lokal. Ca. 40% des Gesamtprojekts sind abgeschlossen.</div>
-    <div class="status-done">
-      <strong>Bereits fertiggestellt (im Preis inbegriffen):</strong> Visueller Konfigurator mit SVG-Grundriss, Innen-/Aussenansicht, Modul-Picker, Ausstattung, Preisrechner, Paketkarten (Fondue / Event / Markt), Kontaktformular, Hero-Sektion, Konzept, Galerie, Schritte, responsives Layout. Alle Interaktionen und Animationen funktionsfähig.
-    </div>
-    <div class="status-done" style="background:rgba(200,152,42,.08);border-color:var(--gold);">
-      <strong>Noch ausstehend (Umfang dieser Offerte):</strong> Backend, Datenbank, Bestellabwicklung, Zahlungen, E-Mail-System, Admin-Dashboard, Content-Management, Analytics, SEO, schweizweite Verbreitung.
+  <!-- STATUS -->
+  <div class="section" style="padding:14px 32px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+      <div style="font-size:13px;color:var(--ink);">Prototyp fertig — Website kann in <strong>1–2 Wochen live</strong> gehen.</div>
+      <span class="phase-badge">Prototyp ✓</span>
     </div>
   </div>
-
   <hr class="divider">
 
-  <!-- WEBSITE OVERVIEW -->
+  <!-- WEBSITE -->
   <div class="section">
     <div class="section-head">
       <div class="section-num">▤</div>
-      <div class="section-title">Website — Drei Pakete</div>
+      <div class="section-title">Website</div>
     </div>
-    <div class="section-desc">Empfehlung: mit <strong>Market Test</strong> starten. Passt ins Budget, site live in 1–2 Wochen, dann Anfragen beobachten und gezielt ausbauen.</div>
-
     <div class="pkg-grid">
-      <!-- MARKET TEST -->
       <div class="pkg-col">
         <div class="pkg-head">
           <div class="pkg-tier">Paket 1</div>
           <div class="pkg-name">Market Test</div>
-          <div class="pkg-sub">Einfach · Schnell live · Kein Risiko</div>
+          <div class="pkg-sub">Schnell live · Anfragen testen</div>
         </div>
         <div class="pkg-price-row">
           <div class="pkg-price">CHF 7'000</div>
-          <div class="pkg-price-note">Einmalig · Go-Live in 1–2 Wochen</div>
-          <div class="pkg-monthly">CHF 90 / Monat laufend</div>
+          <div class="pkg-price-note">einmalig</div>
+          <div class="pkg-monthly">CHF 90 / Monat</div>
         </div>
         <div class="pkg-item-list">
           <div class="pkg-item"><span class="pi-check">✓</span> Site live auf eigener Domain</div>
           <div class="pkg-item"><span class="pi-check">✓</span> Kontaktformular → E-Mail an dich</div>
-          <div class="pkg-item"><span class="pi-check">✓</span> Basis-SEO (Google findet dich)</div>
-          <div class="pkg-item"><span class="pi-check">✓</span> GA4 Analytics + Cookie Consent</div>
-          <div class="pkg-item"><span class="pi-check">✓</span> Mobile-optimiert</div>
-          <div class="pkg-item"><span class="pi-x">✗</span> Kein Backend / Datenbank</div>
+          <div class="pkg-item"><span class="pi-check">✓</span> Google Analytics + SEO</div>
+          <div class="pkg-item"><span class="pi-x">✗</span> Kein Buchungssystem</div>
           <div class="pkg-item"><span class="pi-x">✗</span> Keine Online-Zahlung</div>
-          <div class="pkg-item"><span class="pi-x">✗</span> Kein Buchungs-Dashboard</div>
         </div>
       </div>
-
-      <!-- GROWTH -->
       <div class="pkg-col pkg-highlight">
         <div class="pkg-head">
-          <div class="pkg-badge">Wenn Anfragen kommen</div>
           <div class="pkg-tier">Paket 2</div>
           <div class="pkg-name">Growth</div>
           <div class="pkg-sub">Vollbetrieb · Buchungen online</div>
         </div>
         <div class="pkg-price-row">
           <div class="pkg-price">CHF 14'000</div>
-          <div class="pkg-price-note">Einmalig · inkl. Market Test</div>
-          <div class="pkg-monthly">CHF 150 / Monat laufend</div>
+          <div class="pkg-price-note">einmalig</div>
+          <div class="pkg-monthly">CHF 150 / Monat</div>
         </div>
         <div class="pkg-item-list">
           <div class="pkg-item"><span class="pi-plus">+</span> Alles aus Market Test</div>
-          <div class="pkg-item"><span class="pi-plus">+</span> Datenbank für Anfragen &amp; Buchungen</div>
+          <div class="pkg-item"><span class="pi-plus">+</span> Online-Anzahlung (Kreditkarte)</div>
           <div class="pkg-item"><span class="pi-plus">+</span> Buchungs-Dashboard für dich</div>
-          <div class="pkg-item"><span class="pi-plus">+</span> Echtzeit-Verfügbarkeitskalender</div>
-          <div class="pkg-item"><span class="pi-plus">+</span> Anzahlung online (Stripe / Kreditkarte)</div>
-          <div class="pkg-item"><span class="pi-plus">+</span> Automatische Bestätigungs-E-Mails</div>
-          <div class="pkg-item"><span class="pi-plus">+</span> Hotjar (Nutzungsanalyse)</div>
+          <div class="pkg-item"><span class="pi-plus">+</span> Automatische Bestätigungs-Mails</div>
         </div>
       </div>
-
-      <!-- ENTERPRISE -->
       <div class="pkg-col">
         <div class="pkg-head">
           <div class="pkg-tier">Paket 3</div>
@@ -697,17 +675,14 @@ function checkPw(){
         </div>
         <div class="pkg-price-row">
           <div class="pkg-price">CHF 22'000</div>
-          <div class="pkg-price-note">Einmalig · inkl. Growth</div>
-          <div class="pkg-monthly">CHF 280 / Monat laufend</div>
+          <div class="pkg-price-note">einmalig</div>
+          <div class="pkg-monthly">CHF 280 / Monat</div>
         </div>
         <div class="pkg-item-list">
           <div class="pkg-item"><span class="pi-plus">+</span> Alles aus Growth</div>
-          <div class="pkg-item"><span class="pi-plus">+</span> Mehrsprachigkeit DE / FR / IT</div>
-          <div class="pkg-item"><span class="pi-plus">+</span> Kantonale Landingpages (SEO CH)</div>
-          <div class="pkg-item"><span class="pi-plus">+</span> CMS — Inhalte selbst bearbeiten</div>
+          <div class="pkg-item"><span class="pi-plus">+</span> DE / FR / IT</div>
           <div class="pkg-item"><span class="pi-plus">+</span> Twint + PostFinance</div>
-          <div class="pkg-item"><span class="pi-plus">+</span> Swiss QR-Bill PDF-Rechnungen</div>
-          <div class="pkg-item"><span class="pi-plus">+</span> Event-Verzeichnisse CH</div>
+          <div class="pkg-item"><span class="pi-plus">+</span> CMS — selbst bearbeiten</div>
         </div>
       </div>
     </div>
@@ -715,1186 +690,186 @@ function checkPw(){
 
   <hr class="divider">
 
-  <!-- MARKETING OVERVIEW -->
+  <!-- MARKETING -->
   <div class="section">
     <div class="section-head">
       <div class="section-num">◎</div>
-      <div class="section-title">Marketing — Drei Pakete</div>
+      <div class="section-title">Marketing · Google / Instagram / Facebook</div>
     </div>
-    <div class="section-desc">Google, Instagram, Facebook. Ziel: gezielt die Leute ansprechen, die Interesse haben. Budget bleibt kontrolliert — kein Streuverlust.</div>
-
     <div class="pkg-grid">
-      <!-- MARKET TEST MARKETING -->
       <div class="pkg-col">
         <div class="pkg-head">
           <div class="pkg-tier">Paket 1</div>
           <div class="pkg-name">Market Test</div>
-          <div class="pkg-sub">Kleines Budget · Gezielt testen</div>
+          <div class="pkg-sub">Kleines Budget · erste Signale</div>
         </div>
         <div class="pkg-price-row">
           <div class="pkg-price">CHF 600</div>
-          <div class="pkg-price-note">Einmalig · Kampagnen-Setup</div>
-          <div class="pkg-monthly">CHF 150–300 / Monat Ad-Budget</div>
+          <div class="pkg-price-note">Setup einmalig</div>
+          <div class="pkg-monthly">CHF 150–300 / Monat Werbebudget</div>
         </div>
         <div class="pkg-item-list">
-          <div class="pkg-item"><span class="pi-check">✓</span> Google My Business einrichten</div>
-          <div class="pkg-item"><span class="pi-check">✓</span> Facebook &amp; Instagram Profil</div>
-          <div class="pkg-item"><span class="pi-check">✓</span> On-Page SEO (Google-Ranking)</div>
-          <div class="pkg-item"><span class="pi-check">✓</span> Google Search Ads (klein)</div>
-          <div class="pkg-item"><span class="pi-check">✓</span> Facebook / Instagram Ads</div>
-          <div class="pkg-item"><span class="pi-check">✓</span> Monatliches Basis-Reporting</div>
+          <div class="pkg-item"><span class="pi-check">✓</span> Google My Business</div>
+          <div class="pkg-item"><span class="pi-check">✓</span> Facebook + Instagram Ads</div>
+          <div class="pkg-item"><span class="pi-check">✓</span> Google Search Ads</div>
+          <div class="pkg-item"><span class="pi-check">✓</span> Monatliches Reporting</div>
         </div>
       </div>
-
-      <!-- GROWTH MARKETING -->
       <div class="pkg-col pkg-highlight">
         <div class="pkg-head">
-          <div class="pkg-badge">Empfohlen zum Start</div>
           <div class="pkg-tier">Paket 2</div>
           <div class="pkg-name">Growth</div>
-          <div class="pkg-sub">Paid Ads · Kontrolliertes Budget</div>
+          <div class="pkg-sub">Gezielte Kampagnen · Skalierbar</div>
         </div>
         <div class="pkg-price-row">
           <div class="pkg-price">CHF 900</div>
-          <div class="pkg-price-note">Einmalig · Kampagnen-Setup</div>
-          <div class="pkg-monthly">CHF 300–600 / Monat Ad-Budget</div>
+          <div class="pkg-price-note">Setup einmalig</div>
+          <div class="pkg-monthly">CHF 300–600 / Monat Werbebudget</div>
         </div>
         <div class="pkg-item-list">
           <div class="pkg-item"><span class="pi-plus">+</span> Alles aus Market Test</div>
-          <div class="pkg-item"><span class="pi-plus">+</span> Google Search Ads (Suchanfragen)</div>
-          <div class="pkg-item"><span class="pi-plus">+</span> Facebook &amp; Instagram Kampagnen</div>
-          <div class="pkg-item"><span class="pi-plus">+</span> Retargeting (wer die Site besucht hat)</div>
-          <div class="pkg-item"><span class="pi-plus">+</span> Monatliches Reporting</div>
-          <div class="pkg-item"><span class="pi-plus">+</span> Kampagnen-Optimierung laufend</div>
+          <div class="pkg-item"><span class="pi-plus">+</span> Retargeting</div>
+          <div class="pkg-item"><span class="pi-plus">+</span> Kampagnen-Optimierung</div>
         </div>
       </div>
-
-      <!-- ENTERPRISE MARKETING -->
       <div class="pkg-col">
         <div class="pkg-head">
           <div class="pkg-tier">Paket 3</div>
           <div class="pkg-name">Enterprise</div>
-          <div class="pkg-sub">Full Funnel · Alle Kanäle</div>
+          <div class="pkg-sub">Alle Kanäle</div>
         </div>
         <div class="pkg-price-row">
           <div class="pkg-price">CHF 1'800</div>
-          <div class="pkg-price-note">Einmalig · inkl. Growth-Setup</div>
-          <div class="pkg-monthly">CHF 800–1'500 / Monat Ad-Budget</div>
+          <div class="pkg-price-note">Setup einmalig</div>
+          <div class="pkg-monthly">CHF 800–1'500 / Monat Werbebudget</div>
         </div>
         <div class="pkg-item-list">
           <div class="pkg-item"><span class="pi-plus">+</span> Alles aus Growth</div>
-          <div class="pkg-item"><span class="pi-plus">+</span> Google Display &amp; YouTube Ads</div>
-          <div class="pkg-item"><span class="pi-plus">+</span> LinkedIn (B2B / Events / Gemeinden)</div>
-          <div class="pkg-item"><span class="pi-plus">+</span> Saisonale Kampagnen (Advent, Sommer)</div>
-          <div class="pkg-item"><span class="pi-plus">+</span> Event-Verzeichnisse &amp; PR-Seiten CH</div>
-          <div class="pkg-item"><span class="pi-plus">+</span> Wöchentliches Reporting</div>
+          <div class="pkg-item"><span class="pi-plus">+</span> LinkedIn · YouTube</div>
+          <div class="pkg-item"><span class="pi-plus">+</span> Saisonale Kampagnen</div>
         </div>
       </div>
     </div>
-
-    <div class="notes-box" style="margin-top:12px;">
-      <strong>Ad-Budget fliesst direkt an Google/Meta</strong> — wird separat abgerechnet, kein Aufschlag. Auch mit CHF 150–300/Mo lassen sich erste Resultate messen. Budget jederzeit anpassbar.
+    <div style="font-size:11px;color:var(--stone);margin-top:12px;padding-top:10px;border-top:1px dashed var(--border);">
+      Werbebudget geht direkt an Google / Meta — kein Aufschlag von uns.
     </div>
   </div>
 
   <hr class="divider">
 
-  <details class="sec-collapse">
-  <summary class="sec-summary"><span>Paket 1 — Market Test · Detailkostenaufstellung</span><span class="sec-arrow">▾</span></summary>
-  <!-- MARKET TEST DETAIL -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-num">★</div>
-      <div class="section-title">Paket 1 — Market Test: Detailkostenaufstellung</div>
-    </div>
-    <div class="section-desc">Alles was nötig ist um den Markt zu testen — ohne Backend, ohne Zahlungsabwicklung, ohne Risiko. Anfragen kommen per E-Mail, Buchungen werden manuell bestätigt.</div>
-
-    <div class="status-done" style="background:rgba(42,64,40,.05);border-color:var(--forest);margin-bottom:18px;">
-      <strong>Bereits fertiggestellt (Prototyp — im Preis inbegriffen):</strong> Konfigurator, Pakete, Preisrechner, Kalender-UI, Kontaktformular-UI, Hero, Galerie, Grundriss-SVG, responsives Layout, alle Interaktionen.
-    </div>
-
-    <table class="cost-table">
-      <thead>
-        <tr>
-          <th>Modul</th>
-          <th class="right" style="width:130px">Einmalig (CHF)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <div style="font-weight:600;font-size:12.5px;">Custom Domain &amp; SSL</div>
-            <div class="cost-desc">stueva.ch / stuva.ch registrieren, DNS konfigurieren, SSL-Zertifikat einrichten</div>
-          </td>
-          <td class="right">CHF 280</td>
-        </tr>
-        <tr>
-          <td>
-            <div style="font-weight:600;font-size:12.5px;">Vercel Deploy (Free Tier)</div>
-            <div class="cost-desc">Prototype auf Vercel Hobby (kostenlos) deployen, CI/CD aus GitHub, automatische Previews</div>
-          </td>
-          <td class="right">CHF 480</td>
-        </tr>
-        <tr>
-          <td>
-            <div style="font-weight:600;font-size:12.5px;">Kontaktformular → E-Mail (Resend / Formspree)</div>
-            <div class="cost-desc">Anfragen aus dem Konfigurator werden als E-Mail an Dominik zugestellt — kein Backend nötig. Inkl. einfache Bestätigungs-E-Mail an den Absender.</div>
-          </td>
-          <td class="right">CHF 780</td>
-        </tr>
-        <tr>
-          <td>
-            <div style="font-weight:600;font-size:12.5px;">Google Analytics 4 + Tag Manager</div>
-            <div class="cost-desc">Seitenaufrufe, Anfragen-Events, Konfigurator-Nutzung messen. Beide Tools kostenlos — nur Implementierungsaufwand.</div>
-          </td>
-          <td class="right">CHF 680</td>
-        </tr>
-        <tr>
-          <td>
-            <div style="font-weight:600;font-size:12.5px;">Cookie Consent Banner (Klaro, Open Source)</div>
-            <div class="cost-desc">DSG/DSGVO-konformer Consent für GA4. Kostenfreies Tool — nur Integration. Rechtlich zwingend.</div>
-          </td>
-          <td class="right">CHF 420</td>
-        </tr>
-        <tr>
-          <td>
-            <div style="font-weight:600;font-size:12.5px;">Basis-SEO</div>
-            <div class="cost-desc">Meta-Tags, Open Graph (Social Sharing), XML-Sitemap, robots.txt, Google Search Console Verifikation</div>
-          </td>
-          <td class="right">CHF 560</td>
-        </tr>
-        <tr>
-          <td>
-            <div style="font-weight:600;font-size:12.5px;">QA, Testing &amp; Go-Live</div>
-            <div class="cost-desc">Cross-Browser-Tests (Safari, Chrome, Firefox), Mobile-Tests (iOS / Android), Deployment-Checkliste, Launch</div>
-          </td>
-          <td class="right">CHF 700</td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td><strong>Total Setup — Market Test</strong><div class="cost-desc" style="margin-top:2px;">Einmalig · exkl. MwSt. · Ready to launch in 1–2 Wochen</div></td>
-          <td class="right"><strong>CHF 7'000</strong></td>
-        </tr>
-      </tfoot>
-    </table>
-
-    <div class="recurring-grid">
-      <div class="rec-card">
-        <div class="rec-card-head">Monatliche Kosten — Bare Minimum</div>
-        <div class="rec-item"><span class="ri-name">Domain (stueva.ch)</span><span class="ri-price">CHF 3/Mo</span></div>
-        <div class="rec-item"><span class="ri-name">Hosting (Vercel Free Tier)</span><span class="ri-price">CHF 0/Mo</span></div>
-        <div class="rec-item"><span class="ri-name">Formular-E-Mail (Resend Free)</span><span class="ri-price">CHF 0–10/Mo</span></div>
-        <div class="rec-item"><span class="ri-name">GA4 + GTM</span><span class="ri-price">kostenlos</span></div>
-        <div class="rec-item"><span class="ri-name">Cookie Consent (Klaro OSS)</span><span class="ri-price">kostenlos</span></div>
-        <div class="rec-item" style="font-weight:700;border-top:1px solid var(--border);padding-top:8px;margin-top:4px;">
-          <span class="ri-name" style="color:var(--ink);">Total Monatlich</span>
-          <span class="ri-price" style="color:var(--forest);">CHF 90/Mo</span>
-        </div>
-      </div>
-      <div class="rec-card" style="background:rgba(200,152,42,.04);border-color:rgba(200,152,42,.3);">
-        <div class="rec-card-head" style="color:var(--gold);">Was das bedeutet in der Praxis</div>
-        <div class="rec-item"><span class="ri-name">Anfragen-Handling</span><span class="ri-price" style="color:var(--stone);">Per E-Mail, manuell</span></div>
-        <div class="rec-item"><span class="ri-name">Buchungsbestätigung</span><span class="ri-price" style="color:var(--stone);">Manuell per Telefon/Mail</span></div>
-        <div class="rec-item"><span class="ri-name">Zahlungsabwicklung</span><span class="ri-price" style="color:var(--stone);">Banküberweisung</span></div>
-        <div class="rec-item"><span class="ri-name">Verfügbarkeit pflegen</span><span class="ri-price" style="color:var(--stone);">Manuell im Kalender</span></div>
-        <div class="rec-item" style="font-weight:600;color:var(--forest);font-size:11.5px;border-top:1px solid var(--border);padding-top:8px;margin-top:4px;">
-          <span>Ideal für ersten Markttest bis ca. 10–20 Buchungen/Jahr</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="notes-box" style="margin-top:12px;">
-      <strong>Upgrade-Pfad:</strong> Bare Minimum kann jederzeit mit einzelnen Growth-Modulen erweitert werden — z.B. erst Backend und Dashboard ergänzen, später Stripe hinzufügen. Kein Neuaufbau nötig, da der Prototyp bereits modular strukturiert ist.
-    </div>
-  </div>
-  </details>
-
-  <hr class="divider">
-
-  <details class="sec-collapse">
-  <summary class="sec-summary"><span>Paket 2 — Growth · Zusätzliche Module</span><span class="sec-arrow">▾</span></summary>
-  <!-- GROWTH ADDITIONAL COSTS -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-num">▲</div>
-      <div class="section-title">Paket 2 — Growth: Zusätzliche Module</div>
-    </div>
-    <div class="section-desc">Auf Market Test aufbauend. Aktiviert sobald erste Anfragen laufen und manuelles Handling zu aufwändig wird.</div>
-
-    <table class="cost-table">
-      <thead>
-        <tr>
-          <th>Modul</th>
-          <th class="right" style="width:130px">Einmalig (CHF)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="highlight-row">
-          <td><div style="font-weight:600;font-size:12.5px;">Prototype → Next.js Produktions-App</div><div class="cost-desc">Migration in skalierbare React/Next.js-App mit Routing, State-Management, SEO-Ready</div></td>
-          <td class="right">CHF 3'500</td>
-        </tr>
-        <tr class="highlight-row">
-          <td><div style="font-weight:600;font-size:12.5px;">Backend &amp; Datenbank (Supabase)</div><div class="cost-desc">PostgreSQL, REST-API, DSG-konform, EU-Region Hosting, Auth</div></td>
-          <td class="right">CHF 2'800</td>
-        </tr>
-        <tr class="highlight-row">
-          <td><div style="font-weight:600;font-size:12.5px;">Anfragen-Dashboard (Admin)</div><div class="cost-desc">Alle Anfragen auf einen Blick, Status (Offen / Bestätigt / Abgeschlossen), Notizen</div></td>
-          <td class="right">CHF 4'200</td>
-        </tr>
-        <tr>
-          <td><div style="font-weight:600;font-size:12.5px;">Echtzeit-Verfügbarkeitskalender</div><div class="cost-desc">Gebuchte Daten aus Datenbank, Admin kann Blockierungen setzen, synct mit Konfigurator</div></td>
-          <td class="right">CHF 2'100</td>
-        </tr>
-        <tr>
-          <td><div style="font-weight:600;font-size:12.5px;">Stripe Anzahlung (Online-Zahlung)</div><div class="cost-desc">20% Deposit beim Buchen, automatische Bestätigung, Restbetrag per Banküberweisung</div></td>
-          <td class="right">CHF 2'800</td>
-        </tr>
-        <tr>
-          <td><div style="font-weight:600;font-size:12.5px;">Transaktions-E-Mails (vollständig)</div><div class="cost-desc">Buchungsbestätigung, Zahlungsbestätigung, Erinnerungen vor Event</div></td>
-          <td class="right">CHF 1'400</td>
-        </tr>
-        <tr>
-          <td><div style="font-weight:600;font-size:12.5px;">Hotjar (Heatmaps &amp; Sessions)</div><div class="cost-desc">Verstehen wo Nutzer abspringen, Konfigurator-Nutzung optimieren</div></td>
-          <td class="right">CHF 560</td>
-        </tr>
-        <tr>
-          <td><div style="font-weight:600;font-size:12.5px;">Google My Business Setup</div><div class="cost-desc">Profil-Optimierung, Fotos, lokale Sichtbarkeit für alle 26 Kantone</div></td>
-          <td class="right">CHF 840</td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td><strong>Total Growth — Zusatzmodule</strong><div class="cost-desc" style="margin-top:2px;">Total inkl. Market Test: <strong>CHF 14'000</strong> · monatlich: Vercel Pro CHF 25 + Supabase CHF 30 + Hotjar CHF 55 + E-Mail CHF 15 = <strong>ca. CHF 150/Mo</strong></div></td>
-          <td class="right"><strong>CHF 5'000</strong></td>
-        </tr>
-      </tfoot>
-    </table>
-  </div>
-  </details>
-
-  <hr class="divider">
-
-  <details class="sec-collapse">
-  <summary class="sec-summary"><span>Paket 3 — Enterprise · Zusätzliche Module</span><span class="sec-arrow">▾</span></summary>
-  <!-- ENTERPRISE ADDITIONAL COSTS -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-num">◆</div>
-      <div class="section-title">Paket 3 — Enterprise: Zusätzliche Module</div>
-    </div>
-    <div class="section-desc">Auf Growth aufbauend. Für schweizweiten Vollbetrieb mit allen Landessprachen, lokalen Zahlungsmitteln und vollständiger Marketing-Infrastruktur.</div>
-
-    <table class="cost-table">
-      <thead>
-        <tr>
-          <th>Modul</th>
-          <th class="right" style="width:130px">Einmalig (CHF)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><div style="font-weight:600;font-size:12.5px;">Mehrsprachigkeit DE / FR / IT</div><div class="cost-desc">Komplette Übersetzung, URL-Struktur /de /fr /it, hreflang-Tags</div></td>
-          <td class="right">CHF 3'500</td>
-        </tr>
-        <tr>
-          <td><div style="font-weight:600;font-size:12.5px;">Kantonale Landingpages</div><div class="cost-desc">Standortspezifische Seiten für Zürich, Bern, Basel, Luzern usw. — lokale SEO</div></td>
-          <td class="right">CHF 2'800</td>
-        </tr>
-        <tr>
-          <td><div style="font-weight:600;font-size:12.5px;">CMS (Sanity.io)</div><div class="cost-desc">Texte, Bilder, Pakete und Preise selbstständig bearbeiten — ohne Entwickler</div></td>
-          <td class="right">CHF 2'520</td>
-        </tr>
-        <tr>
-          <td><div style="font-weight:600;font-size:12.5px;">Twint Integration</div><div class="cost-desc">Schweizer Standardzahlung, besonders wichtig für B2C-Kunden</div></td>
-          <td class="right">CHF 1'680</td>
-        </tr>
-        <tr>
-          <td><div style="font-weight:600;font-size:12.5px;">PostFinance Card</div><div class="cost-desc">Direktintegration für Zielgruppe ohne Kreditkarte</div></td>
-          <td class="right">CHF 1'400</td>
-        </tr>
-        <tr>
-          <td><div style="font-weight:600;font-size:12.5px;">Swiss QR-Bill PDF-Rechnungen</div><div class="cost-desc">Automatisch erstellte Rechnungen mit QR-Referenz, MwSt. 8.1% konform</div></td>
-          <td class="right">CHF 1'960</td>
-        </tr>
-        <tr>
-          <td><div style="font-weight:600;font-size:12.5px;">Meta + LinkedIn + Google Ads Pixel</div><div class="cost-desc">Vollständiges Paid-Advertising-Tracking für Retargeting &amp; Conversion-Optimierung</div></td>
-          <td class="right">CHF 1'540</td>
-        </tr>
-        <tr>
-          <td><div style="font-weight:600;font-size:12.5px;">Event-Verzeichnisse CH</div><div class="cost-desc">micelab.ch, eveosblog, Swiss Maps Integration — Sichtbarkeit auf allen relevanten Plattformen</div></td>
-          <td class="right">CHF 980</td>
-        </tr>
-        <tr>
-          <td><div style="font-weight:600;font-size:12.5px;">WhatsApp Business API</div><div class="cost-desc">Anfrage-Benachrichtigungen direkt an Dominik, optionale Kundenbenachrichtigungen</div></td>
-          <td class="right">CHF 840</td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td><strong>Total Enterprise — Zusatzmodule</strong><div class="cost-desc" style="margin-top:2px;">Total inkl. Growth: <strong>CHF 22'000</strong> · monatlich: CMS CHF 15 + Tools CHF 80–120 = <strong>ca. CHF 280/Mo</strong></div></td>
-          <td class="right"><strong>CHF 10'000</strong></td>
-        </tr>
-      </tfoot>
-    </table>
-  </div>
-  </details>
-
-  <hr class="divider">
-
-  <details class="sec-collapse">
-  <summary class="sec-summary"><span>Detaillierter Modulkatalog — Sektionen 1–8</span><span class="sec-arrow">▾</span></summary>
-  <!-- SECTION 1: BACKEND & DATABASE -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-num">1</div>
-      <div class="section-title">Backend &amp; Datenbank</div>
-    </div>
-    <div class="section-desc">Serverinfrastruktur, Datenpersistenz und API-Schicht. Basis für alle weiteren Module. <strong>Pflichtmodul.</strong></div>
-
-    <table class="module-table">
-      <thead>
-        <tr>
-          <th style="width:36px"></th>
-          <th>Modul</th>
-          <th class="center" style="width:80px">Priorität</th>
-          <th class="right" style="width:110px">Einmalig (CHF)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="highlight-row">
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Hosting &amp; Deployment Setup</div>
-            <div class="mod-desc">Next.js auf Vercel, CI/CD Pipeline, SSL, Custom Domain (alphuetta.ch)</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-rec">Pflicht</span></td>
-          <td class="price">CHF 2'800</td>
-        </tr>
-        <tr class="highlight-row">
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Datenbank &amp; API (Supabase)</div>
-            <div class="mod-desc">PostgreSQL-Datenbank, REST-API, Datenschutz (DSG/DSGVO-konform), EU-Region Hosting</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-rec">Pflicht</span></td>
-          <td class="price">CHF 2'800</td>
-        </tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Anfragen-/Bestellsystem</div>
-            <div class="mod-desc">Anfragen aus dem Konfigurator werden gespeichert (Grösse, Module, Datum, Kontakt)</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-rec">Pflicht</span></td>
-          <td class="price">CHF 3'500</td>
-        </tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Kunden-CRM (einfach)</div>
-            <div class="mod-desc">Kundendaten verwalten, Verlauf, Notizen, Status pro Anfrage</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
-          <td class="price">CHF 2'100</td>
-        </tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Datei-Storage</div>
-            <div class="mod-desc">Verträge, Rechnungen, Fotos sicher speichern und abrufen</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
-          <td class="price">CHF 1'120</td>
-        </tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Backup &amp; Monitoring</div>
-            <div class="mod-desc">Automatische tägliche Backups, Uptime-Monitoring, Alarmierung bei Ausfall</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-rec">Empfohlen</span></td>
-          <td class="price">CHF 980</td>
-        </tr>
-
-        <tr class="category"><td colspan="4">Frontend — Produktionsreife &amp; Mobile</td></tr>
-        <tr class="highlight-row">
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Prototype → Produktions-Website (Next.js)</div>
-            <div class="mod-desc">Migration des HTML-Prototyps in eine skalierbare React/Next.js-App; Komponentenstruktur, Routing, State-Management, SEO-Ready</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-rec">Pflicht</span></td>
-          <td class="price">CHF 3'500</td>
-        </tr>
-        <tr class="highlight-row">
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Mobile Responsiveness — vollständig</div>
-            <div class="mod-desc">Touch-optimierter Konfigurator (SVG-Grundriss auf Mobile, Swipe-Gesten), responsive Navigation, alle Breakpoints 320px–1440px getestet auf iOS &amp; Android</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-rec">Pflicht</span></td>
-          <td class="price">CHF 2'800</td>
-        </tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Performance &amp; Core Web Vitals</div>
-            <div class="mod-desc">Google PageSpeed ≥90 (LCP, CLS, INP), Bildkomprimierung, Lazy Loading, Font-Subsetting — relevant für SEO-Ranking</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-rec">Empfohlen</span></td>
-          <td class="price">CHF 1'260</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- SECTION 2: PAYMENT -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-num">2</div>
-      <div class="section-title">Zahlungsabwicklung</div>
-    </div>
-    <div class="section-desc">Für Mietbuchungen (CHF 2'500–7'200/Tag) empfehlen wir eine Online-Anzahlung per Stripe. Kauftransaktionen (CHF 85k–210k) sollten per Banküberweisung + Stripe-Deposit abgewickelt werden.</div>
-
-    <table class="module-table">
-      <thead>
-        <tr>
-          <th style="width:36px"></th>
-          <th>Modul</th>
-          <th class="center" style="width:80px">Priorität</th>
-          <th class="right" style="width:110px">Einmalig (CHF)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="highlight-row">
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Stripe Checkout (Anzahlung)</div>
-            <div class="mod-desc">Online-Anzahlung (z.B. 20% der Mietkosten), sichere Zahlungsseite, automatische Bestätigung</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-rec">Empfohlen</span></td>
-          <td class="price">CHF 2'800</td>
-        </tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Twint Integration</div>
-            <div class="mod-desc">Schweizer Standardzahlung, besonders wichtig für B2C-Kunden unter 50 Jahren</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-ch">🇨🇭 CH-Markt</span></td>
-          <td class="price">CHF 1'680</td>
-        </tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">PDF-Rechnungsgenerierung</div>
-            <div class="mod-desc">Automatisch erstellte Rechnungen mit QR-Referenz (Swiss QR-Bill Standard), MwSt.-konform</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-rec">Empfohlen</span></td>
-          <td class="price">CHF 1'960</td>
-        </tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">MwSt.-Handling (8.1%)</div>
-            <div class="mod-desc">Automatische Steuerberechnung, MwSt.-Ausweis auf Dokumenten</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-ch">🇨🇭 CH-Pflicht</span></td>
-          <td class="price">CHF 840</td>
-        </tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Restbetrag-Zahlungslink</div>
-            <div class="mod-desc">Automatisch versendeter Zahlungslink für den Restbetrag (z.B. 14 Tage vor Event)</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
-          <td class="price">CHF 1'120</td>
-        </tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Stornierung &amp; Rückerstattung</div>
-            <div class="mod-desc">Stornierungsrichtlinien, automatische Teil-/Vollrückerstattung über Stripe</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
-          <td class="price">CHF 980</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="notes-box" style="margin-top:12px;font-size:10.5px;">
-      <strong>Stripe-Gebühren (nicht im Pauschalpreis):</strong> 1.5% + CHF 0.25 pro Transaktion (europäische Karten). Twint-Gebühren: ca. 1.3% + CHF 0.15. Diese werden direkt von Stripe / SIX abgezogen — kein monatliches Abo.
-    </div>
-  </div>
-
-  <!-- SECTION 3: COMMUNICATION -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-num">3</div>
-      <div class="section-title">Kommunikation &amp; Benachrichtigungen</div>
-    </div>
-    <div class="section-desc">Automatisierte E-Mails und Benachrichtigungen für Kunden und Dominik Huber.</div>
-
-    <table class="module-table">
-      <thead>
-        <tr>
-          <th style="width:36px"></th>
-          <th>Modul</th>
-          <th class="center" style="width:80px">Priorität</th>
-          <th class="right" style="width:110px">Einmalig (CHF)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="highlight-row">
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Transaktions-E-Mails (Resend)</div>
-            <div class="mod-desc">Buchungsbestätigung an Kunden, neue Anfrage-Alert an Dominik, Zahlungsbestätigung</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-rec">Pflicht</span></td>
-          <td class="price">CHF 1'400</td>
-        </tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">E-Mail-Sequenz (Post-Buchung)</div>
-            <div class="mod-desc">Automatische Follow-ups: 7 Tage vor Event (Checkliste), 1 Tag davor (Kontakt), nach Event (Bewertung)</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-rec">Empfohlen</span></td>
-          <td class="price">CHF 1'680</td>
-        </tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Newsletter-Integration</div>
-            <div class="mod-desc">Mailchimp-Anbindung, Anmeldeformular, Opt-in bei Buchung (DSGVO-konform)</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
-          <td class="price">CHF 1'120</td>
-        </tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">WhatsApp Business API</div>
-            <div class="mod-desc">Anfrage-Benachrichtigung per WhatsApp an Dominik, optionale Kundenbenachrichtigungen</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
-          <td class="price">CHF 840</td>
-        </tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">SMS-Benachrichtigung</div>
-            <div class="mod-desc">Buchungsbestätigung per SMS (Twilio), besonders zuverlässig für Eventbestätigungen</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
-          <td class="price">CHF 700</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- SECTION 4: ADMIN -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-num">4</div>
-      <div class="section-title">Admin-Dashboard &amp; Backoffice</div>
-    </div>
-    <div class="section-desc">Verwaltungsoberfläche für Dominik Huber zur Bearbeitung von Anfragen, Buchungen und Kundendaten.</div>
-
-    <table class="module-table">
-      <thead>
-        <tr>
-          <th style="width:36px"></th>
-          <th>Modul</th>
-          <th class="center" style="width:80px">Priorität</th>
-          <th class="right" style="width:110px">Einmalig (CHF)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="highlight-row">
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Admin-Dashboard (Bestellübersicht)</div>
-            <div class="mod-desc">Alle Anfragen/Buchungen auf einen Blick, Status (Offen / Bestätigt / Abgeschlossen), Suchfunktion</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-rec">Empfohlen</span></td>
-          <td class="price">CHF 4'200</td>
-        </tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Verfügbarkeitskalender</div>
-            <div class="mod-desc">Kalenderansicht der gebuchten Daten, Blockierungsfunktion für interne Nutzung</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-rec">Empfohlen</span></td>
-          <td class="price">CHF 2'100</td>
-        </tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Dokumentenverwaltung</div>
-            <div class="mod-desc">Mietverträge, Rechnungen und Lieferscheine pro Buchung speichern und versenden</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
-          <td class="price">CHF 1'680</td>
-        </tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Export (CSV / Excel)</div>
-            <div class="mod-desc">Buchungslisten für Buchhaltung/Treuhänder exportieren</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
-          <td class="price">CHF 560</td>
-        </tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Mehrere Admin-Nutzer</div>
-            <div class="mod-desc">Verschiedene Zugriffsrollen (Admin / Mitarbeiter / Buchhalter)</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
-          <td class="price">CHF 840</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- SECTION 5: CONTENT -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-num">5</div>
-      <div class="section-title">Content Management &amp; SEO</div>
-    </div>
-    <div class="section-desc">Ermöglicht Dominik, Inhalte selbstständig zu pflegen. SEO-Basis für organische Sichtbarkeit in der Schweiz.</div>
-
-    <table class="module-table">
-      <thead>
-        <tr>
-          <th style="width:36px"></th>
-          <th>Modul</th>
-          <th class="center" style="width:80px">Priorität</th>
-          <th class="right" style="width:110px">Einmalig (CHF)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">CMS (Sanity.io)</div>
-            <div class="mod-desc">Texte, Bilder, Pakete und Preise selbstständig bearbeiten — ohne Entwickler</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
-          <td class="price">CHF 2'520</td>
-        </tr>
-        <tr class="highlight-row">
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">SEO-Grundoptimierung</div>
-            <div class="mod-desc">Meta-Tags, Open Graph, Sitemap, robots.txt, Google Search Console, strukturierte Daten (Schema.org)</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-rec">Empfohlen</span></td>
-          <td class="price">CHF 1'400</td>
-        </tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Mehrsprachigkeit DE / FR / IT</div>
-            <div class="mod-desc">Komplette Übersetzung für alle drei Landessprachen, URL-Struktur (/de, /fr, /it)</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-ch">🇨🇭 CH-Markt</span></td>
-          <td class="price">CHF 3'500</td>
-        </tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Blog / News-Sektion</div>
-            <div class="mod-desc">Veranstaltungsberichte, Referenzprojekte, saisionale Inhalte für SEO-Relevanz</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
-          <td class="price">CHF 1'680</td>
-        </tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Kantonale Landingpages</div>
-            <div class="mod-desc">Standortspezifische Seiten für Zürich, Bern, Basel, Luzern usw. — höhere lokale Sichtbarkeit</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
-          <td class="price">CHF 2'800</td>
-        </tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Press Kit / Medienpage</div>
-            <div class="mod-desc">Pressemitteilung, Logos, Bilder-Download für Medien und Eventveranstalter</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
-          <td class="price">CHF 1'120</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- SECTION 6: ANALYTICS & MARKETING -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-num">6</div>
-      <div class="section-title">Analytics &amp; Marketing-Tracking</div>
-    </div>
-    <div class="section-desc">Datengrundlage für Marketingentscheide. Alle Tools werden DSGVO/DSG-konform eingebunden (Cookie-Consent obligatorisch).</div>
-
-    <table class="module-table">
-      <thead>
-        <tr>
-          <th style="width:36px"></th>
-          <th>Modul</th>
-          <th class="center" style="width:80px">Priorität</th>
-          <th class="right" style="width:110px">Einmalig (CHF)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="category"><td colspan="4">Basis-Analytics</td></tr>
-        <tr class="highlight-row">
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Google Tag Manager (GTM)</div>
-            <div class="mod-desc">Zentraler Tag-Container — alle anderen Tracking-Pixel werden über GTM eingebunden</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-rec">Basis</span></td>
-          <td class="price">CHF 840</td>
-        </tr>
-        <tr class="highlight-row">
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Google Analytics 4 (GA4)</div>
-            <div class="mod-desc">Seitenaufrufe, Traffic-Quellen, Nutzerfluss, Konversionstrichter, Konfiguratornutzung</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-rec">Basis</span></td>
-          <td class="price">CHF 700</td>
-        </tr>
-        <tr class="highlight-row">
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Cookie Consent Banner</div>
-            <div class="mod-desc">Cookiebot oder Usercentrics — rechtlich zwingend für GA4, Hotjar, Meta Pixel (DSG ab 2023)</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-rec">Pflicht</span></td>
-          <td class="price">CHF 840</td>
-        </tr>
-
-        <tr class="category"><td colspan="4">Nutzerverhalten</td></tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Hotjar (Heatmaps &amp; Session Recordings)</div>
-            <div class="mod-desc">Visuelle Analyse wo Nutzer klicken, scrollen und abspringen — ideal um den Konfigurator zu optimieren</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-rec">Empfohlen</span></td>
-          <td class="price">CHF 560</td>
-        </tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Hotjar Surveys (Feedback-Widgets)</div>
-            <div class="mod-desc">Kurze In-App-Umfragen: «Was hat dich überzeugt?» / «Warum hast du nicht gebucht?»</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
-          <td class="price">CHF 420</td>
-        </tr>
-
-        <tr class="category"><td colspan="4">Paid Advertising Tracking</td></tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Meta Pixel (Facebook &amp; Instagram)</div>
-            <div class="mod-desc">Konversionstracking für bezahlte Social-Ads, Retargeting-Zielgruppen aufbauen</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
-          <td class="price">CHF 560</td>
-        </tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Google Ads Conversion Tracking</div>
-            <div class="mod-desc">Kaufabschlüsse und Anfragen als Konversionen messen, Smart Bidding optimieren</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
-          <td class="price">CHF 560</td>
-        </tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">LinkedIn Insight Tag</div>
-            <div class="mod-desc">Relevant für B2B-Zielgruppe (Firmenevents, HR-Verantwortliche)</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
-          <td class="price">CHF 420</td>
-        </tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Schema.org Rich Snippets</div>
-            <div class="mod-desc">Strukturierte Daten für Event-Listings, Preise, Bewertungen in Google-Suchergebnissen</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
-          <td class="price">CHF 700</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- SECTION 7: SWISS DISTRIBUTION -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-num">7</div>
-      <div class="section-title">Schweizweite Verbreitung</div>
-    </div>
-    <div class="section-desc">Massnahmen für lokale Sichtbarkeit und Marktpräsenz in allen relevanten Schweizer Kantonen.</div>
-
-    <table class="module-table">
-      <thead>
-        <tr>
-          <th style="width:36px"></th>
-          <th>Modul</th>
-          <th class="center" style="width:80px">Priorität</th>
-          <th class="right" style="width:110px">Einmalig (CHF)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="highlight-row">
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Google My Business Setup &amp; Optimierung</div>
-            <div class="mod-desc">Profil-Optimierung, Fotos, Q&amp;A, regelmässige Posts, Bewertungsmanagement</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-rec">Empfohlen</span></td>
-          <td class="price">CHF 840</td>
-        </tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Schweizer Verzeichnisse (local.ch, search.ch, Cylex)</div>
-            <div class="mod-desc">Einträge in relevanten Schweizer Business-Verzeichnissen, NAP-Konsistenz</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-ch">🇨🇭 CH-Markt</span></td>
-          <td class="price">CHF 560</td>
-        </tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Event-Plattformen Integration</div>
-            <div class="mod-desc">Profil auf Eventlocation-Portalen (z.B. eveosblog.de, micelab.ch), automatische Karte auf Google Maps</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
-          <td class="price">CHF 980</td>
-        </tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Swiss Maps Integration (Swisstopo / Google Maps)</div>
-            <div class="mod-desc">Interaktive Karte mit Liefergebieten nach Kantonen, Standortsuche</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-opt">Optional</span></td>
-          <td class="price">CHF 840</td>
-        </tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">Referenzprojekte-Sektion</div>
-            <div class="mod-desc">Galerie abgeschlossener Events mit Testimonials, Kantonsbadge, Datum — stärkt Vertrauen</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-rec">Empfohlen</span></td>
-          <td class="price">CHF 1'260</td>
-        </tr>
-        <tr>
-          <td class="check"><div class="chk"></div></td>
-          <td>
-            <div class="mod-name">PostFinance Card (Debit/Kreditkarte CH)</div>
-            <div class="mod-desc">Direktintegration PostFinance für ältere Zielgruppen ohne Kreditkarte</div>
-          </td>
-          <td class="tag"><span class="tag-pill tag-ch">🇨🇭 CH-Markt</span></td>
-          <td class="price">CHF 1'400</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- SECTION 8: RECURRING -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-num">8</div>
-      <div class="section-title">Laufende Kosten (monatlich)</div>
-    </div>
-    <div class="section-desc">Infrastruktur- und Lizenzkosten nach Go-Live. Werden jährlich im Voraus fakturiert (12 Monate).</div>
-
-    <div class="recurring-grid">
-      <div class="rec-card">
-        <div class="rec-card-head">Infrastruktur — obligatorisch</div>
-        <div class="rec-item"><span class="ri-name">Domain alphuetta.ch</span><span class="ri-price">CHF 3/Mo</span></div>
-        <div class="rec-item"><span class="ri-name">Hosting (Vercel Pro)</span><span class="ri-price">CHF 28/Mo</span></div>
-        <div class="rec-item"><span class="ri-name">Datenbank (Supabase Pro)</span><span class="ri-price">CHF 32/Mo</span></div>
-        <div class="rec-item"><span class="ri-name">E-Mail Service (Resend)</span><span class="ri-price">CHF 20/Mo</span></div>
-        <div class="rec-item"><span class="ri-name">Monitoring &amp; Backup</span><span class="ri-price">CHF 14/Mo</span></div>
-        <div class="rec-item" style="font-weight:700;border-top:1px solid var(--border);padding-top:8px;margin-top:4px;">
-          <span class="ri-name" style="color:var(--ink);">Total Infra</span>
-          <span class="ri-price" style="color:var(--forest);">CHF 97/Mo</span>
-        </div>
-      </div>
-      <div class="rec-card">
-        <div class="rec-card-head">Marketing Tools — nach Wahl</div>
-        <div class="rec-item"><span class="ri-name">Hotjar (Basic)</span><span class="ri-price">CHF 55/Mo</span></div>
-        <div class="rec-item"><span class="ri-name">Cookie Consent (Cookiebot)</span><span class="ri-price">CHF 18/Mo</span></div>
-        <div class="rec-item"><span class="ri-name">Mailchimp Essentials</span><span class="ri-price">CHF 22/Mo</span></div>
-        <div class="rec-item"><span class="ri-name">WhatsApp Business API</span><span class="ri-price">CHF 15/Mo + Nutzung</span></div>
-        <div class="rec-item"><span class="ri-name">GA4 + GTM</span><span class="ri-price">kostenlos</span></div>
-        <div class="rec-item" style="font-weight:700;border-top:1px solid var(--border);padding-top:8px;margin-top:4px;">
-          <span class="ri-name" style="color:var(--ink);">Total Marketing</span>
-          <span class="ri-price" style="color:var(--forest);">CHF 55–110/Mo</span>
-        </div>
-      </div>
-    </div>
-    <div class="notes-box" style="margin-top:12px;font-size:10.5px;">
-      <strong>Wartungsretainer (empfohlen):</strong> CHF 350/Monat — beinhaltet Dependency-Updates, Sicherheitspatches, bis zu 2h Änderungen pro Monat. Ad-hoc-Support ausserhalb des Retainers: CHF 210/Stunde.
-    </div>
-  </div>
-  </details>
-
-  <hr class="divider">
-
-  <!-- INVESTMENT SUMMARY -->
+  <!-- KOSTEN ÜBERSICHT -->
   <div class="section">
     <div class="section-head">
       <div class="section-num">∑</div>
-      <div class="section-title">Investment-Übersicht</div>
+      <div class="section-title">Kosten auf einen Blick</div>
     </div>
-    <div class="section-desc">Alle Preise einmalig, exkl. MwSt. Jedes Paket baut auf dem vorherigen auf.</div>
-
     <div class="totals-box">
       <div class="totals-row">
         <div>
-          <div class="tlabel" style="font-weight:600;">★ Paket 1 — Market Test</div>
-          <div class="tnote">Website live · Kontaktformular · Basis-SEO · GA4 · Cookie Consent</div>
+          <div class="tlabel" style="font-weight:600;">Paket 1 — Market Test</div>
+          <div class="tnote">Website + Marketing-Setup</div>
         </div>
         <div>
-          <div class="tval" style="color:var(--forest);">CHF 7'000</div>
-          <div style="font-size:10px;color:var(--stone);text-align:right;margin-top:1px;">CHF 90 / Mo</div>
+          <div class="tval" style="color:var(--forest);">CHF 7'600</div>
+          <div style="font-size:10px;color:var(--stone);text-align:right;margin-top:1px;">+ CHF 240–390 / Mo</div>
         </div>
       </div>
       <div class="totals-row">
         <div>
-          <div class="tlabel" style="font-weight:600;">▲ Paket 2 — Growth <span style="font-weight:400;color:var(--stone);">(inkl. Market Test)</span></div>
-          <div class="tnote">+ Datenbank · Buchungs-Dashboard · Online-Zahlung · Automatische E-Mails · Kalender</div>
+          <div class="tlabel" style="font-weight:600;">Paket 2 — Growth</div>
+          <div class="tnote">+ Buchungssystem · Online-Zahlung · Dashboard</div>
         </div>
         <div>
-          <div class="tval" style="color:var(--forest);">CHF 14'000</div>
-          <div style="font-size:10px;color:var(--stone);text-align:right;margin-top:1px;">CHF 150 / Mo</div>
+          <div class="tval" style="color:var(--forest);">CHF 14'900</div>
+          <div style="font-size:10px;color:var(--stone);text-align:right;margin-top:1px;">+ CHF 450–750 / Mo</div>
         </div>
       </div>
       <div class="totals-row sub">
         <div>
-          <div class="tlabel" style="font-weight:600;">◆ Paket 3 — Enterprise <span style="font-weight:400;color:var(--stone);">(inkl. Growth)</span></div>
-          <div class="tnote">+ DE/FR/IT · Kantonale Seiten · CMS · Twint · PostFinance · QR-Rechnung</div>
+          <div class="tlabel" style="font-weight:600;">Paket 3 — Enterprise</div>
+          <div class="tnote">+ DE/FR/IT · CMS · Twint · PostFinance</div>
         </div>
         <div>
-          <div class="tval" style="color:var(--forest);">CHF 22'000</div>
-          <div style="font-size:10px;color:var(--stone);text-align:right;margin-top:1px;">CHF 280 / Mo</div>
+          <div class="tval" style="color:var(--forest);">CHF 23'800</div>
+          <div style="font-size:10px;color:var(--stone);text-align:right;margin-top:1px;">+ CHF 1'080–1'780 / Mo</div>
         </div>
+      </div>
+    </div>
+    <div style="font-size:10.5px;color:var(--stone);margin-top:10px;">Alle Preise exkl. MwSt. 8.1%. Werbebudget separat nach Wahl.</div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- OPTION B: PARTNERSCHAFT -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">⟳</div>
+      <div class="section-title">Option B — Partnerschaft</div>
+    </div>
+    <div class="section-desc">Statt klassischem Auftrag bauen und betreiben wir die Site. Du zahlst eine Setup-Fee und einen Anteil am Mietumsatz.</div>
+    <div class="totals-box">
+      <div class="totals-row">
+        <div class="tlabel">Setup-Fee (einmalig)</div>
+        <div class="tval" style="color:var(--forest);">CHF 8'400</div>
       </div>
       <div class="totals-row">
-        <div>
-          <div class="tlabel" style="font-weight:600;">◎ Marketing Ads-Budget <span style="font-weight:400;color:var(--stone);">(separat · direkt an Google/Meta)</span></div>
-          <div class="tnote">Market Test: CHF 150–300/Mo · Growth: CHF 300–600/Mo · Enterprise: CHF 800–1'500/Mo</div>
-        </div>
-        <div>
-          <div class="tval" style="color:var(--stone);font-size:13px;">nach Wahl</div>
-          <div style="font-size:10px;color:var(--stone);text-align:right;margin-top:1px;">+ CHF 600 / 900 / 1'800 Setup</div>
-        </div>
+        <div class="tlabel">Monatlich (Minimum)</div>
+        <div class="tval">CHF 200</div>
+      </div>
+      <div class="totals-row">
+        <div class="tlabel">Revenue Share · Mieterlöse</div>
+        <div class="tval">8%</div>
+      </div>
+      <div class="totals-row sub">
+        <div class="tlabel">Revenue Share · Kauferlöse</div>
+        <div class="tval">2%</div>
+      </div>
+      <div class="totals-row sub">
+        <div class="tlabel">Mindestlaufzeit</div>
+        <div class="tval">36 Monate</div>
       </div>
     </div>
-
-    <div class="notes-box" style="margin-top:16px;">
-      <strong>Hinweis zu den Preisen:</strong> Alle Beträge in CHF exkl. MwSt. (8.1%). Die Preise beinhalten eine Agentur-Marge von 40%. Zahlungsbedingungen: 40% Anzahlung bei Projektstart, 30% bei Abnahme Backend, 30% bei Go-Live. Projekt-Kick-off innert 5 Werktagen nach Anzahlungseingang.
-    </div>
+    <div style="font-size:11px;color:var(--stone);margin-top:10px;">Hosting, Wartung und Weiterentwicklung übernehmen wir. Du zahlst nur was wirklich reinkommt.</div>
   </div>
 
   <hr class="divider">
 
-  <!-- REVENUE SHARE / PARTNERSCHAFT -->
-  <details class="sec-collapse">
-  <summary class="sec-summary"><span>Modell B — Partnerschaft &amp; Revenue Share · Details</span><span class="sec-arrow">▾</span></summary>
-  <div class="partner-section">
-    <div class="partner-header">
-      <div class="partner-tag">Alternative Offerte · Partnerschaftsmodell</div>
-      <div class="partner-title">Modell B — Digital Partner &amp; Revenue Share</div>
-      <div class="partner-sub">Minimale Fixkosten · Agentur wird langfristiger Partner · Geteiltes Risiko, geteilter Erfolg</div>
-    </div>
-    <div class="partner-body">
-
-      <p class="partner-intro">Statt eines klassischen Projektauftrags bieten wir die Möglichkeit, als <strong>langfristiger Digital-Partner</strong> einzusteigen. Die Agentur trägt das Entwicklungsrisiko und übernimmt Hosting, Wartung und Weiterentwicklung eigenverantwortlich — dafür partizipiert sie am generierten Umsatz. Beide Seiten haben damit dasselbe Ziel: Alphuetta wächst.</p>
-
-      <!-- Modell A vs B Vergleich -->
-      <div class="pi-head" style="margin-bottom:12px;">Modell A vs. Modell B — Direktvergleich</div>
-      <div class="partner-compare">
-        <div class="pc-col pc-col-a">
-          <div class="pc-head">Modell A · Klassischer Auftrag</div>
-          <div class="pc-item"><span>Einmalig (Paket 2 — Growth)</span><strong>CHF 14'000</strong></div>
-          <div class="pc-item"><span>Monatlich (Infra + Wartung)</span><strong>CHF 150</strong></div>
-          <div class="pc-item"><span>Revenue Share</span><strong>0%</strong></div>
-          <div class="pc-item"><span>Risiko Agentur</span><strong>Keins</strong></div>
-          <div class="pc-item"><span>Inhalt Upside</span><strong>100% bei Ihnen</strong></div>
-        </div>
-        <div class="pc-col pc-col-b">
-          <div class="pc-head">Modell B · Partnerschaft</div>
-          <div class="pc-item"><span>Einmalig (Setup-Fee)</span><strong>CHF 8'400</strong></div>
-          <div class="pc-item"><span>Monatliches Minimum</span><strong>CHF 200</strong></div>
-          <div class="pc-item"><span>Revenue Share Miete</span><strong>8% der Mieterlöse</strong></div>
-          <div class="pc-item"><span>Revenue Share Kauf</span><strong>2% der Kauferlöse</strong></div>
-          <div class="pc-item"><span>Mindestlaufzeit</span><strong>36 Monate</strong></div>
-        </div>
-      </div>
-
-      <!-- Revenue Share Karten -->
-      <div class="pi-head" style="margin-bottom:12px;">Revenue Share — Konditionen</div>
-      <div class="rs-grid">
-        <div class="rs-card rs-highlight">
-          <div class="rs-label">Setup-Fee (einmalig)</div>
-          <div class="rs-value">8'400</div>
-          <div class="rs-sub">CHF exkl. MwSt.</div>
-        </div>
-        <div class="rs-card rs-highlight">
-          <div class="rs-label">Anteil Mieterlöse</div>
-          <div class="rs-value">8%</div>
-          <div class="rs-sub">des Brutto-Mietumsatzes</div>
-        </div>
-        <div class="rs-card">
-          <div class="rs-label">Anteil Kauferlöse</div>
-          <div class="rs-value">2%</div>
-          <div class="rs-sub">des via Website angebahnten Kaufpreises</div>
-        </div>
-      </div>
-
-      <!-- Beispielrechnung -->
-      <div class="pi-head" style="margin-bottom:10px;">Beispielrechnung — 3-Jahres-Horizont</div>
-      <table class="example-table">
-        <thead>
-          <tr>
-            <th>Szenario</th>
-            <th>Mietumsatz/Jahr</th>
-            <th class="right">Agentur-Anteil/Jahr</th>
-            <th class="right">Ihr Kostenvergleich<br><span style="font-weight:400;text-transform:none;letter-spacing:0;">(3 Jahre, Modell A vs B)</span></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Start (Jahr 1)</td>
-            <td>CHF 40'000</td>
-            <td class="right">CHF 3'200</td>
-            <td class="right">A: CHF 39'200 | <span class="win">B: CHF 18'000</span></td>
-          </tr>
-          <tr>
-            <td>Wachstum (Jahr 2)</td>
-            <td>CHF 90'000</td>
-            <td class="right">CHF 7'200</td>
-            <td class="right">A: CHF 6'720 | <span class="win">B: CHF 7'200</span></td>
-          </tr>
-          <tr>
-            <td>Etabliert (Jahr 3)</td>
-            <td>CHF 150'000</td>
-            <td class="right">CHF 12'000</td>
-            <td class="right">A: CHF 6'720 | B: CHF 12'000</td>
-          </tr>
-          <tr>
-            <td><strong>Total 3 Jahre</strong></td>
-            <td><strong>CHF 280'000</strong></td>
-            <td class="right"><strong>CHF 22'400</strong></td>
-            <td class="right">A: CHF 52'640 | <span class="win">B: CHF 37'200</span></td>
-          </tr>
-        </tbody>
-      </table>
-      <div style="font-size:10px;color:var(--stone);margin-top:-10px;margin-bottom:20px;">* Modell A inkl. CHF 14'000 Setup (Paket 2 — Growth) + CHF 150/Mo laufend. Modell B inkl. Setup-Fee + CHF 200/Mo Minimum + Revenue Share. Ab ca. CHF 120k Jahresmietumsatz wird Modell A günstiger für dich.</div>
-
-      <!-- Was inbegriffen ist -->
-      <div class="pi-head" style="margin-bottom:10px;">Im Partnerschaftsmodell inbegriffen (kein Aufpreis gegenüber Growth)</div>
-      <div class="pi-grid" style="margin-bottom:20px;">
-        <div class="pi-item"><span>✓</span> Komplette Growth-Umsetzung</div>
-        <div class="pi-item"><span>✓</span> Hosting &amp; Infrastruktur (CHF 130–190/Mo übernommen)</div>
-        <div class="pi-item"><span>✓</span> Laufende Wartung &amp; Security-Updates</div>
-        <div class="pi-item"><span>✓</span> Monatliches Analytics-Reporting</div>
-        <div class="pi-item"><span>✓</span> 1 Marketing-Kampagne pro Quartal</div>
-        <div class="pi-item"><span>✓</span> Feature-Weiterentwicklung nach Absprache</div>
-        <div class="pi-item"><span>✓</span> Mobile Responsiveness &amp; Performance</div>
-        <div class="pi-item"><span>✓</span> Admin-Dashboard &amp; Verfügbarkeitskalender</div>
-      </div>
-
-      <!-- Konditionen / Rechtliches -->
-      <div class="partner-terms">
-        <strong>Laufzeit &amp; Kündigung:</strong> Mindestlaufzeit 36 Monate, danach jährlich kündbar mit 3 Monaten Vorlaufzeit.<br>
-        <strong>Buyout-Klausel:</strong> Dominik Huber kann das Modell jederzeit beenden durch Zahlung von 24× dem Durchschnitts-Monatsbetrag der letzten 12 Monate (Minimum CHF 9'600). Danach Übergabe aller Assets, Daten und Zugänge.<br>
-        <strong>Transparenz:</strong> Alphuetta stellt monatlich einen Export der Website-Buchungen zur Verfügung (automatisch via Admin-Dashboard). Revenue Share wird auf Nettobuchungen berechnet (exkl. Stornierungen, exkl. MwSt.).<br>
-        <strong>Exklusivität:</strong> Agentur verpflichtet sich, keine direkten Konkurrenten in der Blockhütten-Vermietung in der Schweiz mit vergleichbarer Plattform zu betreuen während der Mindestlaufzeit.<br>
-        <strong>Eigentumsrechte:</strong> Domain, Daten und Marke verbleiben jederzeit bei Dominik Huber. Die Agentur hält lediglich das Nutzungsrecht am Code bis zum Ende der Laufzeit oder Buyout.
-      </div>
-
-      <div class="rs-signoff">
-        <div class="sign-block">
-          <div class="sign-label">Auftraggeber — Partnerschaft akzeptiert</div>
-          <div class="sign-line" style="height:40px;"></div>
-          <div class="sign-name">Dominik Huber · Alphuetta GR · Datum</div>
-        </div>
-        <div class="sign-block">
-          <div class="sign-label">Agentur — Partnerschaft bestätigt</div>
-          <div class="sign-line" style="height:40px;"></div>
-          <div class="sign-name">Agentur · Projektleitung · Datum</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-  </details>
-
-  <hr class="divider">
-
-  <!-- SIGN OFF -->
+  <!-- UNTERSCHRIFT -->
   <div class="section">
     <div class="section-head">
       <div class="section-num">✍</div>
-      <div class="section-title">Modulauswahl &amp; Genehmigung</div>
+      <div class="section-title">Auswahl &amp; Unterschrift</div>
     </div>
-    <div class="section-desc">Bitte die gewünschten Module oben ankreuzen, das Modell wählen und dieses Dokument unterzeichnet zurücksenden.</div>
-
     <div style="border:1px solid var(--border);border-radius:8px;padding:18px 20px;margin-bottom:20px;">
-      <div style="font-size:11.5px;color:var(--stone);margin-bottom:10px;font-weight:600;">Welches Modell bevorzugen Sie?</div>
-      <div style="display:flex;flex-wrap:wrap;gap:16px;margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid var(--border);">
+      <div style="font-size:11.5px;color:var(--stone);margin-bottom:12px;font-weight:600;">Modell wählen:</div>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid var(--border);">
         <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;"><input type="radio" name="modell"> Modell A · Klassischer Auftrag</label>
-        <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;font-weight:600;color:var(--forest)"><input type="radio" name="modell"> Modell B · Partnerschaft &amp; Revenue Share</label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;font-weight:600;color:var(--forest)"><input type="radio" name="modell"> Modell B · Partnerschaft</label>
       </div>
-      <div style="font-size:11.5px;color:var(--stone);margin-bottom:10px;font-weight:500;">Bei Modell A — Ausbaustufe:</div>
-      <div style="display:flex;flex-wrap:wrap;gap:16px;margin-bottom:18px;">
-        <label style="display:flex;align-items:center;gap:8px;font-size:12.5px;cursor:pointer;"><input type="radio" name="stufe"> Paket 1 — Market Test (CHF 7'000 + CHF 90/Mo)</label>
-        <label style="display:flex;align-items:center;gap:8px;font-size:12.5px;cursor:pointer;"><input type="radio" name="stufe"> Paket 2 — Growth (CHF 14'000 + CHF 150/Mo)</label>
-        <label style="display:flex;align-items:center;gap:8px;font-size:12.5px;cursor:pointer;"><input type="radio" name="stufe"> Paket 3 — Enterprise (CHF 22'000 + CHF 280/Mo)</label>
-        <label style="display:flex;align-items:center;gap:8px;font-size:12.5px;cursor:pointer;"><input type="radio" name="stufe"> Individuell (Module oben)</label>
+      <div style="font-size:11.5px;color:var(--stone);margin-bottom:10px;font-weight:500;">Website-Paket:</div>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid var(--border);">
+        <label style="display:flex;align-items:center;gap:8px;font-size:12.5px;cursor:pointer;"><input type="radio" name="paket"> Paket 1 — Market Test</label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:12.5px;cursor:pointer;"><input type="radio" name="paket"> Paket 2 — Growth</label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:12.5px;cursor:pointer;"><input type="radio" name="paket"> Paket 3 — Enterprise</label>
       </div>
-      <div style="font-size:11.5px;color:var(--stone);margin-bottom:6px;">Angestrebtes Go-Live-Datum:</div>
-      <input type="text" placeholder="TT.MM.JJJJ" style="border:none;border-bottom:1px dashed var(--border);font-family:inherit;font-size:13px;width:200px;padding:4px 0;outline:none;background:transparent;">
-      <div style="font-size:11.5px;color:var(--stone);margin-top:14px;margin-bottom:6px;">Bemerkungen / Sonderwünsche:</div>
-      <textarea style="width:100%;border:1px solid var(--border);border-radius:6px;padding:10px 12px;font-family:inherit;font-size:12px;color:var(--ink);min-height:70px;resize:vertical;outline:none;" placeholder="z.B. Priorität Mehrsprachigkeit, Modell B mit angepasstem Prozentsatz, spezifische Integrationswünsche..."></textarea>
+      <div style="font-size:11.5px;color:var(--stone);margin-bottom:10px;font-weight:500;">Marketing-Paket:</div>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;">
+        <label style="display:flex;align-items:center;gap:8px;font-size:12.5px;cursor:pointer;"><input type="radio" name="mkt"> Kein Marketing</label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:12.5px;cursor:pointer;"><input type="radio" name="mkt"> Paket 1 — Market Test</label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:12.5px;cursor:pointer;"><input type="radio" name="mkt"> Paket 2 — Growth</label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:12.5px;cursor:pointer;"><input type="radio" name="mkt"> Paket 3 — Enterprise</label>
+      </div>
     </div>
-
-    <div class="signoff">
+    <div class="sign-grid">
       <div class="sign-block">
-        <div class="sign-label">Auftraggeber — Genehmigung</div>
-        <div class="sign-line" style="height:40px;"></div>
+        <div class="sign-label">Auftraggeber</div>
+        <div class="sign-line" style="height:48px;"></div>
         <div class="sign-name">Dominik Huber · Alphuetta GR · Datum</div>
       </div>
       <div class="sign-block">
-        <div class="sign-label">Agentur — Bestätigung</div>
-        <div class="sign-line" style="height:40px;"></div>
-        <div class="sign-name">Agentur · Projektleitung · Datum</div>
+        <div class="sign-label">Agentur</div>
+        <div class="sign-line" style="height:48px;"></div>
+        <div class="sign-name">senti.studio · Datum</div>
       </div>
     </div>
   </div>
