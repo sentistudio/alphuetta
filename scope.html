@@ -511,6 +511,20 @@
     .rs-signoff { grid-template-columns: 1fr; }
     .example-table { font-size: 11px; }
   }
+  details.sec-collapse { margin: 0; }
+  details.sec-collapse > summary.sec-summary {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 9px 32px; cursor: pointer; list-style: none;
+    font-size: 10.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--stone); border-bottom: 1px dashed rgba(0,0,0,.1);
+    user-select: none; transition: color .15s, background .15s;
+  }
+  details.sec-collapse > summary.sec-summary::-webkit-details-marker { display: none; }
+  details.sec-collapse > summary.sec-summary::marker { display: none; }
+  details.sec-collapse > summary.sec-summary:hover { color: var(--forest); background: rgba(42,64,40,.025); }
+  details.sec-collapse[open] > summary.sec-summary { border-bottom-color: transparent; color: var(--forest); }
+  .sec-arrow { font-size: 11px; transition: transform .2s; display: inline-block; }
+  details.sec-collapse[open] .sec-arrow { transform: rotate(180deg); }
 </style>
 </head>
 <body>
@@ -785,6 +799,8 @@ function checkPw(){
 
   <hr class="divider">
 
+  <details class="sec-collapse">
+  <summary class="sec-summary"><span>Paket 1 — Market Test · Detailkostenaufstellung</span><span class="sec-arrow">▾</span></summary>
   <!-- MARKET TEST DETAIL -->
   <div class="section">
     <div class="section-head">
@@ -892,9 +908,12 @@ function checkPw(){
       <strong>Upgrade-Pfad:</strong> Bare Minimum kann jederzeit mit einzelnen Growth-Modulen erweitert werden — z.B. erst Backend und Dashboard ergänzen, später Stripe hinzufügen. Kein Neuaufbau nötig, da der Prototyp bereits modular strukturiert ist.
     </div>
   </div>
+  </details>
 
   <hr class="divider">
 
+  <details class="sec-collapse">
+  <summary class="sec-summary"><span>Paket 2 — Growth · Zusätzliche Module</span><span class="sec-arrow">▾</span></summary>
   <!-- GROWTH ADDITIONAL COSTS -->
   <div class="section">
     <div class="section-head">
@@ -952,9 +971,12 @@ function checkPw(){
       </tfoot>
     </table>
   </div>
+  </details>
 
   <hr class="divider">
 
+  <details class="sec-collapse">
+  <summary class="sec-summary"><span>Paket 3 — Enterprise · Zusätzliche Module</span><span class="sec-arrow">▾</span></summary>
   <!-- ENTERPRISE ADDITIONAL COSTS -->
   <div class="section">
     <div class="section-head">
@@ -1016,9 +1038,12 @@ function checkPw(){
       </tfoot>
     </table>
   </div>
+  </details>
 
   <hr class="divider">
 
+  <details class="sec-collapse">
+  <summary class="sec-summary"><span>Detaillierter Modulkatalog — Sektionen 1–8</span><span class="sec-arrow">▾</span></summary>
   <!-- SECTION 1: BACKEND & DATABASE -->
   <div class="section">
     <div class="section-head">
@@ -1636,6 +1661,7 @@ function checkPw(){
       <strong>Wartungsretainer (empfohlen):</strong> CHF 350/Monat — beinhaltet Dependency-Updates, Sicherheitspatches, bis zu 2h Änderungen pro Monat. Ad-hoc-Support ausserhalb des Retainers: CHF 210/Stunde.
     </div>
   </div>
+  </details>
 
   <hr class="divider">
 
@@ -1698,6 +1724,8 @@ function checkPw(){
   <hr class="divider">
 
   <!-- REVENUE SHARE / PARTNERSCHAFT -->
+  <details class="sec-collapse">
+  <summary class="sec-summary"><span>Modell B — Partnerschaft &amp; Revenue Share · Details</span><span class="sec-arrow">▾</span></summary>
   <div class="partner-section">
     <div class="partner-header">
       <div class="partner-tag">Alternative Offerte · Partnerschaftsmodell</div>
@@ -1826,6 +1854,7 @@ function checkPw(){
 
     </div>
   </div>
+  </details>
 
   <hr class="divider">
 
