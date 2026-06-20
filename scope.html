@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alphuetta — Projektumfang & Offerte</title>
+<title>Stüva — Projektumfang & Offerte</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
 <style>
@@ -431,6 +431,70 @@
     padding-top: 20px; border-top: 1px dashed rgba(200,152,42,.4);
   }
 
+  /* ── PACKAGE OVERVIEW ── */
+  .pkg-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 28px;
+  }
+  .pkg-col { border-right: 1px solid var(--border); }
+  .pkg-col:last-child { border-right: none; }
+  .pkg-col.pkg-highlight { background: rgba(42,64,40,.03); }
+  .pkg-head {
+    padding: 14px 16px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .pkg-tier {
+    font-size: 8.5px; font-weight: 700; letter-spacing: .2em;
+    text-transform: uppercase; color: var(--stone); margin-bottom: 4px;
+  }
+  .pkg-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px; font-weight: 700; color: var(--forest); margin-bottom: 2px;
+  }
+  .pkg-sub { font-size: 10px; color: var(--stone); }
+  .pkg-price-row {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--cream);
+  }
+  .pkg-price { font-size: 18px; font-weight: 700; color: var(--forest); font-family: 'Playfair Display', serif; }
+  .pkg-price-note { font-size: 9.5px; color: var(--stone); margin-top: 1px; }
+  .pkg-monthly { font-size: 11.5px; font-weight: 600; color: var(--gold); margin-top: 3px; }
+  .pkg-item-list { padding: 10px 16px 14px; }
+  .pkg-item {
+    font-size: 11px; color: var(--stone);
+    padding: 3.5px 0; border-bottom: 1px dashed rgba(0,0,0,.06);
+    display: flex; align-items: baseline; gap: 6px;
+  }
+  .pkg-item:last-child { border-bottom: none; }
+  .pkg-item .pi-check { color: var(--forest); font-size: 10px; flex-shrink: 0; }
+  .pkg-item .pi-x { color: #C8A0A0; font-size: 10px; flex-shrink: 0; }
+  .pkg-item .pi-plus { color: var(--gold); font-size: 10px; flex-shrink: 0; font-weight: 700; }
+  .pkg-badge {
+    display: inline-block; background: var(--forest); color: var(--gold);
+    font-size: 8px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 20px; margin-bottom: 6px;
+  }
+  /* Bare Minimum cost table */
+  .cost-table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
+  .cost-table thead tr { background: var(--cream); border-bottom: 1px solid var(--border); }
+  .cost-table thead th {
+    padding: 7px 12px; font-size: 9px; font-weight: 700;
+    letter-spacing: .16em; text-transform: uppercase; color: var(--stone); text-align: left;
+  }
+  .cost-table thead th.right { text-align: right; }
+  .cost-table tbody td { padding: 9px 12px; font-size: 12px; border-bottom: 1px solid var(--border); }
+  .cost-table tbody td.right { text-align: right; font-weight: 600; color: var(--forest); white-space: nowrap; }
+  .cost-table tbody tr:last-child td { border-bottom: none; }
+  .cost-table tfoot td { padding: 10px 12px; font-weight: 700; font-size: 13px; background: rgba(42,64,40,.05); border-top: 1.5px solid var(--forest); }
+  .cost-table tfoot td.right { text-align: right; color: var(--forest); }
+  .cost-desc { font-size: 10.5px; color: var(--stone); margin-top: 1px; }
+
   /* Mobile responsive */
   @media (max-width: 600px) {
     .page { padding: 32px 20px; }
@@ -510,8 +574,8 @@ function checkPw(){
   <!-- HEADER -->
   <div class="doc-header">
     <div>
-      <div class="logo"><span>Alph</span>uetta</div>
-      <div style="font-size:10.5px;color:var(--stone);margin-top:4px;">Alpine Blockhütten · Mieten &amp; Kaufen · Schweiz</div>
+      <div class="logo"><span>STÜ</span>VA</div>
+      <div style="font-size:10.5px;color:var(--stone);margin-top:4px;">Echte Alphütten da Grischun · Mieten &amp; Kaufen · Schweiz</div>
     </div>
     <div class="doc-meta">
       <div class="doc-title">Projektumfang &amp; Offerte</div>
@@ -550,6 +614,328 @@ function checkPw(){
       <strong>Noch ausstehend (Umfang dieser Offerte):</strong> Backend, Datenbank, Bestellabwicklung, Zahlungen, E-Mail-System, Admin-Dashboard, Content-Management, Analytics, SEO, schweizweite Verbreitung.
     </div>
   </div>
+
+  <hr class="divider">
+
+  <!-- PACKAGE OVERVIEW -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">▤</div>
+      <div class="section-title">Paketübersicht — Drei Ausbaustufen</div>
+    </div>
+    <div class="section-desc">Von minimal bis vollständig. Jede Stufe baut auf der vorherigen auf. Empfehlung zum Start: <strong>Bare Minimum</strong> — Markt testen, erste Buchungen generieren, dann ausbauen.</div>
+
+    <div class="pkg-grid">
+      <!-- BARE MINIMUM -->
+      <div class="pkg-col">
+        <div class="pkg-head">
+          <div class="pkg-tier">Stufe 1</div>
+          <div class="pkg-name">Bare Minimum</div>
+          <div class="pkg-sub">Markttest · Kein Risiko</div>
+        </div>
+        <div class="pkg-price-row">
+          <div class="pkg-price">CHF 3'900</div>
+          <div class="pkg-price-note">Einmalig · Setup &amp; Go-Live</div>
+          <div class="pkg-monthly">+ CHF 8–20 / Monat</div>
+        </div>
+        <div class="pkg-item-list">
+          <div class="pkg-item"><span class="pi-check">✓</span> Prototyp live auf eigener Domain</div>
+          <div class="pkg-item"><span class="pi-check">✓</span> Kontaktformular → E-Mail</div>
+          <div class="pkg-item"><span class="pi-check">✓</span> GA4 Basis-Analytics</div>
+          <div class="pkg-item"><span class="pi-check">✓</span> Cookie Consent Banner</div>
+          <div class="pkg-item"><span class="pi-check">✓</span> Basis-SEO (Meta, OG, Sitemap)</div>
+          <div class="pkg-item"><span class="pi-x">✗</span> Kein Backend / Datenbank</div>
+          <div class="pkg-item"><span class="pi-x">✗</span> Keine Online-Zahlung</div>
+          <div class="pkg-item"><span class="pi-x">✗</span> Kein Admin-Dashboard</div>
+        </div>
+      </div>
+
+      <!-- GROWTH -->
+      <div class="pkg-col pkg-highlight">
+        <div class="pkg-head">
+          <div class="pkg-badge">Empfohlen nach Markttest</div>
+          <div class="pkg-tier">Stufe 2</div>
+          <div class="pkg-name">Growth</div>
+          <div class="pkg-sub">Vollbetrieb · Skalierbar</div>
+        </div>
+        <div class="pkg-price-row">
+          <div class="pkg-price">+ CHF 16'800</div>
+          <div class="pkg-price-note">Zusätzlich zu Bare Minimum</div>
+          <div class="pkg-monthly">+ CHF 130–200 / Monat</div>
+        </div>
+        <div class="pkg-item-list">
+          <div class="pkg-item"><span class="pi-plus">+</span> Alles aus Bare Minimum</div>
+          <div class="pkg-item"><span class="pi-plus">+</span> Backend &amp; Datenbank (Supabase)</div>
+          <div class="pkg-item"><span class="pi-plus">+</span> Anfragen-Dashboard für Dominik</div>
+          <div class="pkg-item"><span class="pi-plus">+</span> Echtzeit-Verfügbarkeitskalender</div>
+          <div class="pkg-item"><span class="pi-plus">+</span> Stripe Anzahlung (Online-Zahlung)</div>
+          <div class="pkg-item"><span class="pi-plus">+</span> Automatische Bestätigungs-E-Mails</div>
+          <div class="pkg-item"><span class="pi-plus">+</span> Hotjar Heatmaps &amp; Sessions</div>
+          <div class="pkg-item"><span class="pi-plus">+</span> Google My Business Setup</div>
+        </div>
+      </div>
+
+      <!-- ENTERPRISE -->
+      <div class="pkg-col">
+        <div class="pkg-head">
+          <div class="pkg-tier">Stufe 3</div>
+          <div class="pkg-name">Enterprise</div>
+          <div class="pkg-sub">Schweizweiter Vollbetrieb</div>
+        </div>
+        <div class="pkg-price-row">
+          <div class="pkg-price">+ CHF 17'200</div>
+          <div class="pkg-price-note">Zusätzlich zu Growth</div>
+          <div class="pkg-monthly">+ CHF 100–150 / Monat</div>
+        </div>
+        <div class="pkg-item-list">
+          <div class="pkg-item"><span class="pi-plus">+</span> Alles aus Growth</div>
+          <div class="pkg-item"><span class="pi-plus">+</span> Mehrsprachigkeit DE / FR / IT</div>
+          <div class="pkg-item"><span class="pi-plus">+</span> Kantonale Landingpages</div>
+          <div class="pkg-item"><span class="pi-plus">+</span> CMS (selbst Inhalte pflegen)</div>
+          <div class="pkg-item"><span class="pi-plus">+</span> Twint + PostFinance Integration</div>
+          <div class="pkg-item"><span class="pi-plus">+</span> Swiss QR-Bill PDF-Rechnungen</div>
+          <div class="pkg-item"><span class="pi-plus">+</span> Meta + LinkedIn + Google Ads Pixel</div>
+          <div class="pkg-item"><span class="pi-plus">+</span> Event-Verzeichnisse CH</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- BARE MINIMUM DETAIL -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">★</div>
+      <div class="section-title">Stufe 1 — Bare Minimum: Detailkostenaufstellung</div>
+    </div>
+    <div class="section-desc">Alles was nötig ist um den Markt zu testen — ohne Backend, ohne Zahlungsabwicklung, ohne Risiko. Anfragen kommen per E-Mail, Buchungen werden manuell bestätigt.</div>
+
+    <div class="status-done" style="background:rgba(42,64,40,.05);border-color:var(--forest);margin-bottom:18px;">
+      <strong>Bereits fertiggestellt (Prototyp — im bisherigen Preis inbegriffen):</strong> Konfigurator, Pakete, Preisrechner, Kalender-UI, Kontaktformular-UI, Hero, Galerie, Grundriss-SVG, responsives Layout, alle Interaktionen.
+    </div>
+
+    <table class="cost-table">
+      <thead>
+        <tr>
+          <th>Modul</th>
+          <th class="right" style="width:130px">Einmalig (CHF)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div style="font-weight:600;font-size:12.5px;">Custom Domain &amp; SSL</div>
+            <div class="cost-desc">stueva.ch / stuva.ch registrieren, DNS konfigurieren, SSL-Zertifikat einrichten</div>
+          </td>
+          <td class="right">CHF 280</td>
+        </tr>
+        <tr>
+          <td>
+            <div style="font-weight:600;font-size:12.5px;">Vercel Deploy (Free Tier)</div>
+            <div class="cost-desc">Prototype auf Vercel Hobby (kostenlos) deployen, CI/CD aus GitHub, automatische Previews</div>
+          </td>
+          <td class="right">CHF 480</td>
+        </tr>
+        <tr>
+          <td>
+            <div style="font-weight:600;font-size:12.5px;">Kontaktformular → E-Mail (Resend / Formspree)</div>
+            <div class="cost-desc">Anfragen aus dem Konfigurator werden als E-Mail an Dominik zugestellt — kein Backend nötig. Inkl. einfache Bestätigungs-E-Mail an den Absender.</div>
+          </td>
+          <td class="right">CHF 780</td>
+        </tr>
+        <tr>
+          <td>
+            <div style="font-weight:600;font-size:12.5px;">Google Analytics 4 + Tag Manager</div>
+            <div class="cost-desc">Seitenaufrufe, Anfragen-Events, Konfigurator-Nutzung messen. Beide Tools kostenlos — nur Implementierungsaufwand.</div>
+          </td>
+          <td class="right">CHF 680</td>
+        </tr>
+        <tr>
+          <td>
+            <div style="font-weight:600;font-size:12.5px;">Cookie Consent Banner (Klaro, Open Source)</div>
+            <div class="cost-desc">DSG/DSGVO-konformer Consent für GA4. Kostenfreies Tool — nur Integration. Rechtlich zwingend.</div>
+          </td>
+          <td class="right">CHF 420</td>
+        </tr>
+        <tr>
+          <td>
+            <div style="font-weight:600;font-size:12.5px;">Basis-SEO</div>
+            <div class="cost-desc">Meta-Tags, Open Graph (Social Sharing), XML-Sitemap, robots.txt, Google Search Console Verifikation</div>
+          </td>
+          <td class="right">CHF 560</td>
+        </tr>
+        <tr>
+          <td>
+            <div style="font-weight:600;font-size:12.5px;">QA, Testing &amp; Go-Live</div>
+            <div class="cost-desc">Cross-Browser-Tests (Safari, Chrome, Firefox), Mobile-Tests (iOS / Android), Deployment-Checkliste, Launch</div>
+          </td>
+          <td class="right">CHF 700</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td><strong>Total Setup — Bare Minimum</strong><div class="cost-desc" style="margin-top:2px;">Einmalig · exkl. MwSt. · Ready to launch in 1–2 Wochen</div></td>
+          <td class="right"><strong>CHF 3'900</strong></td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <div class="recurring-grid">
+      <div class="rec-card">
+        <div class="rec-card-head">Monatliche Kosten — Bare Minimum</div>
+        <div class="rec-item"><span class="ri-name">Domain (stueva.ch)</span><span class="ri-price">CHF 3/Mo</span></div>
+        <div class="rec-item"><span class="ri-name">Hosting (Vercel Free Tier)</span><span class="ri-price">CHF 0/Mo</span></div>
+        <div class="rec-item"><span class="ri-name">Formular-E-Mail (Resend Free)</span><span class="ri-price">CHF 0–10/Mo</span></div>
+        <div class="rec-item"><span class="ri-name">GA4 + GTM</span><span class="ri-price">kostenlos</span></div>
+        <div class="rec-item"><span class="ri-name">Cookie Consent (Klaro OSS)</span><span class="ri-price">kostenlos</span></div>
+        <div class="rec-item" style="font-weight:700;border-top:1px solid var(--border);padding-top:8px;margin-top:4px;">
+          <span class="ri-name" style="color:var(--ink);">Total Monatlich</span>
+          <span class="ri-price" style="color:var(--forest);">CHF 3–13/Mo</span>
+        </div>
+      </div>
+      <div class="rec-card" style="background:rgba(200,152,42,.04);border-color:rgba(200,152,42,.3);">
+        <div class="rec-card-head" style="color:var(--gold);">Was das bedeutet in der Praxis</div>
+        <div class="rec-item"><span class="ri-name">Anfragen-Handling</span><span class="ri-price" style="color:var(--stone);">Per E-Mail, manuell</span></div>
+        <div class="rec-item"><span class="ri-name">Buchungsbestätigung</span><span class="ri-price" style="color:var(--stone);">Manuell per Telefon/Mail</span></div>
+        <div class="rec-item"><span class="ri-name">Zahlungsabwicklung</span><span class="ri-price" style="color:var(--stone);">Banküberweisung</span></div>
+        <div class="rec-item"><span class="ri-name">Verfügbarkeit pflegen</span><span class="ri-price" style="color:var(--stone);">Manuell im Kalender</span></div>
+        <div class="rec-item" style="font-weight:600;color:var(--forest);font-size:11.5px;border-top:1px solid var(--border);padding-top:8px;margin-top:4px;">
+          <span>Ideal für ersten Markttest bis ca. 10–20 Buchungen/Jahr</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="notes-box" style="margin-top:12px;">
+      <strong>Upgrade-Pfad:</strong> Bare Minimum kann jederzeit mit einzelnen Growth-Modulen erweitert werden — z.B. erst Backend und Dashboard ergänzen, später Stripe hinzufügen. Kein Neuaufbau nötig, da der Prototyp bereits modular strukturiert ist.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- GROWTH ADDITIONAL COSTS -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">▲</div>
+      <div class="section-title">Stufe 2 — Growth: Zusätzliche Kosten</div>
+    </div>
+    <div class="section-desc">Auf Bare Minimum aufbauend. Aktiviert sobald erste Buchungen laufen und manuelles Handling zu aufwändig wird.</div>
+
+    <table class="cost-table">
+      <thead>
+        <tr>
+          <th>Modul</th>
+          <th class="right" style="width:130px">Einmalig (CHF)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="highlight-row">
+          <td><div style="font-weight:600;font-size:12.5px;">Prototype → Next.js Produktions-App</div><div class="cost-desc">Migration in skalierbare React/Next.js-App mit Routing, State-Management, SEO-Ready</div></td>
+          <td class="right">CHF 3'500</td>
+        </tr>
+        <tr class="highlight-row">
+          <td><div style="font-weight:600;font-size:12.5px;">Backend &amp; Datenbank (Supabase)</div><div class="cost-desc">PostgreSQL, REST-API, DSG-konform, EU-Region Hosting, Auth</div></td>
+          <td class="right">CHF 2'800</td>
+        </tr>
+        <tr class="highlight-row">
+          <td><div style="font-weight:600;font-size:12.5px;">Anfragen-Dashboard (Admin)</div><div class="cost-desc">Alle Anfragen auf einen Blick, Status (Offen / Bestätigt / Abgeschlossen), Notizen</div></td>
+          <td class="right">CHF 4'200</td>
+        </tr>
+        <tr>
+          <td><div style="font-weight:600;font-size:12.5px;">Echtzeit-Verfügbarkeitskalender</div><div class="cost-desc">Gebuchte Daten aus Datenbank, Admin kann Blockierungen setzen, synct mit Konfigurator</div></td>
+          <td class="right">CHF 2'100</td>
+        </tr>
+        <tr>
+          <td><div style="font-weight:600;font-size:12.5px;">Stripe Anzahlung (Online-Zahlung)</div><div class="cost-desc">20% Deposit beim Buchen, automatische Bestätigung, Restbetrag per Banküberweisung</div></td>
+          <td class="right">CHF 2'800</td>
+        </tr>
+        <tr>
+          <td><div style="font-weight:600;font-size:12.5px;">Transaktions-E-Mails (vollständig)</div><div class="cost-desc">Buchungsbestätigung, Zahlungsbestätigung, Erinnerungen vor Event</div></td>
+          <td class="right">CHF 1'400</td>
+        </tr>
+        <tr>
+          <td><div style="font-weight:600;font-size:12.5px;">Hotjar (Heatmaps &amp; Sessions)</div><div class="cost-desc">Verstehen wo Nutzer abspringen, Konfigurator-Nutzung optimieren</div></td>
+          <td class="right">CHF 560</td>
+        </tr>
+        <tr>
+          <td><div style="font-weight:600;font-size:12.5px;">Google My Business Setup</div><div class="cost-desc">Profil-Optimierung, Fotos, lokale Sichtbarkeit für alle 26 Kantone</div></td>
+          <td class="right">CHF 840</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td><strong>Total Growth — zusätzlich zu Bare Minimum</strong><div class="cost-desc" style="margin-top:2px;">+ monatlich: Vercel Pro CHF 25 + Supabase CHF 30 + Hotjar CHF 55 + E-Mail CHF 15 = <strong>ca. CHF 125–180/Mo</strong></div></td>
+          <td class="right"><strong>CHF 18'200</strong></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ENTERPRISE ADDITIONAL COSTS -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">◆</div>
+      <div class="section-title">Stufe 3 — Enterprise: Zusätzliche Kosten</div>
+    </div>
+    <div class="section-desc">Auf Growth aufbauend. Für schweizweiten Vollbetrieb mit allen Landessprachen, lokalen Zahlungsmitteln und vollständiger Marketing-Infrastruktur.</div>
+
+    <table class="cost-table">
+      <thead>
+        <tr>
+          <th>Modul</th>
+          <th class="right" style="width:130px">Einmalig (CHF)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div style="font-weight:600;font-size:12.5px;">Mehrsprachigkeit DE / FR / IT</div><div class="cost-desc">Komplette Übersetzung, URL-Struktur /de /fr /it, hreflang-Tags</div></td>
+          <td class="right">CHF 3'500</td>
+        </tr>
+        <tr>
+          <td><div style="font-weight:600;font-size:12.5px;">Kantonale Landingpages</div><div class="cost-desc">Standortspezifische Seiten für Zürich, Bern, Basel, Luzern usw. — lokale SEO</div></td>
+          <td class="right">CHF 2'800</td>
+        </tr>
+        <tr>
+          <td><div style="font-weight:600;font-size:12.5px;">CMS (Sanity.io)</div><div class="cost-desc">Texte, Bilder, Pakete und Preise selbstständig bearbeiten — ohne Entwickler</div></td>
+          <td class="right">CHF 2'520</td>
+        </tr>
+        <tr>
+          <td><div style="font-weight:600;font-size:12.5px;">Twint Integration</div><div class="cost-desc">Schweizer Standardzahlung, besonders wichtig für B2C-Kunden</div></td>
+          <td class="right">CHF 1'680</td>
+        </tr>
+        <tr>
+          <td><div style="font-weight:600;font-size:12.5px;">PostFinance Card</div><div class="cost-desc">Direktintegration für Zielgruppe ohne Kreditkarte</div></td>
+          <td class="right">CHF 1'400</td>
+        </tr>
+        <tr>
+          <td><div style="font-weight:600;font-size:12.5px;">Swiss QR-Bill PDF-Rechnungen</div><div class="cost-desc">Automatisch erstellte Rechnungen mit QR-Referenz, MwSt. 8.1% konform</div></td>
+          <td class="right">CHF 1'960</td>
+        </tr>
+        <tr>
+          <td><div style="font-weight:600;font-size:12.5px;">Meta + LinkedIn + Google Ads Pixel</div><div class="cost-desc">Vollständiges Paid-Advertising-Tracking für Retargeting &amp; Conversion-Optimierung</div></td>
+          <td class="right">CHF 1'540</td>
+        </tr>
+        <tr>
+          <td><div style="font-weight:600;font-size:12.5px;">Event-Verzeichnisse CH</div><div class="cost-desc">micelab.ch, eveosblog, Swiss Maps Integration — Sichtbarkeit auf allen relevanten Plattformen</div></td>
+          <td class="right">CHF 980</td>
+        </tr>
+        <tr>
+          <td><div style="font-weight:600;font-size:12.5px;">WhatsApp Business API</div><div class="cost-desc">Anfrage-Benachrichtigungen direkt an Dominik, optionale Kundenbenachrichtigungen</div></td>
+          <td class="right">CHF 840</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td><strong>Total Enterprise — zusätzlich zu Growth</strong><div class="cost-desc" style="margin-top:2px;">+ monatlich: CMS Hosting CHF 15 + WhatsApp API CHF 15 + Tools CHF 80–120 = <strong>ca. CHF 110–150/Mo</strong></div></td>
+          <td class="right"><strong>CHF 17'220</strong></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <hr class="divider">
 
   <!-- SECTION 1: BACKEND & DATABASE -->
   <div class="section">
@@ -1177,36 +1563,38 @@ function checkPw(){
       <div class="section-num">∑</div>
       <div class="section-title">Investment-Übersicht</div>
     </div>
-    <div class="section-desc">Drei Ausbaustufen zur Orientierung. Basierend auf den angekreuzten Modulen wird eine massgeschneiderte Offerte erstellt.</div>
+    <div class="section-desc">Drei Ausbaustufen — kumulativ aufgebaut. Jede Stufe baut auf der vorherigen auf.</div>
 
     <div class="totals-box">
       <div class="totals-row">
         <div>
-          <div class="tlabel" style="font-weight:600;">🚀 Stufe 1 — Launch MVP</div>
-          <div class="tnote">Deployment + Anfragen-Backend + E-Mails + Stripe Deposit + GA4/GTM + Cookie Consent</div>
+          <div class="tlabel" style="font-weight:600;">★ Stufe 1 — Bare Minimum</div>
+          <div class="tnote">Domain, Hosting (Vercel Free), Kontaktformular → E-Mail, GA4, Cookie Consent, Basis-SEO</div>
         </div>
-        <div class="tval" style="color:var(--forest);">CHF 14'000 – 17'000</div>
+        <div>
+          <div class="tval" style="color:var(--forest);">CHF 3'900</div>
+          <div style="font-size:10px;color:var(--stone);text-align:right;margin-top:1px;">+ CHF 3–13 / Mo</div>
+        </div>
       </div>
       <div class="totals-row">
         <div>
-          <div class="tlabel" style="font-weight:600;">⚙️ Stufe 2 — Full Production</div>
-          <div class="tnote">+ Admin Dashboard + Kalender + Rechnungen + Twint + Hotjar + SEO + Mehrsprachigkeit DE/FR</div>
+          <div class="tlabel" style="font-weight:600;">▲ Stufe 2 — Growth <span style="font-weight:400;color:var(--stone);">(kumulativ)</span></div>
+          <div class="tnote">+ Backend, Admin-Dashboard, Echtzeit-Kalender, Stripe-Anzahlung, Hotjar, E-Mails, Google My Business</div>
         </div>
-        <div class="tval" style="color:var(--forest);">CHF 28'000 – 36'000</div>
+        <div>
+          <div class="tval" style="color:var(--forest);">CHF 22'100</div>
+          <div style="font-size:10px;color:var(--stone);text-align:right;margin-top:1px;">+ CHF 130–190 / Mo</div>
+        </div>
       </div>
       <div class="totals-row sub">
         <div>
-          <div class="tlabel" style="font-weight:600;">🇨🇭 Stufe 3 — Swiss Market Full</div>
-          <div class="tnote">+ DE/FR/IT, Kantonale Seiten, PostFinance, alle Analytics-Pixel, CMS, Event-Verzeichnisse</div>
+          <div class="tlabel" style="font-weight:600;">◆ Stufe 3 — Enterprise <span style="font-weight:400;color:var(--stone);">(kumulativ)</span></div>
+          <div class="tnote">+ DE/FR/IT, Kantonale Seiten, CMS, Twint, PostFinance, QR-Rechnung, Ads-Pixel, Event-Verzeichnisse</div>
         </div>
-        <div class="tval" style="color:var(--forest);">CHF 42'000 – 56'000</div>
-      </div>
-      <div class="totals-row total">
         <div>
-          <div>Laufende Kosten (Infra + Wartung)</div>
-          <div style="font-size:11px;opacity:.65;font-weight:400;margin-top:2px;">Monatlich · nach Go-Live · jährlich fakturiert</div>
+          <div class="tval" style="color:var(--forest);">CHF 39'320</div>
+          <div style="font-size:10px;color:var(--stone);text-align:right;margin-top:1px;">+ CHF 240–340 / Mo</div>
         </div>
-        <div class="tval">CHF 450 – 560 / Mo</div>
       </div>
     </div>
 
@@ -1233,8 +1621,8 @@ function checkPw(){
       <div class="partner-compare">
         <div class="pc-col pc-col-a">
           <div class="pc-head">Modell A · Klassischer Auftrag</div>
-          <div class="pc-item"><span>Einmalig (Stufe 2)</span><strong>CHF 28'000–36'000</strong></div>
-          <div class="pc-item"><span>Monatlich (Infra + Wartung)</span><strong>CHF 450–560</strong></div>
+          <div class="pc-item"><span>Einmalig (Stufe 2 — Growth)</span><strong>CHF 22'100</strong></div>
+          <div class="pc-item"><span>Monatlich (Infra + Wartung)</span><strong>CHF 130–190</strong></div>
           <div class="pc-item"><span>Revenue Share</span><strong>0%</strong></div>
           <div class="pc-item"><span>Risiko Agentur</span><strong>Keins</strong></div>
           <div class="pc-item"><span>Inhalt Upside</span><strong>100% bei Ihnen</strong></div>
@@ -1307,13 +1695,13 @@ function checkPw(){
           </tr>
         </tbody>
       </table>
-      <div style="font-size:10px;color:var(--stone);margin-top:-10px;margin-bottom:20px;">* Modell A inkl. CHF 33'000 Setup (Stufe 2 Mitte) + CHF 560/Mo laufend. Modell B inkl. Setup-Fee + CHF 200/Mo Minimum + Revenue Share. Ab ca. CHF 180k Jahresmietumsatz wird Modell A günstiger für Sie.</div>
+      <div style="font-size:10px;color:var(--stone);margin-top:-10px;margin-bottom:20px;">* Modell A inkl. CHF 22'100 Setup (Stufe 2 — Growth) + CHF 160/Mo laufend. Modell B inkl. Setup-Fee + CHF 200/Mo Minimum + Revenue Share. Ab ca. CHF 180k Jahresmietumsatz wird Modell A günstiger für Sie.</div>
 
       <!-- Was inbegriffen ist -->
-      <div class="pi-head" style="margin-bottom:10px;">Im Partnerschaftsmodell inbegriffen (kein Aufpreis gegenüber Stufe 2)</div>
+      <div class="pi-head" style="margin-bottom:10px;">Im Partnerschaftsmodell inbegriffen (kein Aufpreis gegenüber Growth)</div>
       <div class="pi-grid" style="margin-bottom:20px;">
-        <div class="pi-item"><span>✓</span> Komplette Stufe 2 Umsetzung</div>
-        <div class="pi-item"><span>✓</span> Hosting &amp; Infrastruktur (CHF 97/Mo übernommen)</div>
+        <div class="pi-item"><span>✓</span> Komplette Growth-Umsetzung</div>
+        <div class="pi-item"><span>✓</span> Hosting &amp; Infrastruktur (CHF 130–190/Mo übernommen)</div>
         <div class="pi-item"><span>✓</span> Laufende Wartung &amp; Security-Updates</div>
         <div class="pi-item"><span>✓</span> Monatliches Analytics-Reporting</div>
         <div class="pi-item"><span>✓</span> 1 Marketing-Kampagne pro Quartal</div>
@@ -1365,9 +1753,9 @@ function checkPw(){
       </div>
       <div style="font-size:11.5px;color:var(--stone);margin-bottom:10px;font-weight:500;">Bei Modell A — Ausbaustufe:</div>
       <div style="display:flex;flex-wrap:wrap;gap:16px;margin-bottom:18px;">
-        <label style="display:flex;align-items:center;gap:8px;font-size:12.5px;cursor:pointer;"><input type="radio" name="stufe"> Stufe 1 — Launch MVP</label>
-        <label style="display:flex;align-items:center;gap:8px;font-size:12.5px;cursor:pointer;"><input type="radio" name="stufe"> Stufe 2 — Full Production</label>
-        <label style="display:flex;align-items:center;gap:8px;font-size:12.5px;cursor:pointer;"><input type="radio" name="stufe"> Stufe 3 — Swiss Market Full</label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:12.5px;cursor:pointer;"><input type="radio" name="stufe"> Stufe 1 — Bare Minimum (CHF 3'900)</label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:12.5px;cursor:pointer;"><input type="radio" name="stufe"> Stufe 2 — Growth (CHF 22'100)</label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:12.5px;cursor:pointer;"><input type="radio" name="stufe"> Stufe 3 — Enterprise (CHF 39'320)</label>
         <label style="display:flex;align-items:center;gap:8px;font-size:12.5px;cursor:pointer;"><input type="radio" name="stufe"> Individuell (Module oben)</label>
       </div>
       <div style="font-size:11.5px;color:var(--stone);margin-bottom:6px;">Angestrebtes Go-Live-Datum:</div>
